@@ -837,9 +837,22 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Moderating: Punishments
 	 *********************************************************/
+	 
+        k: 'kick',
+	kick: function(target, room, user) {
+		if (!target) return this.parse('/help kick');
 
-	kick: 'warn',
-	k: 'warn',
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+		if (!targetUser || !targetUser.connected) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (!this.can('warn', targetUser)) return false;
+		if (room.type === 'battle' && !this.can('forcerenameto', targetUser)) return false;
+		this.addModCommand('' + targetUser.name + ' was kicked from the room by ' + user.name + '.' + (target ? " (" + target + ")" : ""));
+		targetUser.leaveRoom(room);
+	},
+
 	warn: function(target, room, user) {
 		if (!target) return this.parse('/help warn');
 
