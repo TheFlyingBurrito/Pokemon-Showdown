@@ -721,6 +721,11 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Join Parukia Forums For More Funtastic Activities :D ~ Parukia Staff <a href="http://forums.parukia.net/forum.php">http://forums.parukia.net/forum.php</a>');
 	},
+	
+	parukia: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Welcome to Parukia! This command is here to explain what Parukia is all about. I will edit this shit later, so until then, smell ya later folks!');
+	},
 
 	/*********************************************************
 	 * Miscellaneous commands
