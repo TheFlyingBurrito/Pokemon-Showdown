@@ -716,6 +716,11 @@ var commands = exports.commands = {
 			return this.sendReplyBox('Pokemon, item, move, or ability not found for generation ' + generation.toUpperCase() + '.');
 		}
 	},
+	
+	forums: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Join Parukia Forums For More Funtastic Activities :D ~ Parukia Staff <a href="http://forums.parukia.net/forum.php">http://forums.parukia.net/forum.php</a>');
+	},
 
 	/*********************************************************
 	 * Miscellaneous commands
