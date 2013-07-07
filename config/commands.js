@@ -726,6 +726,16 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Welcome to Parukia! This command is here to explain what Parukia is all about. I will edit this shit later, so until then, smell ya later folks!');
 	},
+	
+	league: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('PARUKIAN LEAGUE<br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br>RULES<br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed');
+	},
+	
+	leaders: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Champion Azure<br><br>Elite Four Aura: STEEL<br>Elite Four Frage: ROCK<br>Elite Four Izanagi: FIGHTING<br>Elite Four Gary: DRAGON<br><br>Gym Leader Vile: GROUND<br>Gym Leader Windex: POISON<br>Gym Leader Chinlar: PSYCHIC<br>Gym Leader A07: FIRE<br>Gym Leader Raiykid: ELECTRIC<br>Gym Leader SA-X: DRAGON<br>Gym Leader lolsup: FLYING<br>Gym Leader Galaxy: WATER<br>Gym Leader Ominous: DARK<br>Gym Leader Mayan: GRASS');
+	},
 
 	/*********************************************************
 	 * Miscellaneous commands
