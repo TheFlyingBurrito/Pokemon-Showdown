@@ -734,7 +734,7 @@ var commands = exports.commands = {
 	
 	leaders: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Champion Azure<br><br>Elite Four Aura: STEEL<br>Elite Four Frage: ROCK<br>Elite Four Izanagi: FIGHTING<br>Elite Four Gary: DRAGON<br><br>Gym Leader Vileman: GROUND<br>Gym Leader Windex: POISON<br>Gym Leader Chinlar: PSYCHIC<br>Gym Leader A07: FIRE<br>Gym Leader Raiykid: ELECTRIC<br>Gym Leader SA-X: DRAGON<br>Gym Leader lolsup: FLYING<br>Gym Leader Galaxy: WATER<br>Gym Leader Ominous: DARK<br>Gym Leader Mayan: GRASS<br>Gym Leader Unknown: NORMAL<br>Gym Leader Nickk: ROCK<br>Gym Leader Sonix: ICE');
+		return this.sendReplyBox('Champion Azure<br><br>Elite Four Aura: STEEL<br>Elite Four Frage: ROCK<br>Elite Four Izanagi: FIGHTING<br>Elite Four Gary: DRAGON<br><br>Gym Leader Vileman: GROUND<br>Gym Leader Windex: POISON<br>Gym Leader Chinlar: PSYCHIC<br>Gym Leader A07: FIRE<br>Gym Leader Raiykid: ELECTRIC<br>Gym Leader SA-X: DRAGON<br>Gym Leader lolsup: FLYING<br>Gym Leader Galaxy: WATER<br>Gym Leader Ominous: NORMAL<br>Gym Leader Mayan: GRASS<br>Gym Leader Unknown: DARK<br>Gym Leader Nickk: ROCK<br>Gym Leader Sonix: ICE');
 	},
 
 	/*********************************************************
