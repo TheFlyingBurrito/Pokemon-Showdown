@@ -729,12 +729,12 @@ var commands = exports.commands = {
 	
 	league: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('PARUKIAN LEAGUE<br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br>RULES<br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed');
+		return this.sendReplyBox('<b><font color="red">PARUKIAN LEAGUE</font></b><br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br><b><font color="red">RULES</font></b><br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed<br><br><font color="purple"><b>PM Aura Burst, Vile, Soul, or Frage to register</b></font>');
 	},
 	
 	leaders: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Champion Azure<br><br>Elite Four Aura: STEEL<br>Elite Four Frage: ROCK<br>Elite Four Izanagi: FIGHTING<br>Elite Four Gary: DRAGON<br><br>Gym Leader Vileman: GROUND<br>Gym Leader Windex: POISON<br>Gym Leader Chinlar: PSYCHIC<br>Gym Leader A07: FIRE<br>Gym Leader Raiykid: ELECTRIC<br>Gym Leader SA-X: DRAGON<br>Gym Leader lolsup: FLYING<br>Gym Leader Galaxy: WATER<br>Gym Leader Ominous: NORMAL<br>Gym Leader Mayan: GRASS<br>Gym Leader Unknown: DARK<br>Gym Leader Nickk: ROCK<br>Gym Leader Sonix: ICE');
+		return this.sendReplyBox('<b><font color="red">Champion</font></b><br>Azure<br><br><b><font color="red">Elite Four</font></b><br>Aura: STEEL<br>Frage: ROCK<br>Izanagi: FIGHTING<br>Gary: DRAGON<br><br><b><font color="red">Gym Leader</font></b><br>Vileman: GROUND<br>Windex: POISON<br>Chinlar: PSYCHIC<br>A07: FIRE<br>Raiykid: ELECTRIC<br>SA-X: DRAGON<br>lolsup: FLYING (Trainer-SaysHi)<br>Galaxy: WATER<br>Soul: DARK<br>Mayan: GRASS<br>Unknown: NORMAL<br>Nickk: ROCK<br>Sonix: ICE<br><br><b><font color="purple">Accepting new Gym Trainers, PM Aura Burst to sign up</font></b>');
 	},
 
 	/*********************************************************
