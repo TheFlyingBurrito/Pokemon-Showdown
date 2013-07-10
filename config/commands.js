@@ -739,7 +739,7 @@ var commands = exports.commands = {
 	
 	site: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('The Official Website of Parukia. Click for information on every aspect of Pokemon! <a href="http://parukia.net">Parukia.net</a>');
+		return this.sendReplyBox('The Official Website of Parukia. Click for information on every aspect of Pokémon! <a href="http://parukia.net">Parukia.net</a>');
 	},
 
 	/*********************************************************
