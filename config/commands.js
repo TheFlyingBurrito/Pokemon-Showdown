@@ -734,7 +734,7 @@ var commands = exports.commands = {
 	
 	leaders: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('<b><font color="red">Champion</font></b><br>Vileman<br><br><b><font color="red">Elite Four</font></b><br>Aura: FIRE<br>Frage: ROCK<br>Izanagi: FIGHTING<br>Oak: DRAGON<br><br><b><font color="red">Gym Leader</font></b><br>Budro: BUG<br>Windex: POISON (Trainer-XLR8R)<br>Chinlar: PSYCHIC<br>A07: FIRE<br>Raiykid: ELECTRIC<br>SA-X: DRAGON<br>lolsup: FLYING (Trainer-SaysHi)<br>Galaxy: WATER<br>Soul: NORMAL<br>Mayan: GRASS<br>Unknown: DARK (Trainer-Husk)<br>Nickk: ROCK<br>Sonix: ICE<br>44HY: STEEL<br>Anarcy: FIGHTING<br>Chrono: GHOST (Trainer-Haxy)<br><br>Click <a href="https://docs.google.com/document/d/1Tw-2bVbrD5787ZaCCYilkm9pIsLyvsrCEEiQ-FUEWNQ/">here</a> for the league info<br><br><b><font color="purple">Accepting new Gym Trainers, PM Aura Burst to sign up</font></b>');
+		return this.sendReplyBox('<b><font color="red">Champion</font></b><br>Vileman<br><br><b><font color="red">Elite Four</font></b><br>Emasris: PSYCHIC<br>Frage: ROCK<br>Izanagi: FIGHTING<br>Oak: DRAGON<br><br><b><font color="red">Gym Leader</font></b><br>Budro: BUG<br>Windex: POISON (Trainer-XLR8R)<br>A07: FIRE<br>Raiykid: ELECTRIC<br>SA-X: DRAGON<br>lolsup: FLYING (Trainer-SaysHi)<br>Galaxy: WATER<br>Soul: NORMAL<br>Mayan: GRASS<br>Unknown: DARK (Trainer-Husk)<br>Nickk: ROCK<br>Sonix: ICE<br>44HY: STEEL<br>Anarcy: FIGHTING<br>Chrono: GHOST (Trainer-Haxy)<br><br>Click <a href="https://docs.google.com/document/d/1Tw-2bVbrD5787ZaCCYilkm9pIsLyvsrCEEiQ-FUEWNQ/">here</a> for the league info<br><br><b><font color="purple">Accepting new Gym Trainers, PM Aura Burst to sign up</font></b>');
 	},
 	
 	site: function(target, room, user) {
