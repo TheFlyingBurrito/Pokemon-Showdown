@@ -1,12 +1,12 @@
 .mainmenuwrapper {
-    color: rgb(113, 27, 121);
+    color: rgb(207, 88, 218);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
     background: url("http://i.imgur.com/hT1nL5V.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .chat-log {
     font-size: 10pt;
-    background: url("https://dl.dropboxusercontent.com/u/165566535/yveltal.png") no-repeat scroll right bottom;
+    background: url("http://i185.photobucket.com/albums/x44/shadow_zangetsu/other/pokemon/palkia-2.png") no-repeat scroll right bottom;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
