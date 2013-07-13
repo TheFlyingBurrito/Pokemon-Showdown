@@ -34,8 +34,8 @@
 }
 
 .mainmenufooter small:after {
-      content: "Amethyst server by Mustang";
-      text-shadow: 0 1px black;
+      content: "Parukia server by Gary and Windex";
+      text-shadow: 0 1px transparent;
       position: absolute;
       left: 0px;
       top: -40px;
@@ -92,7 +92,7 @@ color: #5c3566;
 
         text-shadow: none;
 
-        text-shadow: 1px 1px black;
+        text-shadow: 1px 1px aqua;
 
 }
 
@@ -154,7 +154,7 @@ border: none;
 
 height: 56px;
 
-  background: #161616;
+  background: transparent;
 
 }
 
