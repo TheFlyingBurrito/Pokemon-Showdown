@@ -2,11 +2,11 @@
     color: rgb(113, 27, 121);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
-    background: url("http://www.dailyscreens.com/wp-content/uploads/2013/01/mac-wallpaper-space.jpg") no-repeat scroll right top rgb(63, 38, 70);
+    background: url("http://i.imgur.com/hT1nL5V.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .chat-log {
     font-size: 10pt;
-    background: url("http://i185.photobucket.com/albums/x44/shadow_zangetsu/other/pokemon/palkia-2.png") no-repeat scroll right top;
+    background: url("https://dl.dropboxusercontent.com/u/165566535/yveltal.png") no-repeat scroll right bottom;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
@@ -20,7 +20,7 @@
 }
 
 .ps-room.ps-room-light {
-    color: Yellow;
+    color: black;
 }
 
 .chat-log-add {
@@ -34,8 +34,8 @@
 }
 
 .mainmenufooter small:after {
-      content: "Parukia server by Gary and Windex";
-      text-shadow: 0 1px transparent;
+      content: "Amethyst server by Mustang";
+      text-shadow: 0 1px black;
       position: absolute;
       left: 0px;
       top: -40px;
@@ -92,7 +92,7 @@ color: #5c3566;
 
         text-shadow: none;
 
-        text-shadow: 1px 1px aqua;
+        text-shadow: 1px 1px black;
 
 }
 
@@ -154,7 +154,7 @@ border: none;
 
 height: 56px;
 
-  background: transparent;
+  background: #161616;
 
 }
 
@@ -180,8 +180,8 @@ margin: 7px 0px 0 2px;
     color: rgb(255, 255, 255);
     border: 1px solid rgb(170, 170, 170);
     background: none repeat scroll 0% 0% rgb(152, 46, 221);
-}
-.userlist, 
+
+.userlist,
 .userlist li
 {
         display: block;
@@ -190,8 +190,7 @@ margin: 7px 0px 0 2px;
         padding: 0;
         text-align: left;
 }
-
-.userlist 
+.userlist
 {
         border-left: 1px solid #a066aa;
         min-height: 100%;
