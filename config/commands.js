@@ -729,7 +729,7 @@ var commands = exports.commands = {
 	
 	league: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('<b><font color="red">PARUKIAN LEAGUE</font></b><br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br><b><font color="red">RULES</font></b><br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed<br><br><font color="purple"><b>PM Aura Burst, Vile, Soul, or Frage to register</b></font>');
+		return this.sendReplyBox('<b><font color="red">PARUKIAN LEAGUE</font></b><br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br><b><font color="red">RULES</font></b><br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed<br><br>League Manager: Aura Burst<br><br><font color="purple"><b>PM Aura Burst, Vile, Soul, or Frage to register</b></font>');
 	},
 	
 	leaders: function(target, room, user) {
