@@ -1118,7 +1118,7 @@ var commands = exports.commands = {
 	},
 	
 	unfbi: function(target, room, user){
-		if(!user.can('hideauth'))
+		if(!user.can('fbi'))
 			return	this.sendReply( '/unfbi - access denied.');
 		
 		delete user.getIdentity;
