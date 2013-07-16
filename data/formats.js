@@ -37,7 +37,7 @@ exports.BattleFormats = {
 		//searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Drizzle', 'Drought', 'Sand Stream', 'Snow Warning']
 	},
 	oucurrent: {
 		name: "OU (current)",
@@ -50,7 +50,7 @@ exports.BattleFormats = {
 		searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Drizzle', 'Drought', 'Sand Stream', 'Snow Warning']
 	},
 	oususpecttest: {
 		name: "OU (suspect test)",
