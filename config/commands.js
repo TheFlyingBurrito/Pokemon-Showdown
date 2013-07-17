@@ -340,7 +340,7 @@ var commands = exports.commands = {
 		}
 
 		var weaknesses = [];
-		Object.keys(Data.base.TypeChart).forEach(function (type) {
+		Object.keys(Tools.data.TypeChart).forEach(function (type) {
 			var notImmune = Tools.getImmunity(type, pokemon);
 			if (notImmune) {
 				var typeMod = Tools.getEffectiveness(type, pokemon);
@@ -524,6 +524,8 @@ var commands = exports.commands = {
 			'- /mute <em>username</em>: 7 minute mute<br />' +
 			'- /hourmute <em>username</em>: 60 minute mute<br />' +
 			'- /unmute <em>username</em>: unmute<br />' +
+			'- /roomvoice <em>username</em>: appoint a room voice<br />' +
+			'- /deroomvoice <em>username</em>: remove a room voice<br />' +
 			'- /announce <em>message</em>: make an announcement<br />' +
 			'<br />' +
 			'Room owners (#) can use:<br />' +
@@ -531,6 +533,7 @@ var commands = exports.commands = {
 			'- /roommod <em>username</em>: appoint a room moderator<br />' +
 			'- /deroommod <em>username</em>: remove a room moderator<br />' +
 			'- /declare <em>message</em>: make a global declaration<br />' +
+			'- /modchat <em>level</em>: set modchat (to turn off: /modchat off)<br />' +
 			'</div>');
 	},
 
@@ -761,10 +764,10 @@ var commands = exports.commands = {
 		config.potd = target;
 		Simulator.SimulatorProcess.eval('config.potd = \''+toId(target)+'\'');
 		if (target) {
-			Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />This Pokemon will be guaranteed to show up in random battles.</div>');
+			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />This Pokemon will be guaranteed to show up in random battles.</div>');
 			this.logModCommand('The Pokemon of the Day was changed to '+target+' by '+user.name+'.');
 		} else {
-			Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day was removed!</b><br />No pokemon will be guaranteed in random battles.</div>');
+			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day was removed!</b><br />No pokemon will be guaranteed in random battles.</div>');
 			this.logModCommand('The Pokemon of the Day was removed by '+user.name+'.');
 		}
 	},
@@ -780,10 +783,11 @@ var commands = exports.commands = {
 	},
 
 	lobbychat: function(target, room, user, connection) {
+		if (!Rooms.lobby) return this.popupReply("This server doesn't have a lobby.");
 		target = toId(target);
 		if (target === 'off') {
 			user.leaveRoom(Rooms.lobby, connection.socket);
-			sendData(connection.socket, '|users|');
+			connection.send('|users|');
 			this.sendReply('You are now blocking lobby chat.');
 		} else {
 			user.joinRoom(Rooms.lobby, connection);

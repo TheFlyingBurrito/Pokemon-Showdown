@@ -24,10 +24,12 @@ if (config.crashguard) {
 	process.on('uncaughtException', function (err) {
 		require('./crashlogger.js')(err, 'A simulator process');
 		/* var stack = (""+err.stack).split("\n").slice(0,2).join("<br />");
-		Rooms.lobby.addRaw('<div><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
-		Rooms.lobby.addRaw('<div>You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
+		if (Rooms.lobby) {
+			Rooms.lobby.addRaw('<div><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
+			Rooms.lobby.addRaw('<div>You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
+		}
 		config.modchat = 'crash';
-		lockdown = true; */
+		Rooms.global.lockdown = true; */
 	});
 }
 
@@ -94,11 +96,10 @@ clampIntRange = function(num, min, max) {
 	if (typeof num !== 'number') num = 0;
 	num = Math.floor(num);
 	if (num < min) num = min;
-	if (typeof max !== 'undefined' && num > max) num = max;
+	if (max !== undefined && num > max) num = max;
 	return num;
 };
 
-global.Data = {};
 global.Tools = require('./tools.js');
 
 var Battles = {};
@@ -414,7 +415,7 @@ var BattlePokemon = (function() {
 		} else {
 			stat = Math.floor(stat / boostTable[-boost]);
 		}
-		
+
 		if (this.battle.getStatCallback) {
 			stat = this.battle.getStatCallback(stat, statName, this);
 		}
@@ -1275,7 +1276,11 @@ var Battle = (function() {
 		this.faintQueue = [];
 		this.messageLog = [];
 
-		this.seed = Math.floor(Math.random() * 0xFFFFFFFF); // use a random initial seed
+		// use a random initial seed (64-bit, [high -> low])
+		this.seed = [Math.floor(Math.random() * 0xffff),
+			Math.floor(Math.random() * 0xffff),
+			Math.floor(Math.random() * 0xffff),
+			Math.floor(Math.random() * 0xffff)];
 	}
 
 	Battle.prototype.turn = 0;
@@ -1302,10 +1307,28 @@ var Battle = (function() {
 		return 'Battle: '+this.format;
 	};
 
-	// This function is designed to emulate the on-cartridge PRNG, as described in
+
+	// This function is designed to emulate the on-cartridge PRNG for Gens 3 and 4, as described in
 	// http://www.smogon.com/ingame/rng/pid_iv_creation#pokemon_random_number_generator
-	// Gen 5 uses a 64-bit initial seed, but the upper 32 bits are just for the IV RNG,
-	// and have no relevance here.
+	// This RNG uses a 32-bit initial seed
+
+	// This function has three different results, depending on arguments:
+	// - random() returns a real number in [0,1), just like Math.random()
+	// - random(n) returns an integer in [0,n)
+	// - random(m,n) returns an integer in [m,n)
+
+	// m and n are converted to integers via Math.floor. If the result is NaN, they are ignored.
+	/*
+	Battle.prototype.random = function(m, n) {
+		this.seed = (this.seed * 0x41C64E6D + 0x6073) >>> 0; // truncate the result to the last 32 bits
+		var result = this.seed >>> 16; // the first 16 bits of the seed are the random value
+		m = Math.floor(m);
+		n = Math.floor(n);
+		return (m ? (n ? (result%(n-m))+m : result%m) : result/0x10000);
+	};
+	*/
+
+	// This function is designed to emulate the on-cartridge PRNG for Gen 5 and uses a 64-bit initial seed
 
 	// This function has three different results, depending on arguments:
 	// - random() returns a real number in [0,1), just like Math.random()
@@ -1315,12 +1338,70 @@ var Battle = (function() {
 	// m and n are converted to integers via Math.floor. If the result is NaN, they are ignored.
 
 	Battle.prototype.random = function(m, n) {
-		this.seed = (this.seed * 0x41C64E6D + 0x6073) >>> 0; // truncate the result to the last 32 bits
-		var result = this.seed >>> 16; // the first 16 bits of the seed are the random value
+		this.seed = this.nextFrame(); // Advance the RNG
+		var result = (this.seed[0] << 16 >>> 0) + this.seed[1]; // Use the upper 32 bits
 		m = Math.floor(m);
 		n = Math.floor(n);
-		return (m ? (n ? (result%(n-m))+m : result%m) : result/0x10000);
+		result = (m ? (n ? Math.floor(result*(n-m) / 0x100000000)+m : Math.floor(result*m / 0x100000000)) : result/0x100000000);
+		this.debug('randBW(' + (m ? (n ? m + ',' + n : m) : '') + ') = ' + result);
+		return result;
 	};
+
+	Battle.prototype.nextFrame = function(n) {
+		var seed = this.seed;
+		n = n || 1;
+		for (var frame = 0; frame < n; ++frame) {
+			// The RNG is a Linear Congruential Generator (LCG) in the form: x_n+1 = (a x_n + c) % m
+			// Where: x_0 is the seed, x_n is the random number after n iterations,
+			//     a = 0x5D588B656C078965, c = 0x00269EC3 and m = 2^64
+			// Javascript doesnt handle such large numbers properly, so this function does it in 16-bit parts.
+			// x_n+1 = (x_n * a) + c
+			// Let any 64 bit number n = (n[0] << 48) + (n[1] << 32) + (n[2] << 16) + n[3]
+			// Then x_n+1 =
+			//     ((a[3] x_n[0] + a[2] x_n[1] + a[1] x_n[2] + a[0] x_n[3] + c[0]) << 48) +
+			//     ((a[3] x_n[1] + a[2] x_n[2] + a[1] x_n[3] + c[1]) << 32) +
+			//     ((a[3] x_n[2] + a[2] x_n[3] + c[2]) << 16) +
+			//     a[3] x_n[3] + c[3]
+			// Which can be generalised where b is the number of 16 bit words in the number:
+			//     (Notice how the a[] word starts at b-1, and decrements every time it appears again on the line;
+			//         x_n[] starts at b-<line#>-1 and increments to b-1 at the end of the line per line, limiting the length of the line;
+			//         c[] is at b-<line#>-1 for each line and the left shift is 16 * <line#>)
+			//     ((a[b-1] + x_n[b-1] + c[b-1]) << (16 * 0)) +
+			//     ((a[b-1] x_n[b-2] + a[b-2] x_n[b-1] + c[b-2]) << (16 * 1)) +
+			//     ((a[b-1] x_n[b-3] + a[b-2] x_n[b-2] + a[b-3] x_n[b-1] + c[b-3]) << (16 * 2)) +
+			//     ...
+			//     ((a[b-1] x_n[1] + a[b-2] x_n[2] + ... + a[2] x_n[b-2] + a[1] + x_n[b-1] + c[1]) << (16 * (b-2))) +
+			//     ((a[b-1] x_n[0] + a[b-2] x_n[1] + ... + a[1] x_n[b-2] + a[0] + x_n[b-1] + c[0]) << (16 * (b-1)))
+			// Which produces this equation: \sum_{l=0}^{b-1}\left(\sum_{m=b-l-1}^{b-1}\left\{a[2b-m-l-2] x_n[m]\right\}+c[b-l-1]\ll16l\right)
+			// This is all ignoring overflow/carry because that cannot be shown in a pseudo-mathematical equation.
+			// The below code implements a simplified version of that equation while also checking for overflow/carry.
+
+			var a = [0x5D58, 0x8B65, 0x6C07, 0x8965];
+			var c = [0, 0, 0x26, 0x9EC3];
+
+			var nextSeed = [0, 0, 0, 0];
+			var carry = 0;
+
+			for (var cN = seed.length - 1; cN >= 0; --cN) {
+				nextSeed[cN] = carry;
+				carry = 0;
+
+				var aN = seed.length - 1;
+				var seedN = cN;
+				for (; seedN < seed.length; --aN, ++seedN) {
+					var nextWord = a[aN] * seed[seedN];
+					carry += nextWord >>> 16;
+					nextSeed[cN] += nextWord & 0xFFFF;
+				}
+				nextSeed[cN] += c[cN];
+				carry += nextSeed[cN] >>> 16;
+				nextSeed[cN] &= 0xFFFF;
+			}
+
+			seed = nextSeed;
+		}
+		return seed;
+	}
 
 	Battle.prototype.setWeather = function(status, source, sourceEffect) {
 		status = this.getEffect(status);
@@ -1636,12 +1717,12 @@ var Battle = (function() {
 	 * After an event handler is run, its return value helps determine what
 	 * happens next:
 	 * 1. If the return value isn't `undefined`, relayVar is set to the return
-	 *    value
+	 *	value
 	 * 2. If relayVar is falsy, no more event handlers are run
 	 * 3. Otherwise, if there are more event handlers, the next one is run and
-	 *    we go back to step 1.
+	 *	we go back to step 1.
 	 * 4. Once all event handlers are run (or one of them results in a falsy
-	 *    relayVar), relayVar is returned by runEvent
+	 *	relayVar), relayVar is returned by runEvent
 	 *
 	 * As a shortcut, an event handler that isn't a function will be interpreted
 	 * as a function that returns that value.
@@ -1703,7 +1784,7 @@ var Battle = (function() {
 		effect = this.getEffect(effect);
 		var args = [target, source, effect];
 		//console.log('Event: '+eventid+' (depth '+this.eventDepth+') t:'+target.id+' s:'+(!source||source.id)+' e:'+effect.id);
-		if (typeof relayVar === 'undefined' || relayVar === null) {
+		if (relayVar === undefined || relayVar === null) {
 			relayVar = true;
 			hasRelayVar = false;
 		} else {
@@ -1778,7 +1859,7 @@ var Battle = (function() {
 				returnVal = statuses[i].callback;
 			}
 
-			if (typeof returnVal !== 'undefined') {
+			if (returnVal !== undefined) {
 				relayVar = returnVal;
 				if (!relayVar) return relayVar;
 				if (hasRelayVar) {
@@ -1822,18 +1903,18 @@ var Battle = (function() {
 		if (thing.sides) {
 			for (var i in this.pseudoWeather) {
 				status = this.getPseudoWeather(i);
-				if (typeof status[callbackType] !== 'undefined' || (getAll && thing.pseudoWeather[i][getAll])) {
+				if (status[callbackType] !== undefined || (getAll && thing.pseudoWeather[i][getAll])) {
 					statuses.push({status: status, callback: status[callbackType], statusData: this.pseudoWeather[i], end: this.removePseudoWeather, thing: thing});
 					this.resolveLastPriority(statuses,callbackType);
 				}
 			}
 			status = this.getWeather();
-			if (typeof status[callbackType] !== 'undefined' || (getAll && thing.weatherData[getAll])) {
+			if (status[callbackType] !== undefined || (getAll && thing.weatherData[getAll])) {
 				statuses.push({status: status, callback: status[callbackType], statusData: this.weatherData, end: this.clearWeather, thing: thing, priority: status[callbackType+'Priority']||0});
 				this.resolveLastPriority(statuses,callbackType);
 			}
 			status = this.getFormat();
-			if (typeof status[callbackType] !== 'undefined' || (getAll && thing.formatData[getAll])) {
+			if (status[callbackType] !== undefined || (getAll && thing.formatData[getAll])) {
 				statuses.push({status: status, callback: status[callbackType], statusData: this.formatData, end: function(){}, thing: thing, priority: status[callbackType+'Priority']||0});
 				this.resolveLastPriority(statuses,callbackType);
 			}
@@ -1847,7 +1928,7 @@ var Battle = (function() {
 		if (thing.pokemon) {
 			for (var i in thing.sideConditions) {
 				status = thing.getSideCondition(i);
-				if (typeof status[callbackType] !== 'undefined' || (getAll && thing.sideConditions[i][getAll])) {
+				if (status[callbackType] !== undefined || (getAll && thing.sideConditions[i][getAll])) {
 					statuses.push({status: status, callback: status[callbackType], statusData: thing.sideConditions[i], end: thing.removeSideCondition, thing: thing});
 					this.resolveLastPriority(statuses,callbackType);
 				}
@@ -1872,29 +1953,29 @@ var Battle = (function() {
 			return statuses;
 		}
 		var status = thing.getStatus();
-		if (typeof status[callbackType] !== 'undefined' || (getAll && thing.statusData[getAll])) {
+		if (status[callbackType] !== undefined || (getAll && thing.statusData[getAll])) {
 			statuses.push({status: status, callback: status[callbackType], statusData: thing.statusData, end: thing.clearStatus, thing: thing});
 			this.resolveLastPriority(statuses,callbackType);
 		}
 		for (var i in thing.volatiles) {
 			status = thing.getVolatile(i);
-			if (typeof status[callbackType] !== 'undefined' || (getAll && thing.volatiles[i][getAll])) {
+			if (status[callbackType] !== undefined || (getAll && thing.volatiles[i][getAll])) {
 				statuses.push({status: status, callback: status[callbackType], statusData: thing.volatiles[i], end: thing.removeVolatile, thing: thing});
 				this.resolveLastPriority(statuses,callbackType);
 			}
 		}
 		status = thing.getAbility();
-		if (typeof status[callbackType] !== 'undefined' || (getAll && thing.abilityData[getAll])) {
+		if (status[callbackType] !== undefined || (getAll && thing.abilityData[getAll])) {
 			statuses.push({status: status, callback: status[callbackType], statusData: thing.abilityData, end: thing.clearAbility, thing: thing});
 			this.resolveLastPriority(statuses,callbackType);
 		}
 		status = thing.getItem();
-		if (typeof status[callbackType] !== 'undefined' || (getAll && thing.itemData[getAll])) {
+		if (status[callbackType] !== undefined || (getAll && thing.itemData[getAll])) {
 			statuses.push({status: status, callback: status[callbackType], statusData: thing.itemData, end: thing.clearItem, thing: thing});
 			this.resolveLastPriority(statuses,callbackType);
 		}
 		status = this.getEffect(thing.template.baseSpecies);
-		if (typeof status[callbackType] !== 'undefined') {
+		if (status[callbackType] !== undefined) {
 			statuses.push({status: status, callback: status[callbackType], statusData: thing.speciesData, end: function(){}, thing: thing});
 			this.resolveLastPriority(statuses,callbackType);
 		}
@@ -2499,7 +2580,7 @@ var Battle = (function() {
 		var critMult = [0, 16, 8, 4, 3, 2];
 
 		move.crit = move.willCrit || false;
-		if (typeof move.willCrit === 'undefined') {
+		if (move.willCrit === undefined) {
 			if (move.critRatio) {
 				move.crit = (this.random(critMult[move.critRatio]) === 0);
 			}
@@ -2604,7 +2685,7 @@ var Battle = (function() {
 		if (basePower && !Math.floor(baseDamage)) {
 			return 1;
 		}
-		
+
 		// Final modifier. Modifiers that modify damage after min damage check, such as Life Orb.
 		baseDamage = this.runEvent('ModifyDamage', pokemon, target, move, baseDamage);
 
