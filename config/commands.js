@@ -752,7 +752,7 @@ var commands = exports.commands = {
 	
 	pbi: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('PBI theme song:<br><br><iframe width="420" height="345" src="//www.youtube.com/embed/hsUJd3driAA" frameborder="0" allowfullscreen></iframe>');
+		return this.sendReplyBox('PBI theme song:<br><br>https://www.youtube.com/watch?v=hsUJd3driAA');
 	},
 
 	/*********************************************************
