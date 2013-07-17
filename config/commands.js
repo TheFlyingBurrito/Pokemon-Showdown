@@ -750,9 +750,9 @@ var commands = exports.commands = {
 		return this.sendReplyBox('Parukia Announcements:<br><br>Sign up for the Official Social Group of Parukia <a href="http://forums.parukia.net/showthread.php/2116-Parukia-s-Social-Group-Recruitment?p=21115#post21115">here!</a><br><br>Sign up for our RU Tournament <a href="http://forums.parukia.net/showthread.php/2181-Parukia-RU-Tourney?p=22166#post22166">here!</a><br><br>Sign up for our massive summer OU Tournament <a href="http://forums.parukia.net/showthread.php/2240-Massive-Summer-OU-Tournament-Signups!">here!</a>');
 	},
 	
-	pbitheme: function(target, room, user) {
+	pbi: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('PBI theme song:<br><br>https://www.youtube.com/watch?v=hsUJd3driAA');
+		return this.sendReplyBox('PBI theme song:<br><br><a href="https://www.youtube.com/watch?v=hsUJd3driAA">FREEZE, PBI BITCHES!</a>');
 	},
 
 	/*********************************************************
