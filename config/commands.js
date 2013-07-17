@@ -752,7 +752,7 @@ var commands = exports.commands = {
 	
 	pbi: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('PBI theme song:<br><br><a href="https://www.youtube.com/watch?v=hsUJd3driAA">FREEZE, PBI BITCHES!</a>');
+		return this.sendReplyBox('PBI theme song:<br><br>FREEZE, PBI BITCHES!');
 	},
 
 	/*********************************************************
