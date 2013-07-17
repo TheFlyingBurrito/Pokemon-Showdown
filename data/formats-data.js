@@ -4647,7 +4647,7 @@ exports.BattleFormatsData = {
 			{"generation":5,"level":100,"shiny":true,"nature":"Hasty","moves":["extremespeed","technoblast","blazekick","shiftgear"],"pokeball":"cherishball"}
 		],
 		dreamWorldPokeball: 'cherishball',
-		tier: "Uber"
+		tier: "OU"
 	},
 	genesectdouse: {
 		tier: "Illegal"
