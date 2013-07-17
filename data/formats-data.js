@@ -1995,7 +1995,7 @@ exports.BattleFormatsData = {
 		],
 		dreamWorldRelease: true,
 		dreamWorldPokeball: 'dreamball',
-		tier: "Uber"
+		tier: "OU"
 	},
 	celebi: {
 		viableMoves: {"nastyplot":1,"psychic":1,"gigadrain":1,"recover":1,"healbell":1,"batonpass":1,"stealthrock":1,"earthpower":1,"hiddenpowerfire":1,"hiddenpowerice":1,"calmmind":1,"leafstorm":1},
@@ -2057,7 +2057,7 @@ exports.BattleFormatsData = {
 		],
 		dreamWorldRelease: true,
 		maleOnlyDreamWorld: true,
-		tier: "Uber"
+		tier: "UU"
 	},
 	mudkip: {
 		viableMoves: {"waterfall":1,"earthpower":1,"superpower":1,"icebeam":1},
@@ -3038,7 +3038,7 @@ exports.BattleFormatsData = {
 			{"generation":4,"level":50,"moves":["psychoboost","leer","wrap","nightshade"]},
 			{"generation":5,"level":100,"moves":["nastyplot","darkpulse","recover","psychoboost"],"pokeball":"duskball"}
 		],
-		tier: "Uber"
+		tier: "OU"
 	},
 	deoxysspeed: {
 		viableMoves: {"spikes":1,"stealthrock":1,"superpower":1,"icebeam":1,"psychoboost":1,"taunt":1,"lightscreen":1,"reflect":1,"magiccoat":1,"trick":1},
@@ -3381,7 +3381,7 @@ exports.BattleFormatsData = {
 			{"generation":5,"level":50,"gender":"M","nature":"Naughty","isDW":true,"moves":["bulletpunch","closecombat","stoneedge","shadowclaw"],"pokeball":"cherishball"}
 		],
 		dreamWorldRelease: true,
-		tier: "OU"
+		tier: "UU"
 	},
 	hippopotas: {
 		viableMoves: {"earthquake":1,"slackoff":1,"whirlwind":1,"stealthrock":1,"protect":1,"toxic":1},
@@ -3932,7 +3932,7 @@ exports.BattleFormatsData = {
 	excadrill: {
 		viableMoves: {"swordsdance":1,"rapidspin":1,"earthquake":1,"rockslide":1,"ironhead":1},
 		dreamWorldRelease: true,
-		tier: "Uber"
+		tier: "OU"
 	},
 	audino: {
 		viableMoves: {"wish":1,"protect":1,"healbell":1,"toxic":1,"thunderwave":1,"reflect":1,"lightscreen":1,"return":1},
@@ -4592,7 +4592,7 @@ exports.BattleFormatsData = {
 		viableMoves: {"earthpower":1,"focusblast":1,"rockpolish":1,"hiddenpowerice":1,"psychic":1},
 		dreamWorldRelease: true,
 		dreamWorldPokeball: 'dreamball',
-		tier: "Uber"
+		tier: "OU"
 	},
 	landorustherian: {
 		viableMoves: {"rockpolish":1,"earthquake":1,"stoneedge":1,"uturn":1,"superpower":1,"stealthrock":1},
