@@ -754,6 +754,11 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('<div class="broadcast-blue"><img src="http://i3.kym-cdn.com/photos/images/original/000/532/280/9d7.gif" /></div>')
         },
+        chin: 'chinlar',
+	chinlar: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Chinlar is the boss. Yeah I know stupid command >.>');
+	}, 
 	
 	/*********************************************************
 	 * Miscellaneous commands
