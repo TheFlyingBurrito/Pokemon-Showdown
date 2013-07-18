@@ -757,7 +757,7 @@ var commands = exports.commands = {
 	
 	garytrain: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		Rooms.lobby.addRaw('<div class="broadcast-blue"><img src="http://i3.kym-cdn.com/photos/images/original/000/532/280/9d7.gif" /></div>')
+		Rooms.lobby.addRaw('<div class="broadcast-blue"><img src="http://i3.kym-cdn.com/photos/images/original/000/532/280/9d7.gif" /></div>');
         },
 
 	/*********************************************************
