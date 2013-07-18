@@ -763,7 +763,12 @@ var commands = exports.commands = {
 	windy: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Windex secretly added this command, LIKE A BOSS');
-	},	
+	},
+	hush: 'eric',
+	eric: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Calm your tits and hush -3-');
+	},
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
