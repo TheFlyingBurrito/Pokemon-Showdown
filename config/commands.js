@@ -764,7 +764,7 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Windex secretly added this command, LIKE A BOSS');
 	},
-	gary mf oak: 'oak'
+	gary mf oak: 'oak',
 	oak: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('<img src="http://oi39.tinypic.com/2r62xqs.jpg" />')
