@@ -778,11 +778,6 @@ var commands = exports.commands = {
         	if (!this.canBroadcast()) return;
         	return this.sendReplyBox('Calm your tits and hush -3-')
         },
-        no: 'birkal',
-        birkal: function(target, room, user) {
-        	if (!this.canBroadcast()) return;
-        	return this.sendReplyBox("It's not funny anymore.")
-        },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
