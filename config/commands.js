@@ -750,6 +750,11 @@ var commands = exports.commands = {
 		return this.sendReplyBox('Parukia Announcements:<br><br>Sign up for the Official Social Group of Parukia <a href="http://forums.parukia.net/showthread.php/2116-Parukia-s-Social-Group-Recruitment?p=21115#post21115">here!</a><br><br>Sign up for our RU Tournament <a href="http://forums.parukia.net/showthread.php/2181-Parukia-RU-Tourney?p=22166#post22166">here!</a><br><br>Sign up for our massive summer OU Tournament <a href="http://forums.parukia.net/showthread.php/2240-Massive-Summer-OU-Tournament-Signups!">here!</a>');
 	},
 	
+	garytrain: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		Rooms.lobby.addRaw('<div class="broadcast-blue"><img src="http://i3.kym-cdn.com/photos/images/original/000/532/280/9d7.gif" /></div>')
+        },
+	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
