@@ -780,7 +780,8 @@ var commands = exports.commands = {
         },
         no: 'birkal',
         birkal: function(target, room, user) {
-        	this.sendReply("It's not funny anymore.");
+        	if (!this.canBroadcast()) return;
+        	return this.sendReplyBox("It's not funny anymore.")
         },
 	/*********************************************************
 	 * Miscellaneous commands
