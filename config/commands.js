@@ -773,6 +773,11 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('<img src="http://oi39.tinypic.com/2r62xqs.jpg" />')
         },
+        eric: 'hush',
+        hush: function(target, room, user) {
+        	if (!this.canBroadcast()) return;
+        	return this.sendReplyBox('Calm your tits and hush -3-')
+        },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
