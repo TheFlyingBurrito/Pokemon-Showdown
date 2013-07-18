@@ -758,8 +758,12 @@ var commands = exports.commands = {
 	chinlar: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Chinlar is the boss. Yeah I know stupid command >.>');
-	}, 
-	
+	},
+	windex: 'windy',
+	windy: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Windex secretly added this command, LIKE A BOSS');
+	},	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
