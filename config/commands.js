@@ -783,7 +783,6 @@ var commands = exports.commands = {
         	if (!this.canBroadcast()) return;
         	return this.sendReplyBox('Mothefuckers wanna find me!')
         },
-        
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
