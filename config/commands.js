@@ -778,6 +778,12 @@ var commands = exports.commands = {
         	if (!this.canBroadcast()) return;
         	return this.sendReplyBox('Calm your tits and hush -3-')
         },
+        ball_so_hard: 'kanye',
+        kanye: function(target, room, user) {
+        	if (!this.canBroadcast()) return;
+        	return this.sendReplyBox('Mothefuckers wanna find me!')
+        },
+        
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
