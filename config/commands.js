@@ -750,44 +750,6 @@ var commands = exports.commands = {
 		return this.sendReplyBox('Parukia Announcements:<br><br>Sign up for the Official Social Group of Parukia <a href="http://forums.parukia.net/showthread.php/2116-Parukia-s-Social-Group-Recruitment?p=21115#post21115">here!</a><br><br>Sign up for our RU Tournament <a href="http://forums.parukia.net/showthread.php/2181-Parukia-RU-Tourney?p=22166#post22166">here!</a><br><br>Sign up for our massive summer OU Tournament <a href="http://forums.parukia.net/showthread.php/2240-Massive-Summer-OU-Tournament-Signups!">here!</a>');
 	},
 	
-	garytrain: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('<div class="broadcast-blue"><img src="http://i3.kym-cdn.com/photos/images/original/000/532/280/9d7.gif" /></div>')
-        },
-        chin: 'chinlar',
-	chinlar: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Chinlar is the boss. Yeah I know stupid command >.>');
-	},
-	windex: 'windy',
-	windy: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Windex secretly added this command, LIKE A BOSS');
-	},
-	gary_mf_oak: 'garymfoak',
-	garymfoak: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('<img src="http://oi39.tinypic.com/2r62xqs.jpg" />')
-        },
-        oak: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('<img src="http://oi39.tinypic.com/2r62xqs.jpg" />')
-        },
-        eric: 'hush',
-        hush: function(target, room, user) {
-        	if (!this.canBroadcast()) return;
-        	return this.sendReplyBox('Calm your tits and hush -3-')
-        },
-        ball_so_hard: 'kanye',
-        kanye: function(target, room, user) {
-        	if (!this.canBroadcast()) return;
-        	return this.sendReplyBox('Mothefuckers wanna find me!')
-        },
-        gary_touch: 'garytouch',
-        garytouch: function(target, room, user) {
-        	if (!this.canBroadcast()) return;
-        	return this.sendReplyBox('<img src="http://i2.kym-cdn.com/photos/images/original/000/062/394/Gary_Oak_Touches_Everyone.jpg" />')
-        },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
