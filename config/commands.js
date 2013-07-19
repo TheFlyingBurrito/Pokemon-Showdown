@@ -787,7 +787,7 @@ var commands = exports.commands = {
         garytouch: function(target, room, user) {
         	if (!this.canBroadcast()) return;
         	return this.sendReplyBox('<img src="http://i2.kym-cdn.com/photos/images/original/000/062/394/Gary_Oak_Touches_Everyone.jpg" />)
-        }
+        },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
