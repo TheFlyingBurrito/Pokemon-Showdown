@@ -752,7 +752,7 @@ var commands = exports.commands = {
 	
 	parukiafaq: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Stuf will be added later :3');
+		return this.sendReplyBox('Wanna know what Parukia is all about? Click the below link to find out!<a href="http://forums.parukia.net/faq.php"> http://forums.parukia.net/faq.php</a>');
 	}, 
 	/*********************************************************
 	 * Miscellaneous commands
