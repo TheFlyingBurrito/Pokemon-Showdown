@@ -753,7 +753,11 @@ var commands = exports.commands = {
 	parukiafaq: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Wanna know what Parukia is all about? Click the below link to find out!<a href="http://forums.parukia.net/faq.php"> http://forums.parukia.net/faq.php</a>');
-	}, 
+	},
+	youtube: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('Check out the official YouTube channel of Parukia!<br><a href="http://youtube.com/user/ParukiaCommunity">ParukiaCommunity</a>');
+	},
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
