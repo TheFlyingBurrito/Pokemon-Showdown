@@ -754,10 +754,20 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Wanna know what Parukia is all about? Click the below link to find out!<a href="http://forums.parukia.net/faq.php"> http://forums.parukia.net/faq.php</a>');
 	},
+	
 	youtube: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('Check out the official YouTube channel of Parukia!<br><a href="http://youtube.com/user/ParukiaCommunity">ParukiaCommunity</a>');
 	},
+	
+	social: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Check out Parukia\'s Social Networks!<br />' +
+			'- <a href="http://parukianet.deviantart.com/">deviantArt</a><br />' +
+			'- <a href="https://twitter.com/ParukiaNet">Twitter</a><br />' +
+			'- <a href="https://www.facebook.com/ParukiaNet">Facebook</a>');
+	},
+	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
