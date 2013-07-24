@@ -720,11 +720,6 @@ var commands = exports.commands = {
 		}
 	},
 	
-	forums: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Join Parukia Forums For More Funtastic Activities :D ~ Parukia Staff <a href="http://forums.parukia.net/forum.php">http://forums.parukia.net/forum.php</a>');
-	},
-
 	league: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('<b><font color="red">PARUKIAN LEAGUE</font></b><br><br>Welcome to the Parukia League Server. We are a new, but skilled league and we welcome all challengers. Do /leaders to see the list of leaders and types<br><br><b><font color="red">RULES</font></b><br><br>Beat 8 gym leaders and obtain 8 badges<br>Beat the 4 elite four members in any order<br>Beat the champion<br><br>All teams must be registered<br>A league member only has to battle once per TWO days<br>No changing pokemon without permission<br>Changing movesets is allowed<br><br>League Manager: Aura Burst<br><br><font color="purple"><b>PM Aura Burst, Vile, Soul, or Frage to register</b></font>');
@@ -738,11 +733,6 @@ var commands = exports.commands = {
 	site: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('The Official Website of Parukia. Click for information on every aspect of Pokémon! <a href="http://parukia.net">Parukia.net</a>');
-	},
-	
-	announcements: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Parukia Announcements:<br><br>Sign up for the Official Social Group of Parukia <a href="http://forums.parukia.net/showthread.php/2116-Parukia-s-Social-Group-Recruitment?p=21115#post21115">here!</a><br><br>Sign up for our RU Tournament <a href="http://forums.parukia.net/showthread.php/2181-Parukia-RU-Tourney?p=22166#post22166">here!</a><br><br>Sign up for our massive summer OU Tournament <a href="http://forums.parukia.net/showthread.php/2240-Massive-Summer-OU-Tournament-Signups!">here!</a>');
 	},
 
 	youtube: function(target, room, user) {
