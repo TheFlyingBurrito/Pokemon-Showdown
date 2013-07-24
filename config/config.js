@@ -245,7 +245,6 @@ exports.groups = {
 		bypassblocks: 'u%@&~',
 		receiveauthmessages: true,
 		roomvoice: true,
-		fbi: true,
 		rank: 2
 	},
 	'+': {
@@ -253,6 +252,7 @@ exports.groups = {
 		name: "Voice",
 		inherit: ' ',
 		broadcast: true,
+		fbi: true,
 		rank: 1
 	},
 	' ': {
