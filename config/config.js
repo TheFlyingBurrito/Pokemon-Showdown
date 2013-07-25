@@ -145,6 +145,7 @@ exports.customavatars = {
         'elitefourfrage': 'frage.gif',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
+        'uzumakinarutojr': 'eric.gif',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
