@@ -142,6 +142,7 @@ exports.customavatars = {
         'windexdrinker': 'narutoshit.gif',
         'elitefouroak': 'oak.png',
         'elitefourizanagi': 'scyther.png',
+        'elitefourfrage': 'frage.gif',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
