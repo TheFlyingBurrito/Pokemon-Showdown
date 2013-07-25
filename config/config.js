@@ -143,6 +143,7 @@ exports.customavatars = {
         'elitefouroak': 'oak.png',
         'elitefourizanagi': 'scyther.png',
         'elitefourfrage': 'frage.gif',
+        'raiykid': 'raiy.gif',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
