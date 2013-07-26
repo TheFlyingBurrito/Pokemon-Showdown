@@ -9,7 +9,7 @@ exports.serverid = 'testserver';
 //   of strings. Each string should be either an IP address or a subnet given
 //   in CIDR notation. You should usually leave this as `false` unless you
 //   know what you are doing.
-exports.proxyip = false;
+exports.proxyip = true;
 
 // login server data - don't forget the http:// and the trailing slash
 //   This is the URL of the user database and ladder mentioned earlier.
