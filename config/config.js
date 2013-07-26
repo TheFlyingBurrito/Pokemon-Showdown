@@ -140,8 +140,8 @@ exports.customavatars = {
 	//'userid': 'customavatar.png'
 	'chinlar': 'chinlar.gif',
         'windexdrinker': 'wind.gif',
-        'elitefouroak': 'oak.png',
-        'elitefourizanagi': 'scyther.png',
+        'elitefouroak': 'oak.gif',
+        'elitefourizanagi': 'gb.png',
         'elitefourfrage': 'frage.gif',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
