@@ -79,30 +79,6 @@
 	// 	ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 	// 	banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Stealth Rock']
 	// },
-	parukiaouweatherless: {
-		name: "Parukia OU Weatherless",
-		section: "Singles",
-
-		effectType: 'Format',
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Team Preview', 'Standard Ubers'],
-		banlist: ['Drizzle ++ Swift Swim', 'Blaziken ++ Speed Boost', 'Soul Dew', 'Drizzle', 'Drought', 'Sand Stream', 'Snow Warning', 'Darkrai', 'Dialga', 'Groudon', 'Kyogre', 'Lugia', 'Manaphy', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Thundurus', 'Zekrom', 'arceus', 'arceusbug', 'arceusdark', 'arceusdragon', 'arceuselectric', 'arceusfighting', 'arceusfire', 'arceusflying', 'arceusghost', 'arceusgrass', 'arceusground', 'arceusice', 'arceuspoison', 'arceuspsychic', 'arceusrock', 'arceussteel', 'arceuswater', 'arceusunknown', 'deoxys', 'deoxysattack', 'deoxysspeed', 'giratina', 'giratinaorigin', 'kyuremwhite', 'shayminsky']
-	},
-	parukiaouweather: {
-		name: "Parukia OU Weather",
-		section: "Singles",
-
-		effectType: 'Format',
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Team Preview', 'Standard Ubers'],
-		banlist: ['Drizzle ++ Swift Swim', 'Blaziken ++ Speed Boost', 'Soul Dew', 'Darkrai', 'Dialga', 'Groudon', 'Kyogre', 'Lugia', 'Manaphy', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Thundurus', 'Zekrom', 'arceus', 'arceusbug', 'arceusdark', 'arceusdragon', 'arceuselectric', 'arceusfighting', 'arceusfire', 'arceusflying', 'arceusghost', 'arceusgrass', 'arceusground', 'arceusice', 'arceuspoison', 'arceuspsychic', 'arceusrock', 'arceussteel', 'arceuswater', 'arceusunknown', 'deoxys', 'deoxysattack', 'deoxysspeed', 'giratina', 'giratinaorigin', 'kyuremwhite', 'shayminsky']
-	},
 	ubers: {
 		name: "Ubers",
 		section: "Singles",
