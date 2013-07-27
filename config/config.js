@@ -141,7 +141,7 @@ exports.customavatars = {
 	'chinlar': 'chinlar.gif',
         'windexdrinker': 'wind.gif',
         'elitefouroak': 'oak.gif',
-        'gamebraker': 'gb.gif',
+        'gamebraker': 'scizor.png',
         'elitefourfrage': 'frage.gif',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
