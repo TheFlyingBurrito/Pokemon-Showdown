@@ -146,7 +146,7 @@ exports.customavatars = {
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
         'uzumakinarutojr': 'eric.gif',
-        'vileman': 'vileman.gif',
+        'vileman': 'joker.gif',
         'negotiator': 'awesome.gif',
         'auraburst': 'aura.png',
         'dazel': 'dazel.gif',
