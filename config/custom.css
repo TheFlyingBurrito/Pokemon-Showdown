@@ -10,7 +10,6 @@
     color: rgb(0, 0, 0);
     overflow: auto;
 }
-
 .userbar:before{
         background: url(http://i.imgur.com/3tRYvEC.png);
  }
@@ -22,7 +21,7 @@ a{
 }
 
 body{
-    background: url(http://i.imgur.com/Yb49OKy.jpg);
+	background: url(http://i.imgur.com/Yb49OKy.jpg);
   	background-size: cover;
 }
 
@@ -451,7 +450,7 @@ top: 45px;
 .backdrop:after{
 	display: block;
 	content: "";
-	background: url(http://images2.layoutsparks.com/1/143092/fiery-dominions-fire-hot.gif);
+	background: url(http://i.imgur.com/zQ6bUvr.png);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -1095,3 +1094,5 @@ width: 284px;
 .replay-wrapper{
 	top: 40px;          
 }
+
+
