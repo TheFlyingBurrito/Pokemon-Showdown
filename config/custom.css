@@ -1,8 +1,18 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document domain("play.pokemonshowdown.com") {
+
+/* =======================================================
+::			  	Choose Your Own User Icon!				::
+:: 		   (Must be an 32x32 png trainer icon) 			::
+======================================================= */
 .userbar:before{
         background: url(http://i.imgur.com/3tRYvEC.png);
  }
 
-
+/* =======================================================
+::			  		       Main							::
+======================================================= */
 
 a{
  color: #3498db;  
@@ -39,7 +49,9 @@ color: #e74c3c;
 }
 
 
-
+/* =======================================================
+::			  				Header						::
+======================================================= */
 
 .tabbar{
   bottom: 0;
@@ -142,7 +154,9 @@ white-space: nowrap;
 text-shadow: none;
 font-size: 11px;
 }
-
+/* =======================================================
+::			  			PS PopUp						::
+======================================================= */
 
 .ps-popup {
     position: absolute;
@@ -159,7 +173,9 @@ font-size: 11px;
   	background: #e8e8e8;
 }
 
-
+/* =======================================================
+::			  				 Chat						::
+======================================================= */
 
 .battle-log-add, .chat-log-add{
   	border-color: #333;
@@ -222,7 +238,9 @@ font-style: normal;
     color: #ecf0f1;
 }
 
-
+/* =======================================================
+::			  		Data, Info & PM Box					::
+======================================================= */
 
 .challenge {
 background: #3498db;
@@ -388,7 +406,9 @@ padding: 1px 5px;
     margin: 65px 45px 0 0;
 }
 
-
+/* =======================================================
+::			  				Battle						::
+======================================================= */
 .ps-room.ps-room-opaque {
     background: #333;
     color: black;
@@ -566,7 +586,9 @@ top: -42px;
 right: 108px;
 }
 
-
+/* =======================================================
+::			  			   Weather						::
+======================================================= */
 
 .weather {
 	text-shadow:none;
@@ -604,7 +626,9 @@ background: url(http://i.imgur.com/loxBPOI.png) no-repeat scroll left top;
 background: url(http://i.imgur.com/diinudq.png) no-repeat scroll left top;
 }
     
-
+/* =======================================================
+::			  			Attack Buttons					::
+======================================================= */
 
 .switchmenu button, .switchmenu button:disabled{
 	background: url(http://i.imgur.com/qYAMtSx.png) !important;
@@ -775,7 +799,9 @@ color: white;
     opacity: .5;
 }
 
-
+/* =======================================================
+::			  				Tooltip						::
+======================================================= */
 
 #tooltipwrapper {
 	position: absolute;
@@ -814,7 +840,9 @@ color: white;
 	border-top: 1px solid #161616;
 }
 
-
+/* =======================================================
+::			  		TeamBuilder Hax Fix					::
+======================================================= */
 
 .teambuilder-results .utilichart, .teambuilder-results .utilichart li {
      border: none; 
@@ -902,7 +930,9 @@ width: 464px;
 width: 284px;
 }            
 
-
+/* =======================================================
+::			  				HP BAR						::
+======================================================= */
 
 .statbar
 {
@@ -948,7 +978,7 @@ width: 284px;
 	display:none !important;
 }
 
-
+/* The declaration order of these hp* classes is significant. */
 
 .statbar .hpbar .hp
 {
@@ -969,7 +999,7 @@ width: 284px;
 	border-color: #a3260d;
 }
 
-
+/* The declaration order of these prevhp* classes is significant. */
 
 .statbar .hpbar .prevhp
 {
@@ -986,7 +1016,7 @@ width: 284px;
 	background-color: #facec5;
 }
 
-
+/****************/
 
 .hptext{
 	margin-top: 2px;  
@@ -1063,7 +1093,9 @@ width: 284px;
 }
 
 
-
+/* =======================================================
+::			  				REPLAY						::
+======================================================= */
 
 .pfx-panel{
    background: #333; 
@@ -1082,5 +1114,4 @@ width: 284px;
 .replay-wrapper{
 	top: 40px;          
 }
-
-
+}            
