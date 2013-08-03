@@ -142,12 +142,12 @@ exports.customavatars = {
         'windexdrinker': 'ti.gif',
         'elitefouroak': 'oak.gif',
         'gamebraker': 'scizor.png',
-        'frage': '126.gif',
+        'frage': 'fraggot.gif',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
         'uzumakinarutojr': 'eric.gif',
         'vileman': 'joker.gif',
-        'negotiator': 'awesome.gif',
+        'negotiator': 'camb.gif',
         'auraburst': 'aura.png',
         'dazel': 'dazel.gif',
 };
@@ -236,6 +236,7 @@ exports.groups = {
 		ban: true,
 		modchat: true,
 		forcerename: true,
+		forcerenameto:true,
 		ip: true,
 		alts: '@u',
 		rank: 3
