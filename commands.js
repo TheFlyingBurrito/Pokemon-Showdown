@@ -326,6 +326,9 @@ var commands = exports.commands = {
 			// This condition appears to be impossible for now.
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
+		if (room.id == "lobby") {
+			this.sendReplyBox('Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here.</b>');
+		}
 	},
 
 	leave: 'part',
