@@ -13,7 +13,7 @@ exports.tour = function(t) {
 					var secondsNeeded = c.time * 60;
 					var secondsElapsed = tour.currentSeconds - c.startTime;
 					var difference = secondsNeeded - secondsElapsed;
-					var percent = secondsElapsed / secondsNeeded * 100;
+					var fraction = secondsElapsed / secondsNeeded;
 					function sendIt(end) {
 						if (end) {
 							Rooms.rooms[i].addRaw("<h3>The tournament was canceled because of lack of players.</h3>");
@@ -21,8 +21,8 @@ exports.tour = function(t) {
 						}
 						Rooms.rooms[i].addRaw("<i>The tournament will begin in " + difference + " second" + (difference == 1 ? '' : 's') + ".</i>");
 					}
-					if (percent == 25 || percent == 50 || percent == 75) sendIt();
-					if (percent >= 100) {
+					if (fraction == 0.25 || fraction == 0.5 || fraction == 0.75) sendIt();
+					if (fraction >= 1) {
 						if (tour[i].players.length < 3) {
 							tour.reset(i);
 							sendIt(true);
@@ -65,9 +65,9 @@ exports.tour = function(t) {
 		  for (i = 1; i < list.length; i++) {
 			j = Math.floor(Math.random()*(1+i));  // choose j in [0..i]
 			if (j != i) {
-			  t = list[i];                        // swap list[i] and list[j]
-			  list[i] = list[j];
-			  list[j] = t;
+				t = list[i];                        // swap list[i] and list[j]
+				list[i] = list[j];
+				list[j] = t;
 			}
 		  }
 		  return list;
@@ -75,9 +75,7 @@ exports.tour = function(t) {
 		splint: function(target) {
 			//splittyDiddles
 			var cmdArr =  target.split(",");
-			for(var i = 0; i < cmdArr.length; i++) {
-				cmdArr[i] = cmdArr[i].trim();
-			}
+			for (var i = 0; i < cmdArr.length; i++) cmdArr[i] = cmdArr[i].trim();
 			return cmdArr;
 		},
 		username: function(uid) {
@@ -168,26 +166,20 @@ exports.tour = function(t) {
 			var numByes = 0;
 			if (tour[rid].size <= 4) {
 					if (tour[rid].size % 2 == 0) {
-							isValid = true;
+						isValid = true;
 					} else {
-							isValid = true;
-							numByes = 1;
+						isValid = true;
+						numByes = 1;
 				}
 			}
-				do
-				{
-					var numPlayers = ((tour[rid].size - numByes) / 2 + numByes);
-					do
-					{
-							numPlayers = numPlayers / 2;
-					}
-				while (numPlayers > 1);
-				if (numPlayers == 1) {
-								isValid = true;
-					} else {
-								numByes += 1;
-					}
+			do {
+				var numPlayers = ((tour[rid].size - numByes) / 2 + numByes);
+				do {
+					numPlayers = numPlayers / 2;
 				}
+				while (numPlayers > 1);
+				if (numPlayers == 1) isValid = true; else numByes += 1;
+			}
 			while (isValid == false);
 			var r = tour[rid].round;
 			var sList = tour[rid].players;
@@ -226,16 +218,13 @@ exports.tour = function(t) {
 			var firstMatch = false;
 			for (var i in round) {
 				if (!round[i][1]) {
-						var p1n = round[i][0];
-						if (Users.get(p1n)) p1n = Users.get(p1n).name;
+						var p1n = tour.username(round[i][0]);
 						if (p1n.split('Guest ').length - 1 > 0) p1n = round[i][0];
 						html += "<font color=\"red\">" + clean(p1n) + " has received a bye!</font><br />";
 				}
 				else {
-					var p1n = round[i][0];
-					var p2n = round[i][1];
-					if (Users.get(p1n)) p1n = Users.get(p1n).name;
-					if (Users.get(p2n)) p2n = Users.get(p2n).name;
+					var p1n = tour.username(round[i][0]);
+					var p2n = tour.username(round[i][1]);
 					if (p1n.split('Guest ').length - 1 > 0) p1n = round[i][0];
 					if (p2n.split('Guest ').length - 1 > 0) p2n = round[i][1];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
@@ -258,31 +247,7 @@ exports.tour = function(t) {
 				//end tour
 				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
 				tour[rid].status = 0;
-				
-				//if polls were resetted when tours in the same room finish, show the results here (to be verified)
-				/*
-				if (tour[rid].question) {
-					var votes = Object.keys(tour[rid].answers).length;
-					if (votes == 0) Rooms.rooms[rid].addRaw("<h3>The poll was canceled because of lack of voters.</h3>");
-					var options = new Object();
-					var obj = tour[rid];
-					for (var i in obj.answerList) options[obj.answerList[i]] = 0;
-					for (var i in obj.answers) options[obj.answers[i]]++;
-					var sortable = new Array();
-					for (var i in options) sortable.push([i, options[i]]);
-					sortable.sort(function(a, b) {return a[1] - b[1]});
-					var html = "";
-					for (var i = sortable.length - 1; i > -1; i--) {
-						console.log(i);
-						var option = sortable[i][0];
-						var value = sortable[i][1];
-						html += "&bull; " + option + " - " + Math.floor(value / votes * 100) + "% (" + value + ")<br />";
-					}
-					Rooms.rooms[rid].addRaw('<div class="infobox"><h2>Results to "' + obj.question + '"</h2><hr />' + html + '</div>');
-				}
-				*/
-			}	
-			else {
+			} else {
 				var html = '<hr /><h3><font color="green">Round '+ tour[rid].roundNum +'!</font></h3><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tour[rid].tier].name + "<hr /><center>";
 				var pBye = new Array();
 				var pNorm = new Array();
@@ -311,10 +276,8 @@ exports.tour = function(t) {
 					var p1 = i * 2;
 					var p2 = p1 + 1;
 					tour[rid].round.push([p[p1], p[p2], undefined]);
-					var p1n = p[p1];
-					var p2n = p[p2];
-					if (Users.get(p1n)) p1n = Users.get(p1n).name;
-					if (Users.get(p2n)) p2n = Users.get(p2n).name;
+					var p1n = tour.username(p[p1]);
+					var p2n = tour.username(p[p2]);
 					if (p1n.split('Guest ').length - 1 > 0) p1n = p[p1];
 					if (p2n.split('Guest ').length - 1 > 0) p2n = p[p2];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
@@ -432,7 +395,7 @@ var cmds = {
 		var tierMatch = false;
 		var tempTourTier = '';
 		for (var i = 0; i < tour.tiers.length; i++) {
-			if ((targets[0].trim().toLowerCase()) == tour.tiers[i].trim().toLowerCase()) {
+			if (toId(targets[0]) == tour.tiers[i]) {
 				tierMatch = true;
 				tempTourTier = tour.tiers[i];
 			}
@@ -465,7 +428,6 @@ var cmds = {
 		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
 	},
 
-	et: 'endtour',
 	endtour: function(target, room, user, connection) {
 		if (!tour.userauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
 		if (room.decision) return this.sendReply('Prof. Oak: There is a time and place for everything! You cannot do this in battle rooms.');
@@ -475,7 +437,6 @@ var cmds = {
 		room.addRaw('<h2><b>' + user.name + '</b> has ended the tournament.</h2>');
 	},
 
-	ts: 'toursize',
 	toursize: function(target, room, user, connection) {
 		if (!tour.userauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
 		if (room.decision) return this.sendReply('Prof. Oak: There is a time and place for everything! You cannot do this in battle rooms.');
@@ -573,12 +534,12 @@ var cmds = {
 			
 			var remslots = tour[room.id].size - tour[room.id].players.length;
 			if (tour[room.id].players.length == tour[room.id].playerslogged.length + 1) {
-				room.addRaw(user.name + ' has forced <b>' + Users.get(target).name + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+				room.addRaw(user.name + ' has forced <b>' + tour.username(target) + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 				tour[room.id].playerslogged.push(target);
 			} else if (tour[room.id].players.length == tour[room.id].playerslogged.length + 2) {
 				var someid = tour[room.id].players[tour[room.id].playerslogged.length];
 				room.addRaw('<b>' + tour.username(someid) + '</b> has joined the tournament. <b><i>' + (remslots + 1) + ' slot' + ( remslots === 0 ? '' : 's') + ' remaining.</b></i>');
-				room.addRaw(user.name + ' has forced <b>' + Users.get(target).name + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+				room.addRaw(user.name + ' has forced <b>' + tour.username(target) + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 				tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].playerslogged.length]);
 				tour[room.id].playerslogged.push(target);
 			} else {
@@ -592,7 +553,7 @@ var cmds = {
 				var listnames = prelistnames + ' and <b>' + tour.username(someid) + '</b>';
 				
 				room.addRaw(listnames + ' have joined the tournament. <b><i>' + (remslots + 1) + ' slot' + ( remslots === 0 ? '' : 's') + ' remaining.</b></i>');
-				room.addRaw(user.name + ' has forced <b>' + Users.get(target).name + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+				room.addRaw(user.name + ' has forced <b>' + tour.username(target) + '</b> to join the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 				
 				tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].playerslogged.length]);
 				for (var i = tour[room.id].playerslogged.length; i < tour[room.id].players.length - 1; i++) {
@@ -619,8 +580,30 @@ var cmds = {
 				if (tour[room.id].playerslogged.indexOf(user.userid) == -1) {
 					return this.sendReply('You have left the tournament. ' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.');
 				} else {
+					if (tour[room.id].players.length + 1 == tour[room.id].playerslogged.length) {
+					} else if (tour[room.id].players.length == tour[room.id].playerslogged.length) {
+						tour[room.id].playerslogged.push(user.userid);
+					} else if (tour[room.id].players.length == tour[room.id].playerslogged.length + 1) {
+						room.addRaw('<b>' + tour[room.id].players[tour[room.id].playerslogged.length] + '</b> has joined the tournament. <b><i>' + ( remslots - 1 ) + ' slot' + ( remslots == 2 ? '' : 's') + ' remaining.</b></i>');
+						tour[room.id].playerslogged.push(user.userid);
+					} else {
+						var someid = tour[room.id].players[tour[room.id].playerslogged.length];
+						var prelistnames = '<b>' + tour.username(someid) + '</b>';
+						for (var i = tour[room.id].playerslogged.length + 1; i < tour[room.id].players.length - 1; i++) {
+							someid = tour[room.id].players[i];
+							prelistnames = prelistnames + ', <b>' + tour.username(someid) + '</b>';
+						}
+						someid = tour[room.id].players[tour[room.id].players.length - 1];
+						var listnames = prelistnames + ' and <b>' + tour.username(someid) + '</b>';
+						room.addRaw(listnames + ' have joined the tournament. <b><i>' + (remslots - 1) + ' slot' + ( remslots == 2 ? '' : 's') + ' remaining.</b></i>');
+				
+						tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].playerslogged.length]);
+						for (var i = tour[room.id].playerslogged.length; i < tour[room.id].players.length - 1; i++) { //the length is disturbed by the push above
+							tour[room.id].playerslogged.push(tour[room.id].players[i]);
+						}
+						tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].players.length - 1]);
+					}
 					tour[room.id].playerslogged.splice(tour[room.id].playerslogged.indexOf(user.userid), 1);
-					//now it's time to report due joins. TO DO
 					room.addRaw('<b>' + user.name + '</b> has left the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 				}
 			}
@@ -662,14 +645,36 @@ var cmds = {
 		if (tour.leave(target, room.id)) {
 			var remslots = tour[room.id].size - tour[room.id].players.length;
 			if (tour[room.id].playerslogged.indexOf(target) == -1) {
-				room.addRaw('<b>' + Users.get(target).name + '</b> joined the tournament but was forced to leave by ' + user.name + '. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+				room.addRaw('<b>' + tour.username(target) + '</b> joined the tournament but was forced to leave by ' + user.name + '. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 			}
 			else {
+				if (tour[room.id].players.length + 1 == tour[room.id].playerslogged.length) {
+				} else if (tour[room.id].players.length == tour[room.id].playerslogged.length) {
+					room.addRaw('<b>' + tour.username(target) + '</b> has joined the tournament. <b><i>' + ( remslots - 1) + ' slot' + ( remslots == 2 ? '' : 's') + ' remaining.</b></i>');
+					tour[room.id].playerslogged.push(target);
+				} else if (tour[room.id].players.length == tour[room.id].playerslogged.length + 1) {
+					room.addRaw('<b>' + tour[room.id].players[tour[room.id].playerslogged.length] + '</b> has joined the tournament. <b><i>' + ( remslots - 1 ) + ' slot' + ( remslots == 2 ? '' : 's') + ' remaining.</b></i>');
+					tour[room.id].playerslogged.push(target);
+				} else {
+					var someid = tour[room.id].players[tour[room.id].playerslogged.length];
+					var prelistnames = '<b>' + tour.username(someid) + '</b>';
+					for (var i = tour[room.id].playerslogged.length + 1; i < tour[room.id].players.length - 1; i++) {
+						someid = tour[room.id].players[i];
+						prelistnames = prelistnames + ', <b>' + tour.username(someid) + '</b>';
+					}
+					someid = tour[room.id].players[tour[room.id].players.length - 1];
+					var listnames = prelistnames + ' and <b>' + tour.username(someid) + '</b>';
+					room.addRaw(listnames + ' have joined the tournament. <b><i>' + (remslots - 1) + ' slot' + ( remslots == 2 ? '' : 's') + ' remaining.</b></i>');
+				
+					tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].playerslogged.length]);
+					for (var i = tour[room.id].playerslogged.length; i < tour[room.id].players.length - 1; i++) { //the length is disturbed by the push above
+						tour[room.id].playerslogged.push(tour[room.id].players[i]);
+					}
+					tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].players.length - 1]);
+				}
 				tour[room.id].playerslogged.splice(tour[room.id].playerslogged.indexOf(target), 1);
-				//now it's time to report due joins. TO DO
-				room.addRaw(user.name + ' has forced <b>' + Users.get(target).name + '</b> to leave the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+				room.addRaw(user.name + ' has forced <b>' + tour.username(target) + '</b> to leave the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
 			}
-			//room.addRaw('PLAYERS: ' + tour[room.id].players.toString() + '; LOGGEDPLAYERS: ' + tour[room.id].playerslogged.toString());
 		}
 		else {
 			return this.sendReply('The user that you specified is not in the tournament.');
@@ -696,17 +701,14 @@ var cmds = {
 		for (var i in r) {
 			if (!r[i][1]) {
 				//bye
-				var byer = r[i][0];
-				if (Users.get(r[i][0])) byer = Users.get(r[i][0]).name;
+				var byer = tour.username(r[i][0]);
 				html += "<font color=\"red\">" + clean(byer) + " has received a bye.</font><br />";
 			}
 			else {
 				if (r[i][2] == undefined) {
 					//haven't started
-					var p1n = r[i][0];
-					var p2n = r[i][1];
-					if (Users.get(p1n)) p1n = Users.get(p1n).name;
-					if (Users.get(p2n)) p2n = Users.get(p2n).name;
+					var p1n = tour.username(r[i][0]);
+					var p2n = tour.username(r[i][1]);
 					if (p1n.split('Guest ').length - 1 > 0) p1n = r[i][0];
 					if (p2n.split('Guest ').length - 1 > 0) p2n = r[i][1];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
@@ -714,10 +716,8 @@ var cmds = {
 				}
 				else if (r[i][2] == -1) {
 					//currently battling
-					var p1n = r[i][0];
-					var p2n = r[i][1];
-					if (Users.get(p1n)) p1n = Users.get(p1n).name;
-					if (Users.get(p2n)) p2n = Users.get(p2n).name;
+					var p1n = tour.username(r[i][0]);
+					var p2n = tour.username(r[i][1]);
 					if (p1n.split('Guest ').length - 1 > 0) p1n = r[i][0];
 					if (p2n.split('Guest ').length - 1 > 0) p2n = r[i][1];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
@@ -733,10 +733,8 @@ var cmds = {
 						p1 = "green";
 						p2 = "red";
 					}
-					var p1n = r[i][0];
-					var p2n = r[i][1];
-					if (Users.get(p1n)) p1n = Users.get(p1n).name;
-					if (Users.get(p2n)) p2n = Users.get(p2n).name;
+					var p1n = tour.username(r[i][0]);
+					var p2n = tour.username(r[i][1]);
 					if (p1n.split('Guest ').length - 1 > 0) p1n = r[i][0];
 					if (p2n.split('Guest ').length - 1 > 0) p2n = r[i][1];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
@@ -1312,7 +1310,7 @@ Rooms.BattleRoom.prototype.requestKickInactive = function(user, force) {
 		// if a player has left, don't wait longer than 6 ticks (1 minute)
 		maxTicksLeft = 6;
 	}
-	if (!this.rated && !this.tournament) maxTicksLeft = 30; else maxTicksLeft = 6;
+	if (!this.rated && !this.tournament) maxTicksLeft = 30;
 
 	this.sideTurnTicks = [maxTicksLeft, maxTicksLeft];
 
