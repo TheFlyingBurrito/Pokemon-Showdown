@@ -957,7 +957,7 @@ var commands = exports.commands = {
 	forum: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Follow the link below to join our badass forum!<br />' +
-			'- <a href="http://parukia.net/community/">http://parukia.net/community/</a>');
+			'<a href="http://parukia.net/community/">http://parukia.net/community/</a>');
 	},
 	
 	/*********************************************************
