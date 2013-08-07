@@ -147,6 +147,7 @@ exports.customavatars = {
         'negotiator': 'camb.gif',
         'auraburst': 'aura.png',
         'dazel': 'dazel.gif',
+        'isseihyodo': 'nojustno.gif',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
