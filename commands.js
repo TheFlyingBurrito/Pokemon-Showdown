@@ -107,6 +107,7 @@ var commands = exports.commands = {
 	makechatroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		var id = toId(target);
+		if (!id) return this.parse('/help makechatroom');
 		if (Rooms.rooms[id]) {
 			return this.sendReply("The room '"+target+"' already exists.");
 		}
@@ -119,9 +120,10 @@ var commands = exports.commands = {
 	deregisterchatroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		var id = toId(target);
+		if (!id) return this.parse('/help deregisterchatroom');
 		var targetRoom = Rooms.get(id);
+		if (!targetRoom) return this.sendReply("The room '"+id+"' doesn't exist.");
 		target = targetRoom.title || targetRoom.id;
-		if (!targetRoom) return this.sendReply("The room '"+target+"' doesn't exist.");
 		if (Rooms.global.deregisterChatRoom(id)) {
 			this.sendReply("The room '"+target+"' was deregistered.");
 			this.sendReply("It will be deleted as of the next server restart.");
@@ -382,14 +384,19 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help redir');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
-		if (!target) return this.sendReply('You need to input a room name!');
-		var targetRoom = Rooms.get(target);
-		if (target && !targetRoom) {
+		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
+		if (!targetRoom) {
 			return this.sendReply("The room '" + target + "' does not exist.");
 		}
-		if (!user.can('kick', targetUser, room)) return false;
+		if (!this.can('kick', targetUser, room)) return false;
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (Rooms.rooms[targetRoom.id].users[targetUser.userid]) {
+			return this.sendReply("The player " + targetUser.name + " is already in the room " + target + "!");	
+		}
+		if (!Rooms.rooms[room.id].users[targetUser.userid]) {
+			return this.sendReply('User '+this.targetUsername+' is not in the room ' + room.id + '.');
 		}
 		var roomName = (targetRoom.isPrivate)? 'a private room' : 'room ' + target;
 		this.addModCommand(targetUser.name + ' was redirected to ' + roomName + ' by ' + user.name + '.');
@@ -664,7 +671,7 @@ var commands = exports.commands = {
 			return this.sendReply('Group \'' + nextGroup + '\' does not exist.');
 		}
 		if (!user.checkPromotePermission(currentGroup, nextGroup)) {
-			return this.sendReply('/promote - Access denied.');
+			return this.sendReply('/' + cmd + ' - Access denied.');
 		}
 
 		var isDemotion = (config.groups[nextGroup].rank < config.groups[currentGroup].rank);
@@ -880,9 +887,13 @@ var commands = exports.commands = {
 
 		if (target === 'chat') {
 
-			CommandParser.uncacheTree('./command-parser.js');
-			CommandParser = require('./command-parser.js');
-			return this.sendReply('Chat commands have been hot-patched.');
+			try {
+				CommandParser.uncacheTree('./command-parser.js');
+				CommandParser = require('./command-parser.js');
+				return this.sendReply('Chat commands have been hot-patched.');
+			} catch (e) {
+				return this.sendReply('Something failed while trying to hotpatch chat: \n' + e.stack);
+			}
 
 		} else if (target === 'battles') {
 
@@ -890,19 +901,22 @@ var commands = exports.commands = {
 			return this.sendReply('Battles have been hotpatched. Any battles started after now will use the new code; however, in-progress battles will continue to use the old code.');
 
 		} else if (target === 'formats') {
+			try {
+				// uncache the tools.js dependency tree
+				CommandParser.uncacheTree('./tools.js');
+				// reload tools.js
+				Tools = require('./tools.js'); // note: this will lock up the server for a few seconds
+				// rebuild the formats list
+				Rooms.global.formatListText = Rooms.global.getFormatListText();
+				// respawn simulator processes
+				Simulator.SimulatorProcess.respawn();
+				// broadcast the new formats list to clients
+				Rooms.global.send(Rooms.global.formatListText);
 
-			// uncache the tools.js dependency tree
-			CommandParser.uncacheTree('./tools.js');
-			// reload tools.js
-			Tools = require('./tools.js'); // note: this will lock up the server for a few seconds
-			// rebuild the formats list
-			Rooms.global.formatListText = Rooms.global.getFormatListText();
-			// respawn simulator processes
-			Simulator.SimulatorProcess.respawn();
-			// broadcast the new formats list to clients
-			Rooms.global.send(Rooms.global.formatListText);
-
-			return this.sendReply('Formats have been hotpatched.');
+				return this.sendReply('Formats have been hotpatched.');
+			} catch (e) {
+				return this.sendReply('Something failed while trying to hotpatch formats: \n' + e.stack);
+			}
 
 		}
 		this.sendReply('Your hot-patch command was unrecognized.');
