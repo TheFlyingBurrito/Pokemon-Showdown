@@ -974,7 +974,7 @@ var commands = exports.commands = {
 	frontier: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
-			'<b><font color="green">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="green">FRONTIER BRAINS</font></b><br><br>Coming soon o3o');
+			'<b><font color="gold">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="green">FRONTIER BRAINS</font></b><br><br>Coming soon o3o');
 	},
 	
 	/*********************************************************
