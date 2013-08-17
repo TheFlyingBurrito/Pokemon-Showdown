@@ -947,9 +947,9 @@ var commands = exports.commands = {
 		return this.sendReplyBox('<b><font color="red">Champion</font></b><br>raiykid<br><br><b><font color="red">Elite Four</font></b><br>Frage: ROCK<br>Izanagi: FIGHTING<br>Oak: DRAGON<br><br><b><font color="red">Gym Leader</font></b><br>Budro: BUG<br>Windex: POISON (Trainer-XLR8R)<br>A07: FIRE<br>Raiykid: ELECTRIC<br>SA-X: DRAGON<br>lolsup: FLYING (Trainer-SaysHi)<br>Soul: NORMAL<br>Mayan: GRASS<br>Unknown: DARK (Trainer-Husk)<br>Nickk: ROCK<br>Sonix: ICE<br>44HY: STEEL<br>Anarcy: FIGHTING (Trainer-Dex)<br>Chrono: GHOST (Trainer-Haxy)<br>Konata: GROUND<br><br>Click <a href="https://docs.google.com/document/d/1Tw-2bVbrD5787ZaCCYilkm9pIsLyvsrCEEiQ-FUEWNQ/">here</a> for the league info<br><br><b><font color="purple">Accepting new Gym Trainers, PM Aura Burst to sign up</font></b>');
 	},
 	
-	site: function(target, room, user) {
+	website: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('The Official Website of Parukia. Click for information on every aspect of Pokémon! <a href="http://parukia.net">Parukia.net</a>');
+		return this.sendReplyBox('Parukia website - Coming Soon! <a href="http://parukia.net">Parukia.net</a>');
 	},
 
 	youtube: function(target, room, user) {
@@ -967,8 +967,14 @@ var commands = exports.commands = {
 	
 	forum: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('Follow the link below to join our badass forum!<br />' +
+		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
 			'<a href="http://parukia.net/community/">http://parukia.net/community/</a>');
+	},
+	
+	frontier: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
+			'<b><font color="emerald">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="emerald">FRONTIER BRAINS</font></b><br><br>Coming soon o3o');
 	},
 	
 	/*********************************************************
