@@ -949,7 +949,7 @@ var commands = exports.commands = {
 	
 	website: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		return this.sendReplyBox('Parukia website - Coming Soon! <a href="http://parukia.net">Parukia.net</a>');
+		return this.sendReplyBox('Parukia website - Coming Soon!<br><a href="http://parukia.net">Parukia.net</a>');
 	},
 
 	youtube: function(target, room, user) {
@@ -974,7 +974,7 @@ var commands = exports.commands = {
 	frontier: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
-			'<b><font color="emerald">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="emerald">FRONTIER BRAINS</font></b><br><br>Coming soon o3o');
+			'<b><font color="pink">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="pink">FRONTIER BRAINS</font></b><br><br>Coming soon o3o');
 	},
 	
 	/*********************************************************
