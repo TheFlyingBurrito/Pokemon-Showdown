@@ -1024,7 +1024,7 @@ var commands = exports.commands = {
 			}
 		else if (!matched) {
 
-			this.sendReply('The user "'+target+'" is not a Frontier Brain.');
+			this.sendReply('The user '+target+' is not a Frontier Brain.');
 		}
 	},
 	
