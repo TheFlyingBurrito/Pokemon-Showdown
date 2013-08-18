@@ -1006,7 +1006,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: NU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>Coming soon!');
+			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>Coming soon!');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
