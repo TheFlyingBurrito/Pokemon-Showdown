@@ -1002,11 +1002,11 @@ var commands = exports.commands = {
                 }
 		if (target === 'chinlar'){
 			matched = true;
-			this.sendReplyBox('Testing 123');
+			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Rock Type Banned<br>-Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b></b>');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: NU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>Coming soon!');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
@@ -1014,15 +1014,15 @@ var commands = exports.commands = {
 		}
 		if (target === 'xlr8r'){
 			matched = true;
-			this.sendReplyBox('Testing 123');
+			this.sendReplyBox('<b>XLR8R</b><br><br><b>Tier: Ubers</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>Coming soon!');
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
-			this.sendReplyBox('Testing 123');
+			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Dragon Type Banned<br>-Only Pokemon from the UU tier allowed');
 		}
 		if (target === 'ericsayshi'){
 			matched = true;
-			this.sendReplyBox('Testing 123');
+			this.sendReplyBox('<b>EricSaysHi</b><br><br><b>Tier: OU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Fighting Type Banned<br>-Toxic Spikes Banned');
 		}		
 		if (target === ''){
 			}
