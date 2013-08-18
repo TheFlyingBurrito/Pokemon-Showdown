@@ -965,6 +965,7 @@ var commands = exports.commands = {
 			'- <a href="https://www.facebook.com/ParukiaNet">Facebook</a>');
 	},
 	
+	forums: 'forum',
 	forum: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
@@ -981,9 +982,15 @@ var commands = exports.commands = {
 	
 	nu_frontier: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<b><font color="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b>');
+		this.sendReplyBox('<b><font col<b><font color="green">FRONTIER BRAINS</font></b><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br>' +or="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b>');
 	},
 	
+	brainlist: 'brain',
+	brains: 'brain',
+	brain: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br>');
+	},
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
