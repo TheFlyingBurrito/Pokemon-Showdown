@@ -984,7 +984,23 @@ var commands = exports.commands = {
 	brains: 'brain',
 	brain: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain (nameofbrainhere) to see their rules.</font>');
+		this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain <name> like /brain Chinlar to see their rules.</font>');
+                }
+		//COOL STUFF O3O
+		if (target === 'chinlar'){
+			matched = true;
+			this.sendReplyBox('Testing 123');
+		}
+		if (target === 'nukinggary') {
+			matched = true;
+			this.sendReplyBox(('<b><font col<b><font color="green">FRONTIER BRAINS</font></b><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br>' +or="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b>');
+		}
+		if (target === ''){
+			}
+		else if (!matched) {
+
+			this.sendReply('The user/object "'+target+'" was not found.');
+		}
 	},
 	
 	/*********************************************************
