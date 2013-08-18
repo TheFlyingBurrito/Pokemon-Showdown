@@ -972,6 +972,7 @@ var commands = exports.commands = {
 	},
 	
 	frontier: function(target, room, user) {
+		if (room.id === 'lobby') return this.sendReply('This command is too spammy for lobby.');
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('<b><font color="green">PARUKIAN BATTLE FRONTIER</font></b><br><br><b><font color="green">FRONTIER BRAINS</font></b><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br>' +
 			'<b><font color="green">BATTLE FRONTIER RULES</font></b><br>' +
