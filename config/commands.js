@@ -977,7 +977,8 @@ var commands = exports.commands = {
 		this.sendReplyBox('Parukia forum - Coming Soon! <br />' +
 			'<a href="http://parukia.net/community/">http://parukia.net/community/</a>');
 	},
-	
+	bf: 'frontier',
+	battlefrontier: 'frontier',
 	frontier: function(target, room, user) {
                 if (room.id === 'lobby') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
                 if (room.id === 'tutor') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
