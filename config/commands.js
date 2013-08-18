@@ -979,7 +979,10 @@ var commands = exports.commands = {
 	},
 	
 	frontier: function(target, room, user) {
-                if (room.id === 'lobby') return this.sendReply('This command is too spammy for lobby.');
+                if (room.id === 'lobby') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
+                if (room.id === 'tutor') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
+                if (room.id === 'Trivia') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
+                if (room.id === 'party') return this.sendReply('To prevent high flood, this command can only be used in the Battle Frontier room.');
                 if (!this.canBroadcast()) return;
 		this.sendReplyBox('<b><font color="green">PARUKIAN BATTLE FRONTIER</font></b><br><br>' +
 			'<b><font color="green">BATTLE FRONTIER RULES</font></b><br>' +
