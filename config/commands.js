@@ -253,7 +253,7 @@ var commands = exports.commands = {
 
 		var data = '';
 		if (target === "chinlar") {
-			data = "The boss :3."
+			data = "The boss :3"
 		}
 		if (pokemon.exists) {
 			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
