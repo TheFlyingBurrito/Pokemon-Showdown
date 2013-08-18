@@ -984,7 +984,7 @@ var commands = exports.commands = {
 	brains: 'brain',
 	brain: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker');
+		this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b>Do /brain (nameofbrainhere) to see their rules.');
 	},
 	
 	/*********************************************************
