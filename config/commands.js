@@ -994,6 +994,11 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('Testing 123');
 		}
+		if (target === 'nukinggary'){
+			matched = true;
+			this.sendReplyBox('<font color="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b>');
+
+		}
 		if (target === ''){
 			}
 		else if (!matched) {
