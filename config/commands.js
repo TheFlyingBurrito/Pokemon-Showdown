@@ -980,7 +980,7 @@ var commands = exports.commands = {
 	
 	nu_frontier: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<b><font color="purple">NU King Gary</font><font color="purple"></b><br><br>Wins / Losses<br><br>0 Wins - 0 Losses<br><br>NU Frontier Rules<br><br>Coming soon!</font>');
+		this.sendReplyBox('<b><font color="purple">NU King Gary</font></b><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font>');
 	},
 	
 	/*********************************************************
