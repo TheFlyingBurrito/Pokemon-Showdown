@@ -1010,7 +1010,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('Testing 123');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: BH</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Water Type Banned<br>-Batton Pass Banned');
 		}
 		if (target === 'xlr8r'){
 			matched = true;
