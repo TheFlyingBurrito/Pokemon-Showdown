@@ -1003,13 +1003,28 @@ var commands = exports.commands = {
 		if (target === 'nu king gary'){
 			matched = true;
 			this.sendReplyBox('<b><font color="purple">NU King Gary</font><br><br><font color="purple">Wins / Losses</font><br><br><font color="purple">0 Wins - 0 Losses</font><br><br><font color="purple">NU Frontier Rules</font><br><br><font color="purple">Coming soon!</font></b></b>');
-
 		}
+		if (target === 'gamebrεaker'){
+			matched = true;
+			this.sendReplyBox('Testing 123');
+		}
+		if (target === 'xlr8r'){
+			matched = true;
+			this.sendReplyBox('Testing 123');
+		}
+		if (target === 'the flying burrito'){
+			matched = true;
+			this.sendReplyBox('Testing 123');
+		}
+		if (target === 'ericsayshi'){
+			matched = true;
+			this.sendReplyBox('Testing 123');
+		}		
 		if (target === ''){
 			}
 		else if (!matched) {
 
-			this.sendReply('The user "'+target+'" was not found.');
+			this.sendReply('The user "'+target+'" is not a Frontier Brain.');
 		}
 	},
 	
