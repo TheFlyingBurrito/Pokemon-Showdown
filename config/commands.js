@@ -255,6 +255,9 @@ var commands = exports.commands = {
 		if (target === "chinlar") {
 			data = "The boss :3"
 		}
+		if (target === "professor shedinja") {
+			data = "The coolest guy here :D"
+		}
 		if (pokemon.exists) {
 			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
 		}
