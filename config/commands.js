@@ -1002,27 +1002,27 @@ var commands = exports.commands = {
                 }
 		if (target === 'chinlar'){
 			matched = true;
-			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Rock Type Banned<br>-Entry Hazards Banned');
+			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Rock Type Banned<br>- Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Electric Type Banned (Pokemon Only, not Moves)<br>-Baton Pass Banned (Full and Quick Passing)');
+			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Electric Type Banned (Pokemon Only, not Moves)<br>- Baton Pass Banned (Full and Quick Passing)');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: BH</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Water Type Banned<br>-Batton Pass Banned');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: BH</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Banned<br>- Batton Pass Banned');
 		}
 		if (target === 'xlr8r'){
 			matched = true;
-			this.sendReplyBox('<b>XLR8R</b><br><br><b>Tier: Ubers</b><br><br><img src="http://i.imgur.com/zxTVEjc.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Best out of 3 battles<br>-No more than 1 Chlorophyl, Swift Swim, or Sand Rush user per team<br>Kyurem-White and Excadrill are banned');
+			this.sendReplyBox('<b>XLR8R</b><br><br><b>Tier: Ubers</b><br><br><img src="http://i.imgur.com/zxTVEjc.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Best out of 3 battles<br>- No more than 1 Chlorophyl, Swift Swim, or Sand Rush user per team<br>- Kyurem-White and Excadrill are banned');
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
-			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Dragon Type Banned<br>-Only Pokemon from the UU tier allowed');
+			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Banned<br>- Only Pokemon from the UU tier allowed');
 		}
 		if (target === 'ericsayshi'){
 			matched = true;
-			this.sendReplyBox('<b>EricSaysHi</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Fighting Type Banned<br>-Toxic Spikes Banned');
+			this.sendReplyBox('<b>EricSaysHi</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Fighting Type Banned<br>- Toxic Spikes Banned');
 		}		
 		if (target === ''){
 			}
