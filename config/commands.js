@@ -1014,7 +1014,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'xlr8r'){
 			matched = true;
-			this.sendReplyBox('<b>XLR8R</b><br><br><b>Tier: Ubers</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>Coming soon!');
+			this.sendReplyBox('<b>XLR8R</b><br><br><b>Tier: Ubers</b><br><br><img src="http://i.imgur.com/zxTVEjc.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Best out of 3 battles<br>-No more than 1 Chlorophyl, Swift Swim, or Sand Rush user per team<br>Kyurem-White and Excadrill are banned');
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
@@ -1022,7 +1022,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'ericsayshi'){
 			matched = true;
-			this.sendReplyBox('<b>EricSaysHi</b><br><br><b>Tier: OU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Fighting Type Banned<br>-Toxic Spikes Banned');
+			this.sendReplyBox('<b>EricSaysHi</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Fighting Type Banned<br>-Toxic Spikes Banned');
 		}		
 		if (target === ''){
 			}
