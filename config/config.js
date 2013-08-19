@@ -140,7 +140,7 @@ exports.customavatars = {
         'elitefouroak': 'oak.gif',
         'nukinggary': 'oak.gif',
         'gamebraker': 'rofl.jpeg',
-        'frage': 'fuu.gif',
+        'frage': 'FADE.GIF',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
         'uzumakinarutojr': 'eric.gif',
