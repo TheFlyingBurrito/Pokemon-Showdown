@@ -1006,7 +1006,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Electric Type Banned (Pokemon Only, not Moves)<br>-Baton Pass Banned (Full and Quick Passing)');
+			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Electric Type Banned (Pokemon Only, not Moves)<br>-Baton Pass Banned (Full and Quick Passing)');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
@@ -1018,7 +1018,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
-			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Dragon Type Banned<br>-Only Pokemon from the UU tier allowed');
+			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Dragon Type Banned<br>-Only Pokemon from the UU tier allowed');
 		}
 		if (target === 'ericsayshi'){
 			matched = true;
