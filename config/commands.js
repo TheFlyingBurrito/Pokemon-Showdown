@@ -1002,7 +1002,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'chinlar'){
 			matched = true;
-			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><b>Wins / Losses</b><img src="http://i.imgur.com/DW5T3bM.png"><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Rock Type Banned<br>-Entry Hazards Banned');
+			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>-Rock Type Banned<br>-Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
