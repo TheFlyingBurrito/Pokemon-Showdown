@@ -1020,9 +1020,9 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Banned<br>- Only Pokemon from the UU tier allowed');
 		}
-		if (target === 'cv$h killv'){
+		if (target === 'obey'){
 			matched = true;
-			this.sendReplyBox('<b>cv$h killv</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass Banned');
+			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass Banned');
 		}		
 		if (target === ''){
 			}
