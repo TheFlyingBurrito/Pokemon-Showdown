@@ -1010,7 +1010,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Banned<br>- Batton Pass Banned');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Water Type Banned<br>- Batton Pass Banned');
 		}
 		if (target === 'xlr8r'){
 			matched = true;
