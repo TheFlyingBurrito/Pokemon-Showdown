@@ -998,7 +998,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: EricSaysHi<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
+			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
                 }
 		if (target === 'chinlar'){
 			matched = true;
