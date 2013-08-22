@@ -1002,7 +1002,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'windex drinker'){
 			matched = true;
-			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> Wins -  Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare, Thunder Wave Banned<br>- Entry Hazards Banned');
+			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare, Thunder Wave Banned<br>- Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
@@ -1010,7 +1010,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Batton Pass Banned');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 2 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Batton Pass Banned');
 		}
 		if (target === 'Frage'){
 			matched = true;
@@ -1018,11 +1018,11 @@ var commands = exports.commands = {
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
-			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Pokemon Banned<br>- Only Pokemon from the UU tier allowed');
+			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 7 Wins - 2 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Pokemon Banned<br>- Only Pokemon from the UU tier allowed');
 		}
 		if (target === 'obey'){
 			matched = true;
-			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
+			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 1 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
 		}		
 		if (target === ''){
 			}
