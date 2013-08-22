@@ -1000,9 +1000,9 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: XLR8R<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Chinlar<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
                 }
-		if (target === 'chinlar'){
+		if (target === 'windex drinker'){
 			matched = true;
-			this.sendReplyBox('<b>Chinlar</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 3 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Rock Type Pokemon Banned<br>- Entry Hazards Banned');
+			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 3 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare Banned<br>- Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
