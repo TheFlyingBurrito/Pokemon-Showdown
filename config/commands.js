@@ -1022,7 +1022,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'obey'){
 			matched = true;
-			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass Banned');
+			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
 		}		
 		if (target === ''){
 			}
