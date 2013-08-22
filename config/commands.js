@@ -1002,7 +1002,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'windex drinker'){
 			matched = true;
-			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> Wins -  Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare Banned<br>- Entry Hazards Banned');
+			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> Wins -  Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare, Thunder Wave Banned<br>- Entry Hazards Banned');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
