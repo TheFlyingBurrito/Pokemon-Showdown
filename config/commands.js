@@ -1012,7 +1012,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 2 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Batton Pass Banned');
 		}
-		if (target === 'Frage'){
+		if (target === 'frage'){
 			matched = true;
 			this.sendReplyBox('<b>Frage</b><br><br><b>Tier: Ubers</b><br><br><img src="http://i.imgur.com/zxTVEjc.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Best out of 3 singles battles<br>- Perish Song, Dual Screens, Baton Pass, and Arceus-Normal Banned');
 		}
