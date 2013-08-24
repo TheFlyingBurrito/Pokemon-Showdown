@@ -1059,7 +1059,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/lvrd Obey<br>Windex Drinker<br>Frage<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
+			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/lvrd Obey<br>Windex Drinker<br>Frage<br>Proffesor Shedinja<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
 		}
         },	
 		
