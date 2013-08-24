@@ -1022,6 +1022,29 @@ var commands = exports.commands = {
 		}
 	},
 	
+	challengerlist: 'challenger',
+        challengers: 'challenger',
+        challenger: function(target, room, user) {
+                if (!this.canBroadcast()) return;
+                target = target.toLowerCase();
+                var matched = false;
+                if (target === ''){
+                        matched = true;
+                        this.sendReplyBox('<b><font color="red">CHALLENGERS</font></b><br><br>EricSaysHi<br>Konata Test<br>Vileman<br><br><b><font color="green">Do /challenger [name] such as /challenger EricSaysHi to see their badge case and progress.<br><b><font color="purple">Update your badge progress to : The Flying Burrito. You will be considered as a challenger once you get your first full badge. ');
+                }
+                if (target === 'EricSaysHi'){
+                        matched = true;
+                        this.sendReplyBox('<b><font color="pink">EricSaysHi</b><br><br><b><img src="http://i.imgur.com/WsRxH6L.png"> ');
+                }
+                if (target === 'Vileman'){
+                        matched = true;
+                        this.sendReplyBox('<b><font color="brown">Vileman</b><br><br><b><img src=http://i.imgur.com/hUkStIH.png>');
+                }
+                if (target === 'Konata'){
+                        matched = true;
+                        this.sendReplyBox('<b><font color='purple'Konata</b><br><br><b>img src=http://i.imgur.com/hUkStIH.png>');
+                }
+         }'
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
