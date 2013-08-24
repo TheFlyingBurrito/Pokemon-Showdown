@@ -1012,7 +1012,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'obey'){
 			matched = true;
-			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
+			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 5 Wins - 0 Losses<br>Honored Status<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
 		}		
 		if (target === ''){
 			}
@@ -1034,7 +1034,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'ericsayshi'){
 			matched = true;
-			this.sendReplyBox('<b><font color="pink">EricSaysHi</b><br><br><b><img src="http://i.imgur.com/WsRxH6L.png"> ');
+			this.sendReplyBox('<b><font color="green">EricSaysHi</b><br><br><b><img src="http://i.imgur.com/WsRxH6L.png"> ');
 		}
 		if (target === 'vileman'){
 			matched = true;
