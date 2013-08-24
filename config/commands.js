@@ -1042,7 +1042,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'konata'){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">Konata</b><br><br><b>img src=http://i.imgur.com/hUkStIH.png>');
+			this.sendReplyBox('<b><font color="purple">Konata</b><br><br><b><img src=http://i.imgur.com/hUkStIH.png>');
 		}
 		if (target === ''){
 			}
