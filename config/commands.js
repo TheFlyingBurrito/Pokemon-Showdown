@@ -996,11 +996,11 @@ var commands = exports.commands = {
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 1 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Electabuzz Banned<br>- Baton Pass Banned (Full and Quick Passing)');
+			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 1 Wins - 2 Losses<br><br><b>Frontier Rules</b><br>- Electabuzz Banned<br>- Baton Pass Banned (Full and Quick Passing)');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Batton Pass Banned');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Baton Pass Banned');
 		}
 		if (target === 'frage'){
 			matched = true;
