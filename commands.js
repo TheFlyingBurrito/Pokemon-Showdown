@@ -751,13 +751,21 @@ var commands = exports.commands = {
 		}
 		this.logModCommand(user.name+' set modchat to '+room.modchat);
 	},
-
+	
+	dg: 'declare',
+        dr: 'declare',
 	declare: function(target, room, user) {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
 
 		if (!this.canTalk()) return;
-
+		
+		if (cmd === 'dr'){
+			this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
+		}
+		else if (cmd === 'dg'){
+			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
+		}
 		this.add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
 		this.logModCommand(user.name+' declared '+target);
 	},
