@@ -1052,7 +1052,7 @@ var commands = exports.commands = {
 		}
 	},		
 	
-	honorchallengerlist: 'honorchallengerlist',
+	hcl: 'honorchallengerlist',
         honorchallengerlist: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		target = target.toLowerCase();
