@@ -990,7 +990,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Azure/Red<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
                 }
-		if (target === 'Azure/Red'){
+		if (target === 'usurped azure'){
 			matched = true;
 			this.sendReplyBox('<b>Azure/Red</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves<br>-Best Out Of 3 Single Matches');
 		}
