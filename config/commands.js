@@ -988,11 +988,11 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Windex Drinker<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
+			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Azure/Red<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
                 }
-		if (target === 'windex drinker'){
+		if (target === 'Azure/Red'){
 			matched = true;
-			this.sendReplyBox('<b>Windex Drinker</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 1 Wins - 2 Losses<br><br><b>Frontier Rules</b><br>- Lilligant, Accelgor, Glare, Thunder Wave Banned<br>- Entry Hazards Banned');
+			this.sendReplyBox('<b>Azure/Red</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves<br>-Best Out Of 3 Single Matches');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
