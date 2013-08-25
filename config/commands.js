@@ -781,17 +781,17 @@ var commands = exports.commands = {
 		this.logModCommand(user.name+' globally declared '+target);
 	},
 
-	dr: 'dp',
-	dp: function(target, room, user, connection, cmd) {
+	dr: 'dg',
+	dg: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
 
 		if (!this.canTalk()) return;
 
-		if (cmd === 'dp'){
-			this.add('|raw|<div class="broadcast-purple"><b>'+target+'</b></div>');
+		if (cmd === 'dg'){
+			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
 		}
-		else if (cmd === 'dg'){
+		else if (cmd === 'dr'){
 			this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
 		}
 		this.logModCommand(user.name+' declared '+target);
