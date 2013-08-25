@@ -988,11 +988,11 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Azure/Red<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
+			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Usurped Azure<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
                 }
 		if (target === 'usurped azure'){
 			matched = true;
-			this.sendReplyBox('<b>Azure/Red</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves<br>-Best Out Of 3 Single Matches');
+			this.sendReplyBox('<b>Usurped Azure</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves<br>-Best Out Of 3 Single Matches');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
@@ -1059,7 +1059,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/Lvrd Obey<br>Windex Drinker<br>Frage<br>Professor Shedinja<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
+			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/Lvrd Obey<br>Windex Drinker<br>Frage<br>Professor Shedinja<br>Usurped Azure<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
 		}
         },	
 		
