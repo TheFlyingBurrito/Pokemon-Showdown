@@ -992,7 +992,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'usurped azure'){
 			matched = true;
-			this.sendReplyBox('<b>Usurped Azure</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves<br>-Best Out Of 3 Single Matches');
+			this.sendReplyBox('<b>Usurped Azure</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves[anything that inhibits a pokemons performance)<br>-Best Out Of 3 Single Matches');
 		}
 		if (target === 'nu king gary'){
 			matched = true;
