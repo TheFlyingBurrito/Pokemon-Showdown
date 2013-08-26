@@ -1008,7 +1008,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'the flying burrito'){
 			matched = true;
-			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 8 Wins - 3 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Pokemon Banned<br>- Only Pokemon from the UU tier allowed');
+			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 12 Wins - 6 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Pokemon Banned<br>- Only Pokemon from the UU tier allowed<br>- Piloswine Allowed');
 		}
 		if (target === 'obey'){
 			matched = true;
@@ -1034,7 +1034,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'ericsayshi'){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">EricSaysHi</b><br><br><b><img src="http://i.imgur.com/WsRxH6L.png"><img src="http://i.imgur.com/DW5T3bM.png"> ');
+			this.sendReplyBox('<b><font color="green">EricSaysHi</b><br><br><b><img src="http://i.imgur.com/WsRxH6L.png"><img src="http://i.imgur.com/DW5T3bM.png"><img src="http://i.imgur.com/hUkStIH.png"> ');
 		}
 		if (target === 'vileman'){
 			matched = true;
