@@ -996,7 +996,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'nu king gary'){
 			matched = true;
-			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 2 Wins - 4 Losses<br><br><b>Frontier Rules</b><br>- Electabuzz Banned<br>- Baton Pass Banned (Full and Quick Passing)');
+			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 2 Wins - 4 Losses<br><br><b>Frontier Rules</b><br>- Electabuzz and Liepard Banned<br>- Baton Pass Banned (Full and Quick Passing)');
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
