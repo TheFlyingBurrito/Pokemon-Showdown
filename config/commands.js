@@ -1044,7 +1044,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b><font color="purple">Konata</b><br><br><b><img src=http://i.imgur.com/hUkStIH.png>');
 		}
-		if (target === 'XLR8R'){
+		if (target === 'xlr8r'){
 			matched = true;
 			this.sendReplyBox('<b><font color="red">XLR8R</b><br<br><img src=http://i.imgur.com/q5jPwcw.png><img src=http://i.imgur.com/hUkStIH.png>')
 		}
