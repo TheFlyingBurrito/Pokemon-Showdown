@@ -1046,13 +1046,13 @@ var commands = exports.commands = {
 		}
 		if (target === 'XLR8R'){
 			matched = true;
-			this.sendReplyBox('<b><font color="green">XLR8R</b><br<br><img src=http://i.imgur.com/q5jPwcw.png><img src=http://i.imgur.com/hUkStIH.png>')
+			this.sendReplyBox('<b><font color="red">XLR8R</b><br<br><img src=http://i.imgur.com/q5jPwcw.png><img src=http://i.imgur.com/hUkStIH.png>')
 		}
 		if (target === ''){
 			}
 		else if (!matched) {
 
-			this.sendReply('The user '+target+' is not a Frontier Brain.');
+			this.sendReply('The user '+target+' is not a Challenger.');
 		}
 	},		
 	
