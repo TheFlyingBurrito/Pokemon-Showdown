@@ -762,8 +762,8 @@ var commands = exports.commands = {
 		this.logModCommand(user.name+' declared '+target);
 	},
 	
-	gd: function(target, room, user) {
-		if (!target) return this.sendReply('/gd - Declares a message in all chatrooms. Requires & ~');
+	declarez: function(target, room, user) {
+		if (!target) return this.sendReply('/declarez - Declares a message in all chatrooms. Requires & ~');
 		if (!this.can('declare')) return;
 
 		if (!this.canTalk()) return;
