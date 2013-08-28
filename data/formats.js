@@ -1,4 +1,4 @@
-﻿exports.BattleFormats = {
+exports.BattleFormats = {
 
 	// Singles
 	///////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@
 		searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Drizzle', 'Drought', 'Sand Stream', 'Snow Warning']
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
 	oususpecttest: {
 		name: "OU (suspect test)",

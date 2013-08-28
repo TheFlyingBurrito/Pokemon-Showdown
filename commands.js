@@ -11,11 +11,9 @@
  * @license MIT license
  */
 
-
 var crypto = require('crypto');
 
 var commands = exports.commands = {
-
 
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
@@ -112,7 +110,7 @@ var commands = exports.commands = {
 			return this.sendReply("The room '"+target+"' already exists.");
 		}
 		if (Rooms.global.addChatRoom(target)) {
-		        return this.sendReply("The room '"+target+"' was created.");
+			return this.sendReply("The room '"+target+"' was created.");
 		}
 		return this.sendReply("An error occurred while trying to create the room '"+target+"'.");
 	},
@@ -328,9 +326,6 @@ var commands = exports.commands = {
 			// This condition appears to be impossible for now.
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
-		if (room.id == "lobby") {
-			this.sendReplyBox('Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here.</b>');
-		}
 	},
 
 	leave: 'part',
@@ -346,22 +341,9 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Moderating: Punishments
 	 *********************************************************/
-	 
-        k: 'kick',
-	kick: function(target, room, user) {
-		if (!target) return this.parse('/help kick');
 
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-		if (!targetUser || !targetUser.connected) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-		if (!this.can('warn', targetUser)) return false;
-		if (room.type === 'battle' && !this.can('forcerenameto', targetUser)) return false;
-		this.addModCommand('' + targetUser.name + ' was kicked from the room by ' + user.name + '.' + (target ? " (" + target + ")" : ""));
-		targetUser.leaveRoom(room);
-	},
-
+	kick: 'warn',
+	k: 'warn',
 	warn: function(target, room, user) {
 		if (!target) return this.parse('/help warn');
 
@@ -603,48 +585,8 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Moderating: Other
 	 *********************************************************/
-	 
-	fbi: function(target, room, user){
-		if(!user.can('fbi'))
-			return this.sendReply( '/fbi - access denied.');
-		
-		var tar = ' ';
-		if(target){
-			target = target.trim();
-			if(config.groupsranking.indexOf(target) > -1){
-				if( config.groupsranking.indexOf(target) <= config.groupsranking.indexOf(user.group)){
-					tar = target;
-				}else{
-					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \' \' instead.');
-				}
-			}else{
-				this.sendReply('You have tried to use an invalid character as your auth symbol. Defaulting to \' \' instead.');
-			}
-		}
 	
-		user.getIdentity = function(){
-			if(this.muted)
-				return '!' + this.name;
-			if(this.locked)
-				return '#' + this.name;
-			return tar + this.name;
-		};
-		user.updateIdentity();
-		this.sendReply( 'You are now hiding your auth symbol as \''+tar+ '\'.');
-		return this.logModCommand(user.name + ' is hiding auth symbol as \''+ tar + '\'');
-	},
-	
-	unfbi: function(target, room, user){
-		if(!user.can('fbi'))
-			return	this.sendReply( '/unfbi - access denied.');
-		
-		delete user.getIdentity;
-		user.updateIdentity();
-		this.sendReply('You have now revealed your auth symbol.');
-		return this.logModCommand(user.name + ' has revealed their auth symbol.');
-	},
-
- 	modnote: function(target, room, user, connection, cmd) {
+	modnote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help note');
 		if (!this.can('mute')) return false;
 		return this.privateModCommand('(' + user.name + ' notes: ' + target + ')');
@@ -758,23 +700,10 @@ var commands = exports.commands = {
 
 		if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
+		this.add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
 		this.logModCommand(user.name+' declared '+target);
 	},
-	
-	declarez: function(target, room, user) {
-		if (!target) return this.sendReply('/declarez - Declares a message in all chatrooms. Requires & ~');
-		if (!this.can('declare')) return;
 
-		if (!this.canTalk()) return;
-
-		for (var r in Rooms.rooms) {
-			if (Rooms.rooms[r].type === 'chat') Rooms.rooms[r].add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
-		}
-
-		this.logModCommand(user.name+' declared '+target+' to all rooms.');
-	},
-	
 	wall: 'announce',
 	announce: function(target, room, user) {
 		if (!target) return this.parse('/help announce');
