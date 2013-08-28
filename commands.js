@@ -585,46 +585,7 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Moderating: Other
 	 *********************************************************/
-	 
-	fbi: function(target, room, user){
-		if(!user.can('fbi'))
-			return this.sendReply( '/fbi - access denied.');
 
-		var tar = ' ';
-		if(target){
-			target = target.trim();
-			if(config.groupsranking.indexOf(target) > -1){
-				if( config.groupsranking.indexOf(target) <= config.groupsranking.indexOf(user.group)){
-					tar = target;
-				}else{
-					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \' \' instead.');
-				}
-			}else{
-				this.sendReply('You have tried to use an invalid character as your auth symbol. Defaulting to \' \' instead.');
-			}
-		}
-
-		user.getIdentity = function(){
-			if(this.muted)
-				return '!' + this.name;
-			if(this.locked)
-				return '#' + this.name;
-			return tar + this.name;
-		};
-		user.updateIdentity();
-		this.sendReply( 'You are now hiding your auth symbol as \''+tar+ '\'.');
-		return this.logModCommand(user.name + ' is hiding auth symbol as \''+ tar + '\'');
-	},
-
-	unfbi: function(target, room, user){
-		if(!user.can('fbi'))
-			return	this.sendReply( '/unfbi - access denied.');
-
-		delete user.getIdentity;
-		user.updateIdentity();
-		this.sendReply('You have now revealed your auth symbol.');
-		return this.logModCommand(user.name + ' has revealed their auth symbol.');
-	},
 	modnote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help note');
 		if (!this.can('mute')) return false;
