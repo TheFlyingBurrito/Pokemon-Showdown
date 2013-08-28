@@ -761,7 +761,20 @@ var commands = exports.commands = {
 		this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
 		this.logModCommand(user.name+' declared '+target);
 	},
+	
+	gd: function(target, room, user) {
+		if (!target) return this.sendReply('/gd - Declares a message in all chatrooms. Requires & ~');
+		if (!this.can('declare')) return;
 
+		if (!this.canTalk()) return;
+
+		for (var r in Rooms.rooms) {
+			if (Rooms.rooms[r].type === 'chat') Rooms.rooms[r].add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
+		}
+
+		this.logModCommand(user.name+' declared '+target+' to all rooms.');
+	},
+	
 	wall: 'announce',
 	announce: function(target, room, user) {
 		if (!target) return this.parse('/help announce');
