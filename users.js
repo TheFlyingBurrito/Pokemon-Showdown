@@ -494,7 +494,7 @@ var User = (function () {
 				}
 			}
 			if (userid === this.userid && !auth) {
-				return this.forceRename(name, this.authenticated);
+				return this.forceRename(name, this.authenticated, this.forceRenamed);
 			}
 		}
 		if (users[userid] && !users[userid].authenticated && users[userid].connected && !auth) {
@@ -850,7 +850,7 @@ var User = (function () {
 		if (typeof mmr === 'number') {
 			this.mmrCache[formatid] = mmr;
 		} else {
-			this.mmrCache[formatid] = (parseInt(mmr.r,10) + parseInt(mmr.rpr,10))/2;
+			this.mmrCache[formatid] = Math.floor((Number(mmr.rpr)*2+Number(mmr.r))/3);
 		}
 	};
 	User.prototype.mute = function(roomid, time, force, noRecurse) {
@@ -914,7 +914,12 @@ var User = (function () {
 		room = Rooms.get(room);
 		if (!room) return false;
 		if (room.staffRoom && !this.isStaff) return false;
-		//console.log('JOIN ROOM: '+this.userid+' '+room.id);
+		if (this.userid && room.bannedUsers && this.userid in room.bannedUsers) return false;
+		if (this.ips && room.bannedIps) {
+			for (var ip in this.ips) {
+				if (ip in room.bannedIps) return false;
+			}
+		}
 		if (!connection) {
 			for (var i=0; i<this.connections.length;i++) {
 				// only join full clients, not pop-out single-room

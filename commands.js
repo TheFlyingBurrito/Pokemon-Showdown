@@ -21,14 +21,16 @@ var commands = exports.commands = {
 	},
 
 	me: function(target, room, user, connection) {
-		target = this.canTalk(target);
+		// By default, /me allows a blank message
+		if (target) target = this.canTalk(target);
 		if (!target) return;
 
 		return '/me ' + target;
 	},
 
 	mee: function(target, room, user, connection) {
-		target = this.canTalk(target);
+		// By default, /mee allows a blank message
+		if (target) target = this.canTalk(target);
 		if (!target) return;
 
 		return '/mee ' + target;
@@ -151,7 +153,7 @@ var commands = exports.commands = {
 
 	roomowner: function(target, room, user) {
 		if (!room.chatRoomData) {
-			this.sendReply("/roommod - This room isn't designed for per-room moderation to be added");
+			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
 		}
 		var target = this.splitTarget(target, true);
 		var targetUser = this.targetUser;
@@ -172,7 +174,7 @@ var commands = exports.commands = {
 	roomdeowner: 'deroomowner',
 	deroomowner: function(target, room, user) {
 		if (!room.auth) {
-			this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
 		}
 		var target = this.splitTarget(target, true);
 		var targetUser = this.targetUser;
@@ -314,18 +316,92 @@ var commands = exports.commands = {
 	},
 
 	join: function(target, room, user, connection) {
+		if (!target) return false;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (target && !targetRoom) {
+		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
 		}
-		if (targetRoom && targetRoom.isPrivate && !user.named) {
+		if (targetRoom.isPrivate && !user.named) {
 			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '"+target+"'.");
 		}
 		if (!user.joinRoom(targetRoom || room, connection)) {
-			// This condition appears to be impossible for now.
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
+	},
+
+	roomban: function(target, room, user, connection) {
+		if (!target) return this.parse('/help roomban');
+		target = this.splitTarget(target, true);
+		var targetUser = this.targetUser;
+		var name = this.targetUsername;
+		var userid = toId(name);
+		if (!userid || !targetUser) return this.sendReply("User '" + name + "' does not exist.");
+		if (!this.can('ban', targetUser, room)) return false;
+		if (!Rooms.rooms[room.id].users[userid]) {
+			return this.sendReply('User ' + this.targetUsername + ' is not in the room ' + room.id + '.');
+		}
+		if (!room.bannedUsers || !room.bannedIps) {
+			return this.sendReply('Room bans are not meant to be used in room ' + room.id + '.');
+		}
+		room.bannedUsers[userid] = true;
+		for (var ip in targetUser.ips) {
+			room.bannedIps[ip] = true;
+		}
+		targetUser.popup(user.name+" has banned you from the room " + room.id + "." + (target ? " (" + target + ")" : ""));
+		this.addModCommand(""+targetUser.name+" was banned from room " + room.id + " by "+user.name+"." + (target ? " (" + target + ")" : ""));
+		var alts = targetUser.getAlts();
+		if (alts.length) {
+			this.addModCommand(""+targetUser.name+"'s alts were also banned from room " + room.id + ": "+alts.join(", "));
+			for (var i = 0; i < alts.length; ++i) {
+				var altId = toId(alts[i]);
+				this.add('|unlink|' + altId);
+				room.bannedUsers[altId] = true;
+			}
+		}
+		this.add('|unlink|' + targetUser.userid);
+		targetUser.leaveRoom(room.id);
+	},
+
+	roomunban: function(target, room, user, connection) {
+		if (!target) return this.parse('/help roomunban');
+		target = this.splitTarget(target, true);
+		var targetUser = this.targetUser;
+		var name = this.targetUsername;
+		var userid = toId(name);
+		if (!userid || !targetUser) return this.sendReply("User '"+name+"' does not exist.");
+		if (!this.can('ban', targetUser, room)) return false;
+		if (!room.bannedUsers || !room.bannedIps) {
+			return this.sendReply('Room bans are not meant to be used in room ' + room.id + '.');
+		}
+		if (room.bannedUsers[userid]) delete room.bannedUsers[userid];
+		for (var ip in targetUser.ips) {
+			if (room.bannedIps[ip]) delete room.bannedIps[ip];
+		}
+		targetUser.popup(user.name+" has unbanned you from the room " + room.id + ".");
+		this.addModCommand(""+targetUser.name+" was unbanned from room " + room.id + " by "+user.name+".");
+		var alts = targetUser.getAlts();
+		if (alts.length) {
+			this.addModCommand(""+targetUser.name+"'s alts were also unbanned from room " + room.id + ": "+alts.join(", "));
+			for (var i = 0; i < alts.length; ++i) {
+				var altId = toId(alts[i]);
+				if (room.bannedUsers[altId]) delete room.bannedUsers[altId];
+			}
+		}
+	},
+
+	roomauth: function(target, room, user, connection) {
+		if (!room.auth) return this.sendReply("/roomauth - This room isn't designed for per-room moderation and therefor has no auth list.");
+		var buffer = [];
+		for (var u in room.auth) {
+			buffer.push(room.auth[u] + u);
+		}
+		if (buffer.length > 0) {
+			buffer = buffer.join(', ');
+		} else {
+			buffer = 'This room has no auth.';
+		}
+		connection.popup(buffer);
 	},
 
 	leave: 'part',
@@ -363,7 +439,7 @@ var commands = exports.commands = {
 
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
-		if (!target) return this.parse('/help redir');
+		if (!target) return this.parse('/help redirect');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
@@ -375,15 +451,15 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (Rooms.rooms[targetRoom.id].users[targetUser.userid]) {
-			return this.sendReply("The player " + targetUser.name + " is already in the room " + target + "!");	
+			return this.sendReply("User " + targetUser.name + " is already in the room " + target + "!");
 		}
 		if (!Rooms.rooms[room.id].users[targetUser.userid]) {
 			return this.sendReply('User '+this.targetUsername+' is not in the room ' + room.id + '.');
 		}
+		if (targetUser.joinRoom(target) === false) return this.sendReply('User "' + targetUser.name + '" could not be joined to room ' + target + '. They could be banned from the room.');
 		var roomName = (targetRoom.isPrivate)? 'a private room' : 'room ' + target;
 		this.addModCommand(targetUser.name + ' was redirected to ' + roomName + ' by ' + user.name + '.');
 		targetUser.leaveRoom(room);
-		targetUser.joinRoom(target);
 	},
 
 	m: 'mute',
@@ -437,7 +513,7 @@ var commands = exports.commands = {
 
 	um: 'unmute',
 	unmute: function(target, room, user) {
-		if (!target) return this.parse('/help something');
+		if (!target) return this.parse('/help unmute');
 		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
 		if (!targetUser) {
@@ -591,7 +667,7 @@ var commands = exports.commands = {
 		if (!this.can('mute')) return false;
 		return this.privateModCommand('(' + user.name + ' notes: ' + target + ')');
 	},
-	
+
 	demote: 'promote',
 	promote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help promote');
@@ -606,7 +682,7 @@ var commands = exports.commands = {
 		} else if (Users.usergroups[userid]) {
 			currentGroup = Users.usergroups[userid].substr(0,1);
 		}
-		
+
 		var nextGroup = target ? target : Users.getNextGroupSymbol(currentGroup, cmd === 'demote', true);
 		if (target === 'deauth') nextGroup = config.groupsranking[0];
 		if (!config.groups[nextGroup]) {
@@ -761,7 +837,7 @@ var commands = exports.commands = {
 	modlog: function(target, room, user, connection) {
 		if (!this.can('modlog')) return false;
 		var lines = 0;
-		if (!target.match('[^0-9]')) { 
+		if (!target.match('[^0-9]')) {
 			lines = parseInt(target || 15, 10);
 			if (lines > 100) lines = 100;
 		}
@@ -868,7 +944,7 @@ var commands = exports.commands = {
 		if (this.can('hotpatch')) return false;
 		fs.writeFile('data/learnsets.js', 'exports.BattleLearnsets = '+JSON.stringify(BattleLearnsets)+";\n");
 		this.sendReply('learnsets.js saved.');
-	},	
+	},
 
 	disableladder: function(target, room, user) {
 		if (!this.can('disableladder')) return false;
@@ -916,6 +992,34 @@ var commands = exports.commands = {
 
 		this.logEntry(user.name + ' used /endlockdown');
 
+	},
+
+	emergency: function(target, room, user) {
+		if (!this.can('lockdown')) return false;
+
+		if (config.emergency) {
+			return this.sendReply("We're already in emergency mode.");
+		}
+		config.emergency = true;
+		for (var id in Rooms.rooms) {
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-red">The server has entered emergency mode. Some features might be disabled or limited.</div>');
+		}
+
+		this.logEntry(user.name + ' used /emergency');
+	},
+
+	endemergency: function(target, room, user) {
+		if (!this.can('lockdown')) return false;
+
+		if (!config.emergency) {
+			return this.sendReply("We're not in emergency mode.");
+		}
+		config.emergency = false;
+		for (var id in Rooms.rooms) {
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-green"><b>The server is no longer in emergency mode.</b></div>');
+		}
+
+		this.logEntry(user.name + ' used /endemergency');
 	},
 
 	kill: function(target, room, user) {
@@ -1048,6 +1152,69 @@ var commands = exports.commands = {
 			Rooms.lobby.addRaw('<div class="broadcast-green"><b>We have logged the crash and are working on fixing it!</b><br />You may resume talking in the lobby and starting new battles.</div>');
 		}
 		this.logEntry(user.name + ' used /crashlogged');
+	},
+
+	'memusage': 'memoryusage',
+	memoryusage: function(target) {
+		if (!this.can('hotpatch')) return false;
+		target = toId(target) || 'all';
+		if (target === 'all') {
+			this.sendReply('Loading memory usage, this might take a while.');
+		}
+		if (target === 'all' || target === 'rooms' || target === 'room') {
+			this.sendReply('Calcualting Room size...');
+			var roomSize = ResourceMonitor.sizeOfObject(Rooms);
+			this.sendReply("Rooms are using " + roomSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'config') {
+			this.sendReply('Calculating config size...');
+			var configSize = ResourceMonitor.sizeOfObject(config);
+			this.sendReply("Config is using " + configSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'resourcemonitor' || target === 'rm') {
+			this.sendReply('Calculating Resource Monitor size...');
+			var rmSize = ResourceMonitor.sizeOfObject(ResourceMonitor);
+			this.sendReply("The Resource Monitor is using " + rmSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'apps' || target === 'app' || target === 'serverapps') {
+			this.sendReply('Calculating Server Apps size...');
+			var appSize = ResourceMonitor.sizeOfObject(App) + ResourceMonitor.sizeOfObject(AppSSL) + ResourceMonitor.sizeOfObject(Server);
+			this.sendReply("Server Apps are using " + appSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'cmdp' || target === 'cp' || target === 'commandparser') {
+			this.sendReply('Calculating Command Parser size...');
+			var cpSize = ResourceMonitor.sizeOfObject(CommandParser);
+			this.sendReply("Command Parser is using " + cpSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'sim' || target === 'simulator') {
+			this.sendReply('Calculating Simulator size...');
+			var simSize = ResourceMonitor.sizeOfObject(Simulator);
+			this.sendReply("Simulator is using " + simSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'users') {
+			this.sendReply('Calculating Users size...');
+			var usersSize = ResourceMonitor.sizeOfObject(Users);
+			this.sendReply("Users is using " + usersSize + " bytes of memory.");
+		}
+		if (target === 'all' || target === 'tools') {
+			this.sendReply('Calculating Tools size...');
+			var toolsSize = ResourceMonitor.sizeOfObject(Tools);
+			this.sendReply("Tools are using " + toolsSize + " bytes of memory.");
+		}
+		if (target === 'all') {
+			this.sendReply('Calculating Total size...');
+			var total = (roomSize + configSize + rmSize + appSize + cpSize + simSize + toolsSize + usersSize) || 0;
+			var units = ['bytes', 'K', 'M', 'G'];
+			var converted = total;
+			var unit = 0;
+			while (converted > 1024) {
+				converted /= 1024;
+				unit++;
+			}
+			converted = Math.round(converted);
+			this.sendReply("Total memory used: " + converted + units[unit] + " (" + total + " bytes).");
+		}
+		return;
 	},
 
 	eval: function(target, room, user, connection, cmd, message) {
@@ -1308,6 +1475,9 @@ var commands = exports.commands = {
 
 	cmd: 'query',
 	query: function(target, room, user, connection) {
+		// Avoid guest users to use the cmd errors to ease the app-layer attacks in emergency mode
+		var trustable = (!config.emergency || (user.named && user.authenticated));
+		if (config.emergency && ResourceMonitor.countCmd(connection.ip, user.name)) return false;
 		var spaceIndex = target.indexOf(' ');
 		var cmd = target;
 		if (spaceIndex > 0) {
@@ -1319,7 +1489,7 @@ var commands = exports.commands = {
 		if (cmd === 'userdetails') {
 
 			var targetUser = Users.get(target);
-			if (!targetUser) {
+			if (!trustable || !targetUser) {
 				connection.send('|queryresponse|userdetails|'+JSON.stringify({
 					userid: toId(target),
 					rooms: false
@@ -1356,13 +1526,13 @@ var commands = exports.commands = {
 			connection.send('|queryresponse|userdetails|'+JSON.stringify(userdetails));
 
 		} else if (cmd === 'roomlist') {
-
+			if (!trustable) return false;
 			connection.send('|queryresponse|roomlist|'+JSON.stringify({
 				rooms: Rooms.global.getRoomList(true)
 			}));
 
 		} else if (cmd === 'rooms') {
-
+			if (!trustable) return false;
 			connection.send('|queryresponse|rooms|'+JSON.stringify(
 				Rooms.global.getRooms()
 			));
