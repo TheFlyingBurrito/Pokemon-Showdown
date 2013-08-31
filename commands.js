@@ -315,19 +315,23 @@ var commands = exports.commands = {
 		Rooms.global.autojoinRooms(user, connection)
 	},
 
-	join: function(target, room, user, connection) {
-		if (!target) return false;
-		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (!targetRoom) {
-			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
-			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
-		}
-		if (targetRoom.isPrivate && !user.named) {
-			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '"+target+"'.");
-		}
-		if (!user.joinRoom(targetRoom || room, connection)) {
-			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
-		}
+	join: function (target, room, user, connection) {
+                var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
+                if (target && !targetRoom) {
+                        if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
+                        return connection.sendTo(target, "|noinit|nonexistent|La sala '"+target+"' no existe.");
+                }
+                if (targetRoom && targetRoom.isPrivate && !user.named) {
+                        return connection.sendTo(target, "|noinit|namerequired|Nesecitas haber tomado un nombre para entrar a la sala '"+target+"'.");
+                }
+                if (!user.joinRoom(targetRoom || room, connection)) {
+                        // This condition appears to be impossible for now.
+                        return connection.sendTo(target, "|noinit|joinfailed|La sala '"+target+"' no pudo ser encontrada.");
+                }
+                if (room.id == "lobby" && !user.welcomed) {
+                user.welcomed = true;
+                  this.sendReply('|raw|<div class="broadcast-blue">Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here.</b></div>');
+         }
 	},
 
 	roomban: function(target, room, user, connection) {
