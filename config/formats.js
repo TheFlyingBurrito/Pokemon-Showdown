@@ -8,7 +8,7 @@ exports.Formats = [
 
 	{
 		name: "Random Battle",
-		section: "Parukia",
+		section: "Singles",
 
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod']
