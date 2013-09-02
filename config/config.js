@@ -150,6 +150,7 @@ exports.customavatars = {
         'dazel': 'dazel.gif',
         'isseihyodo': 'nojustno1.gif',
         'theflyingburrito': 'tacoses.gif',
+        'professorshedinja': 'shed.png',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
