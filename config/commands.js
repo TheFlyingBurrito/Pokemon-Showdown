@@ -1001,7 +1001,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'gamebreaker'){
 			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Water Type Pokemon Banned<br>- Baton Pass Banned');
+			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- No More than 1 Pokemon of the Same Species<br>- Baton Pass Banned');
 		}
 		if (target === 'frage'){
 			matched = true;
