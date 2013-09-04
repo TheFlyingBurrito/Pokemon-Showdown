@@ -257,6 +257,11 @@ var commands = exports.commands = {
 		}
 		if (target === "professor shedinja") {
 			data = "The coolest guy here :D"
+			
+		}
+		if (target === "windex drinker") {
+			data = "Loves Cats"
+			
 		}
 		if (pokemon.exists) {
 			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
