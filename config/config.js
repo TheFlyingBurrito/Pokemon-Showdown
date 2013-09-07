@@ -152,7 +152,7 @@ exports.customavatars = {
         'theflyingburrito': 'tacoses.gif',
         'professorshedinja': 'shed.png',
         'professoroakjr': 'oak.gif',
-        'CupCAKE4pikagirl': 'sky.jpg',
+        'CupCAKE4pikagirl': 'oak.gif',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
