@@ -372,7 +372,7 @@ var commands = exports.commands = {
 		if (all && count === 0) return this.sendReply('No search parameters other than "all" were found.\nTry "/help dexsearch" for more information on this command.');
 
 		while (count > 0) {
-			--count;
+			count--;
 			var tempResults = [];
 			if (!results) {
 				for (var pokemon in Tools.data.Pokedex) {
@@ -716,6 +716,10 @@ var commands = exports.commands = {
 			matched = true;
 			buffer += '- <a href="http://www.smogon.com/sim/seasonal">Seasonal Ladder</a><br />';
 		}
+		if (target === 'all' || target === 'stabmons') {
+			matched = true;
+			buffer += '- <a href="http://www.smogon.com/forums/threads/3484106/">STABmons</a>';
+		}
 		if (target === 'all' || target === 'vgc2013' || target === 'vgc') {
 			matched = true;
 			buffer += '- <a href="http://www.smogon.com/forums/threads/3471161/">VGC 2013</a><br />';
@@ -747,6 +751,8 @@ var commands = exports.commands = {
 			'- /deroommod <em>username</em>: remove a room moderator<br />' +
 			'- /declare <em>message</em>: make a global declaration<br />' +
 			'- /modchat <em>level</em>: set modchat (to turn off: /modchat off)<br />' +
+			'- /roomban <em>username</em>: bans user from the room<br />' +
+			'- /roomunban <em>username</em>: unbans user from the room<br />' +
 			'</div>');
 	},
 
@@ -1261,6 +1267,14 @@ var commands = exports.commands = {
 			this.sendReply('/dexsearch [type], [move], [move],...');
 			this.sendReply('The order of the parameters does not matter.');
 		}
+		if (target === 'all' || target === 'join') {
+			matched = true;
+			this.sendReply('/join [roomname] - Attempts to join the room [roomname].');
+		}
+		if (target === '%' || target === 'invite') {
+			matched = true;
+			this.sendReply('/invite [username], [roomname] - Invites the player [username] to join the room [roomname].');
+		}
 		if (target === '%' || target === 'roomban') {
 			matched = true;
 			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: % @ & ~');
@@ -1268,6 +1282,10 @@ var commands = exports.commands = {
 		if (target === '%' || target === 'roomunban') {
 			matched = true;
 			this.sendReply('/roomunban [username] - Unbans the user from the room you are in. Requires: % @ & ~');
+		}
+		if (target === '%' || target === 'redirect' || target === 'redir') {
+			matched = true;
+			this.sendReply('/redirect or /redir [username], [roomname] - Attempts to redirect the user [username] to the room [roomname]. Requires: % @ & ~');
 		}
 		if (target === '%' || target === 'modnote') {
 			matched = true;
@@ -1288,6 +1306,10 @@ var commands = exports.commands = {
 		if (target === '@' || target === 'ban' || target === 'b') {
 			matched = true;
 			this.sendReply('/ban OR /b [username], [reason] - Kick user from all rooms and ban user\'s IP address with reason. Requires: @ & ~');
+		}
+		if (target === '&' || target === 'banip') {
+			matched = true;
+			this.sendReply('/banip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~');
 		}
 		if (target === '@' || target === 'unban') {
 			matched = true;
@@ -1342,17 +1364,13 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/declare [message] - Anonymously announces a message. Requires: & ~');
 		}
-		if (target === '&' || target === 'potd' ) {
-			matched = true;
-			this.sendReply('/potd [pokemon] - Sets the Random Battle Pokemon of the Day. Requires: & ~');
-		}
 		if (target === '%' || target === 'announce' || target === 'wall' ) {
 			matched = true;
 			this.sendReply('/announce OR /wall [message] - Makes an announcement. Requires: % @ & ~');
 		}
 		if (target === '@' || target === 'modchat') {
 			matched = true;
-			this.sendReply('/modchat [off/registered/+/%/@/&/~] - Set the level of moderated chat. Requires: @ & ~');
+			this.sendReply('/modchat [off/+/%/@/&/~] - Set the level of moderated chat. Requires: @ for off/+ options, & ~ for all the options');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
@@ -1370,6 +1388,30 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/kill - kills the server. Can\'t be done unless the server is in lockdown state. Requires: ~');
 		}
+		if (target === '~' || target === 'loadbanlist') {
+			matched = true;
+			this.sendReply('/loadbanlist - Loads the bans located at ipbans.txt. The command is executed automatically at startup. Requires: ~');
+		}
+		if (target === '~' || target === 'makechatroom') {
+			matched = true;
+			this.sendReply('/makechatroom [roomname] - Creates a new room named [roomname]. Requires: ~');
+		}
+		if (target === '~' || target === 'deregisterchatroom') {
+			matched = true;
+			this.sendReply('/deregisterchatroom [roomname] - Deletes room [roomname] after the next server restart. Requires: ~');
+		}
+		if (target === '~' || target === 'roomowner') {
+			matched = true;
+			this.sendReply('/roomowner [username] - Appoints [username] as a room owner. Removes official status. Requires: ~');
+		}
+		if (target === '~' || target === 'roomdeowner') {
+			matched = true;
+			this.sendReply('/roomdeowner [username] - Removes [username]\'s status as a room owner. Requires: ~');
+		}
+		if (target === '~' || target === 'privateroom') {
+			matched = true;
+			this.sendReply('/privateroom [on/off] - Makes or unmakes a room private. Requires: ~');
+		}
 		if (target === 'all' || target === 'help' || target === 'h' || target === '?' || target === 'commands') {
 			matched = true;
 			this.sendReply('/help OR /h OR /? - Gives you help.');
@@ -1377,6 +1419,7 @@ var commands = exports.commands = {
 		if (!target) {
 			this.sendReply('COMMANDS: /msg, /reply, /ip, /rating, /nick, /avatar, /rooms, /whois, /help, /away, /back, /timestamps');
 			this.sendReply('INFORMATIONAL COMMANDS: /data, /groups, /opensource, /avatars, /faq, /rules, /intro, /tiers, /othermetas, /learn, /analysis, /calc (replace / with ! to broadcast. (Requires: + % @ & ~))');
+			this.sendReply('For details on all room commands, use /roomhelp');
 			this.sendReply('For details on all commands, use /help all');
 			if (user.group !== config.groupsranking[0]) {
 				this.sendReply('DRIVER COMMANDS: /mute, /unmute, /announce, /forcerename, /alts')

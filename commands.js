@@ -93,6 +93,9 @@ var commands = exports.commands = {
 		if (targetUser.locked && !user.can('lock', targetUser)) {
 			return this.popupReply('This user is locked and cannot PM.');
 		}
+		if (targetUser.ignorePMs && !user.can('lock', targetUser) && (!targetUser.can('lock') || targetUser.can('hotpatch'))) {
+			return this.popupReply('This user is blocking Private Messages right now.');
+		}
 
 		target = this.canTalk(target, null);
 		if (!target) return false;
@@ -102,6 +105,25 @@ var commands = exports.commands = {
 		if (targetUser !== user) targetUser.send(message);
 		targetUser.lastPM = user.userid;
 		user.lastPM = targetUser.userid;
+	},
+
+	blockpm: 'ignorepms',
+	blockpms: 'ignorepms',
+	ignorepm: 'ignorepms',
+	ignorepms: function(target, room, user) {
+		if (user.ignorePMs) return this.sendReply('You are already blocking Private Messages!');
+		if (user.can('lock') && !user.can('hotpatch')) return this.sendReply('You are not allowed to block Private Messages.');
+		user.ignorePMs = true;
+		return this.sendReply('You are now blocking Private Messages.');
+	},
+
+	unblockpm: 'unignorepms',
+	unblockpms: 'unignorepms',
+	unignorepm: 'unignorepms',
+	unignorepms: function(target, room, user) {
+		if (!user.ignorePMs) return this.sendReply('You are not blocking Private Messages!');
+		user.ignorePMs = false;
+		return this.sendReply('You are no longer blocking Private Messages.');
 	},
 
 	makechatroom: function(target, room, user) {
@@ -171,6 +193,7 @@ var commands = exports.commands = {
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
+	
 	roomdeowner: 'deroomowner',
 	deroomowner: function(target, room, user) {
 		if (!room.auth) {
@@ -518,7 +541,6 @@ var commands = exports.commands = {
 	um: 'unmute',
 	unmute: function(target, room, user) {
 		if (!target) return this.parse('/help unmute');
-		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
 		if (!targetUser) {
 			return this.sendReply('User '+target+' not found.');
@@ -776,7 +798,10 @@ var commands = exports.commands = {
 		if (!target) {
 			return this.sendReply('Moderated chat is currently set to: '+room.modchat);
 		}
-		if (!this.can('modchat', null, room) || !this.canTalk()) return false;
+		if (!this.can('modchat', null, room)) return false;
+		if (room.modchat && config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
+			return this.sendReply('/modchat - Access denied for removing a setting higher than ' + config.groupsranking[1] + '.');
+		}
 
 		target = target.toLowerCase();
 		switch (target) {
@@ -784,8 +809,7 @@ var commands = exports.commands = {
 		case 'true':
 		case 'yes':
 		case 'registered':
-			this.sendReply("Modchat registered has been removed.");
-			this.sendReply("If you're dealing with a spammer, make sure to run /loadbanlist.");
+			this.sendReply("Modchat registered is no longer available.");
 			return false;
 			break;
 		case 'off':
@@ -797,7 +821,7 @@ var commands = exports.commands = {
 			if (!config.groups[target]) {
 				return this.parse('/help modchat');
 			}
-			if (config.groupsranking.indexOf(target) > 1 && !user.can('modchatall')) {
+			if (config.groupsranking.indexOf(target) > 1 && !user.can('modchatall', null, room)) {
 				return this.sendReply('/modchat - Access denied for setting higher than ' + config.groupsranking[1] + '.');
 			}
 			room.modchat = target;
