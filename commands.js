@@ -847,7 +847,20 @@ var commands = exports.commands = {
 		this.add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
 		this.logModCommand(user.name+' declared '+target);
 	},
+	
+	gd: function(target, room, user) {
+		if (!target) return this.sendReply('/gd - Declares a message in all chatrooms. Requires & ~');
+		if (!this.can('declare')) return;
 
+		if (!this.canTalk()) return;
+
+		for (var r in Rooms.rooms) {
+			if (Rooms.rooms[r].type === 'chat') Rooms.rooms[r].add('|raw|<div class="broadcast-blue"><b><i>Global Declare from '+user.name+':</i><br />'+target+'</b></div>');
+		}
+
+		this.logModCommand(user.name+' declared '+target+' to all rooms.');
+	},
+	
 	wall: 'announce',
 	announce: function(target, room, user) {
 		if (!target) return this.parse('/help announce');
@@ -1193,7 +1206,21 @@ var commands = exports.commands = {
 			});
 		});
 	},
-
+	
+	customavatar: function(target, room, user, connection) {
+		if (!this.can('customavatars')) return false;
+		if (!target) return connection.sendTo(room, 'Usage: /customavatar URL, filename');
+		var http = require('http-get');
+		target = target.split(", ");
+		http.get(target[0], 'config/avatars/' + target[1], function (error, result) {
+		    if (error) {
+    		    connection.sendTo(room, '/customavatar - You supplied an invalid URL or file name!');
+    		} else {
+	    	    connection.sendTo(room, 'File saved to: ' + result.file);
+	    	}
+		});
+	},
+	
 	crashfixed: function(target, room, user) {
 		if (!Rooms.global.lockdown) {
 			return this.sendReply('/crashfixed - There is no active crash.');
