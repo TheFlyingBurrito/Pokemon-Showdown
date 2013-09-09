@@ -267,6 +267,10 @@ var commands = exports.commands = {
 			data = "The guy you talk to and instantly know he's the most badass motherfucker in the room."
 			
 		}
+		if (target === "gamebreaker") {
+			data = "The Nerdy gamer of the server @.@"
+			
+		}
 		if (pokemon.exists) {
 			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
 		}
