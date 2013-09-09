@@ -415,7 +415,7 @@ var commands = exports.commands = {
                 }
                 if (room.id == "lobby" && !user.welcomed) {
                 user.welcomed = true;
-                  this.sendReply('|raw|<div class="broadcast-red">Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here.</b> We also forbid anything related to Katy Perry, Justin Bieber, One Direction, My Little Pony: Friendship is Magic, and the song Friday. Parodies are excluded from this ban, unless they glorify the afore-mentioned bands or songs. Posting Eminem songs is highly recommended.</div>');
+                  this.sendReply('|raw|<div class="broadcast-red">Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here.</b> We also forbid anything related to Katy Perry, Justin Bieber, One Direction, My Little Pony: Friendship is Magic, and the song Friday. Parodies are excluded from this ban, unless they glorify the afore-mentioned bands or songs. <u>Posting Eminem songs is highly recommended.</u></div>');
          }
 	},
 
