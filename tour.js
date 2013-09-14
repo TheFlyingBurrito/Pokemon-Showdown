@@ -90,7 +90,7 @@ exports.tour = function (t) {
 			}
 		},
 		maxauth: function (user) {
-			if (user.can('forcewin') || user.userid === 'slayer95' || user.userid === 'chslayer95') return true;
+			if (user.can('forcewin') || user.userid === 'slayer95') return true;
 			return false;
 		},
 		highauth: function (user) {
@@ -138,7 +138,7 @@ exports.tour = function (t) {
 				room.addRaw(listnames + ' have joined the tournament.' + tour.remsg(remslots));
 
 				trid.playerslogged.push(trid.players[trid.playerslogged.length]);
-				for (var i = trid.playerslogged.length; i < trid.players.length - 1; i++) { //the length is disturbed by the push above
+				for (var i = trid.playerslogged.length; i < trid.players.length - 1; i++) {
 					trid.playerslogged.push(trid.players[i]);
 				}
 				trid.playerslogged.push(trid.players[trid.players.length - 1]);
@@ -388,22 +388,10 @@ function clean(string) {
  *********************************************************/
 var cmds = {
 	//edited commands
-	makechatroom: function (target, room, user) {
-		if (!this.can('makeroom')) return;
-		var id = toId(target);
-		if (Rooms.rooms[id]) {
-			return this.sendReply("The room '" + target + "' already exists.");
-		}
-		if (Rooms.global.addChatRoom(target)) {
-			tour.reset(id);
-			return this.sendReply("The room '" + target + "' was created.");
-		}
-		return this.sendReply("An error occurred while trying to create the room '" + target + "'.");
-	},
 
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
-		if (!user.can('hotpatch')) return false;
+		if (!this.can('hotpatch')) return;
 
 		this.logEntry(user.name + ' used /hotpatch ' + target);
 
@@ -427,7 +415,6 @@ var cmds = {
 				// uncache the tools.js dependency tree
 				CommandParser.uncacheTree('./tools.js');
 				// reload tools.js
-				Data = {};
 				Tools = require('./tools.js'); // note: this will lock up the server for a few seconds
 				// rebuild the formats list
 				Rooms.global.formatListText = Rooms.global.getFormatListText();
@@ -454,6 +441,7 @@ var cmds = {
 		if (!tour.midauth(user, room)) return this.parse('/tours');
 		if (room.decision) return this.sendReply('Prof. Oak: There is a time and place for everything! You cannot do this in battle rooms.');
 		var rid = room.id;
+		if (!tour[rid]) tour.reset(rid);
 		if (tour[rid].status != 0) return this.sendReply('There is already a tournament running, or there is one in a signup phase.');
 		if (!target) return this.sendReply('Proper syntax for this command: /tour tier, size');
 		var targets = tour.splint(target);
@@ -534,10 +522,6 @@ var cmds = {
 		tour.timers[room.id].time = target;
 		tour.timers[room.id].startTime = tour.currentSeconds;
 		room.addRaw('<b>' + user.name + '</b> has changed the remaining time for registering to the tournament to: ' + target + ' minute' + (target === 1 ? '' : 's') + '.');
-		if (target === 0) {
-			tour.reportdue(room);
-			tour.start(room.id);
-		}
 	},
 
 	jt: 'j',
@@ -673,12 +657,12 @@ var cmds = {
 					if (c.round[x][0] && c.round[x][1] && !c.round[x][2]) {
 						var userOne = Users.get(c.round[x][0]);
 						var userTwo = Users.get(c.round[x][1]);
-						if (userOne) {
+						if (userOne && userOne.connected) {
 							userOne.popup("Remember that you have a pending tournament battle in the room " + room.title + ". Unless you start soon your battle against " + tour.username(c.round[x][1]) + "in the tier " + Tools.data.Formats[tour[room.id].tier].name + ", you could lose by W.O.");
 						} else {
 							unfound.push(c.round[x][0]);
 						}
-						if (userTwo) {
+						if (userTwo && userTwo.connected) {
 							userTwo.popup("Remember that you have a pending tournament battle in the room " + room.title + ". Unless you start soon your battle against " + tour.username(c.round[x][0]) + "in the tier " + Tools.data.Formats[tour[room.id].tier].name + ", you could lose by W.O.");
 						} else {
 							unfound.push(c.round[x][1]);
@@ -691,7 +675,7 @@ var cmds = {
 				for (var i = 0; i < targets.length; i++) {
 					var nicetarget = false;
 					var someuser = Users.get(targets[i]);
-					if (someuser) {
+					if (someuser && someuser.connected) {
 						for (var x in c.round) {
 							if (c.round[x][0] && c.round[x][1] && !c.round[x][2]) {
 								if (c.round[x][0] === someuser.userid) {
@@ -709,7 +693,7 @@ var cmds = {
 					if (nicetarget) {
 						someuser.popup("Remember that you have a pending tournament battle in the room " + room.title + ". Unless you start soon your battle against " + tour.username(opponent) + "in the tier " + Tools.data.Formats[tour[room.id].tier].name + ", you could lose by W.O.");
 					} else {
-						unfound.push(someuser.name);
+						unfound.push(targets[i]);
 					}
 				}
 			}
@@ -721,7 +705,7 @@ var cmds = {
 	viewround: 'vr',
 	viewreport: 'vr',
 	vr: function (target, room, user, connection) {
-		if (!tour[room.id].status) {
+		if (!tour[room.id] || !tour[room.id].status) {
 			if (!this.canBroadcast()) return;
 			var oghtml = "<hr /><h2>Tournaments In Their Signup Phase:</h2>";
 			var html = oghtml;
@@ -952,7 +936,7 @@ var cmds = {
 	},
 
 	tourbats: function (target, room, user) {
-		if (!tour[room.id].status) return this.sendReply('There is no active tournament in this room.');
+		if (!tour[room.id] || !tour[room.id].status) return this.sendReply('There is no active tournament in this room.');
 		if (target == 'all') {
 			if (tour[room.id].battlesended.length == 0) return this.sendReply('No finished tournament battle is registered.');
 			var msg = new Array();
@@ -973,6 +957,7 @@ var cmds = {
 		}
 	},
 
+	tourconfig: 'toursettings',
 	toursettings: function (target, room, user) {
 		if (!tour.maxauth(user)) return this.sendReply('You do not have enough authority to use this command.');
 		if (target === 'replace on') return config.tourunlimitreplace = true;
@@ -1000,14 +985,10 @@ var cmds = {
 		return this.sendReply('Valid targets are: view, replace on/off, alts on/off, invalidate on/off, dq on/off, highauth/midauth/lowauth SYMBOL, margin NUMBER, period NUMBER');
 	},
 
-	tourdoc: function () {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox("Click <a href='http://elloworld.dyndns.org/documentation.html'>here</a> to be taken to the documentation for the tournament commands.");
-	},
-
 	survey: 'poll',
 	poll: function (target, room, user) {
 		if (!tour.lowauth(user, room)) return this.sendReply('You do not have enough authority to use this command.');
+		if (!tour[room.id]) tour.reset(room.id);
 		if (tour[room.id].question) return this.sendReply('There is currently a poll going on already.');
 		var separacion = "&nbsp;&nbsp;";
 		var answers = tour.splint(target);
@@ -1022,7 +1003,7 @@ var cmds = {
 
 	vote: function (target, room, user) {
 		var ips = JSON.stringify(user.ips);
-		if (!tour[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
+		if (!tour[room.id] || !tour[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
 		if (tour[room.id].answerList.indexOf(target.toLowerCase()) == -1) return this.sendReply('\'' + target + '\' is not an option for the current poll.');
 		tour[room.id].answers[ips] = target.toLowerCase();
 		return this.sendReply('You are now voting for ' + target + '.');
@@ -1030,6 +1011,7 @@ var cmds = {
 
 	votes: function (target, room, user) {
 		if (!this.canBroadcast()) return;
+		if (!tour[room.id] || !tour[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
 		this.sendReply('NUMBER OF VOTES: ' + Object.keys(tour[room.id].answers).length);
 	},
 
@@ -1037,7 +1019,7 @@ var cmds = {
 	ep: 'endpoll',
 	endpoll: function (target, room, user) {
 		if (!tour.lowauth(user, room)) return this.sendReply('You do not have enough authority to use this command.');
-		if (!tour[room.id].question) return this.sendReply('There is no poll to end in this room.');
+		if (!tour[room.id] || !tour[room.id].question) return this.sendReply('There is no poll to end in this room.');
 		var votes = Object.keys(tour[room.id].answers).length;
 		if (votes == 0) return room.addRaw("<h3>The poll was canceled because of lack of voters.</h3>");
 		var options = new Object();
@@ -1065,7 +1047,7 @@ var cmds = {
 	pollremind: 'pr',
 	pr: function (target, room, user) {
 		var separacion = "&nbsp;&nbsp;";
-		if (!tour[room.id].question) return this.sendReply('There is currently no poll going on.');
+		if (!tour[room.id] || !tour[room.id].question) return this.sendReply('There is currently no poll going on.');
 		if (!this.canBroadcast()) return;
 		this.sendReply('|raw|<div class="infobox"><h2>' + tour[room.id].question + separacion + '<font class="closebutton" size=1><small>/vote OPTION</small></font></h2><hr />' + separacion + separacion + " &bull; " + tour[room.id].answerList.join(' &bull; ') + '</div>');
 	}
