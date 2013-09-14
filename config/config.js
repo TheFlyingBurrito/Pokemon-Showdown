@@ -139,7 +139,7 @@ exports.customavatars = {
         'windexdrinker': 'ti.gif',
         'elitefouroak': 'oak.gif',
         'nukinggary': 'oak.gif',
-        'gamebraker': 'rofl.',
+        'gamebraker': 'rofl.jpeg',
         'frage': 'FADE.GIF',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
