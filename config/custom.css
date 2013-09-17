@@ -4,16 +4,13 @@
     font-family: Verdana,Helvetica,Arial,sans-serif;
     background: url("http://oi44.tinypic.com/2drwem8.jpg") no-repeat scroll right top rgb(63, 38, 70);
 }
-.chat-log {
-    font-size: 10pt;
-    background: url("http://fc07.deviantart.net/fs70/f/2013/196/7/9/transparent_palkia_by_ericstrd-d6dlc43.png") no-repeat scroll right bottom;
-    color: rgb(0, 0, 0);
-    overflow: auto;
-}
 .menugroup .button:hover {
 background: #461D7C;
 }
 .menugroup .button {
 background: #7549B1;
 }
-
+.chat-log {
+font-size: 10pt;
+color: green;
+}
