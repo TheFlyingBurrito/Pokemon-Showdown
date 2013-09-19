@@ -22,5 +22,14 @@ background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXbgEQMo0
 /*
 .userlist {
 background: #EEE0E5;
+}
+.userlist li button:hover {
+background: #;
+}
+.userlist li {
+border-bottom: 1px solid #;
+height: 19px;
+font: 10pt Verdana,sans-serif;
+white-space: nowrap;
 }*/
 
