@@ -5,15 +5,15 @@
     background: url("http://www.iclarified.com/images/news/31430/128167/128167.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .menugroup .button:hover {
-background: #20729A;
+background: #639CB8;
 }
 .menugroup .button {
 background: #53BFDC;
 }
 .chat-log {
     font-size: 10pt;
-    background: url("http://fc04.deviantart.net/fs71/f/2013/196/2/0/transparent_palkia_original_art_by_ericstrd-d6dmpy4.png") no-repeat scroll right bottom;
-    color: rgb(83, 191, 220);
+    background: url("http://cdn.bulbagarden.net/upload/archive/6/66/20091223231423!484Palkia.png") no-repeat scroll right bottom;
+    color: rgb(0, 0, 0);
     overflow: auto;
 }
 #header {
