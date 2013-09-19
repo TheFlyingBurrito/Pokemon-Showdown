@@ -17,12 +17,12 @@ background: #53BFDC;
     overflow: auto;
 }
 #header {
-background: url("=http://www.iclarified.com/images/news/31430/128167/128167.png");
+background: url("http://www.iclarified.com/images/news/31430/128167/128167.png");
 }
-/*
 .userlist {
 background: #53BFDC;
 }
+/*
 .userlist li button:hover {
 background: #;
 }
