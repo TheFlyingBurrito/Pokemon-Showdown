@@ -16,9 +16,6 @@ background: #1E2D58;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
-#header {
-background: #1E2D58;
-}
 .userlist {
 border-left: 1px solid #D5DDE4;
 background: #D6DDE5;
@@ -26,7 +23,7 @@ background: #D6DDE5;
 .userlist li button:hover {
 background: #D6DDE5;
 }
-body {
+.body {
 color: #1E2D58;
 font-size: 11pt;
 font-family: Verdana,Helvetica,Arial,sans-serif;
