@@ -20,6 +20,7 @@ background: #1E2D58;
 background: url("http://images2.layoutsparks.com/1/239255/edumacated-grey-blue-pattern.jpg");
 }
 .userlist {
+border-left: 1px solid #D5DDE4;
 background: #D6DDE5;
 }
 .userlist li button:hover {
