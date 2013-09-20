@@ -26,6 +26,11 @@ background: #D6DDE5;
 .userlist li button:hover {
 background: #D6DDE5;
 }
+body {
+color: #1E2D58;
+font-size: 11pt;
+font-family: Verdana,Helvetica,Arial,sans-serif;
+}
 /*
 .userlist li {
 border-bottom: 1px solid #;
