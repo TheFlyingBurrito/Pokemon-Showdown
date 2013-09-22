@@ -863,7 +863,7 @@ var commands = exports.commands = {
 		return this.privateModCommand('(' + user.name + ' notes: ' + target + ')');
 	},
 
-	pr: function(target, room, user) {
+	pool: function(target, room, user) {
 		if (!target) return this.parse('/help pr');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
