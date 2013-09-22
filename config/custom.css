@@ -16,12 +16,12 @@ background: #1E2D58;
 }
 .chat-log {
     font-size: 10pt;
-    background: #e5e5e5 url("http://fc07.deviantart.net/fs70/f/2013/196/7/9/transparent_palkia_by_ericstrd-d6dlc43.png") no-repeat scroll right bottom;
+    background: #D6DDE5 url("http://fc07.deviantart.net/fs70/f/2013/196/7/9/transparent_palkia_by_ericstrd-d6dlc43.png") no-repeat scroll right bottom;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
 #header {
-background: #1E2D58;
+background: url("http://www.iclarified.com/images/news/31430/128167/128167.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 /*
 .userlist li button:hover {
