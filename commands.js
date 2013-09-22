@@ -862,27 +862,7 @@ var commands = exports.commands = {
 		if (!this.can('mute')) return false;
 		return this.privateModCommand('(' + user.name + ' notes: ' + target + ')');
 	},
-
-	pool: function(target, room, user) {
-		if (!target) return this.parse('/help pr');
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-		if (!this.can('permaban', targetUser)) return false;
-		if (targetUser.group === '~' || targetUser.frostDev) return false;
-		if (!targetUser) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
-			var problem = ' but was already banned';
-			return this.privateModCommand('('+targetUser.name+' would be banned by '+user.name+problem+'.)');
-		}
-
-		targetUser.popup(user.name+" has permanently banned you.");
-		this.addModCommand(targetUser.name+" was permanently banned by "+user.name+".");
-		targetUser.ban();
-		ipbans.write('\n'+targetUser.latestIp);
-	},
-	
+ 
 	demote: 'promote',
 	promote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help promote');
