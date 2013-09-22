@@ -1,3 +1,7 @@
+.userlist
+border-left: 1px solid #D5DDE4;
+background: #D6DDE5;
+}
 .mainmenuwrapper {
     color: rgb(8, 16, 35);
     font-size: 11pt;
@@ -18,10 +22,6 @@ background: #1E2D58;
 }
 #header {
 background: #1E2D58;
-}
-.userlist
-border-left: 1px solid #D5DDE4;
-background: #D6DDE5;
 }
 /*
 .userlist li button:hover {
