@@ -17,7 +17,7 @@ background: #1E2D58;
     overflow: auto;
 }
 #header {
-background: url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") no-repeat scroll right top rgb(63, 38, 70);
+background: url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
 }
 .userlist {
 border-left: 1px solid #D5DDE4;
