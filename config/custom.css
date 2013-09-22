@@ -19,9 +19,9 @@ background: #1E2D58;
 .header {
 position: relative;
 height: 50px;
-background: url(../fx/client-topbar-bg.png) repeat-x left top scroll rgb(30, 45, 88);
+background: url(../fx/client-topbar-bg.png) repeat-x left top scroll #00004c;
 }
-.userlist {
+.userlist
 border-left: 1px solid #D5DDE4;
 background: #D6DDE5;
 }
