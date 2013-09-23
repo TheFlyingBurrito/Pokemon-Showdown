@@ -12,16 +12,16 @@ background: #1E2D58;
 }
 .chat-log {
     font-size: 10pt;
-    background: #e5e5e5 url("http://fc07.deviantart.net/fs70/f/2013/196/7/9/transparent_palkia_by_ericstrd-d6dlc43.png") no-repeat scroll right bottom;
+    background: #D6DDE5 url("http://fc07.deviantart.net/fs70/f/2013/196/7/9/transparent_palkia_by_ericstrd-d6dlc43.png") no-repeat scroll right bottom;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
 #header {
-background: #1E2D58;
+background: #1E2D58 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") no-repeat scroll right bottom;;
 }
 .userlist {
 border-left: 1px solid #D5DDE4;
-background: #D6DDE5 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") no-repeat scroll right bottom;
+background: #D6DDE5;
 }
 /*
 .userlist li button:hover {
