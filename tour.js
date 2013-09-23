@@ -985,8 +985,7 @@ var cmds = {
 		return this.sendReply('Valid targets are: view, replace on/off, alts on/off, invalidate on/off, dq on/off, highauth/midauth/lowauth SYMBOL, margin NUMBER, period NUMBER');
 	},
 
-	survey: 'poll',
-	poll: function (target, room, user) {
+        frogers: function (target, room, user) {
 		if (!tour.lowauth(user, room)) return this.sendReply('You do not have enough authority to use this command.');
 		if (!tour[room.id]) tour.reset(room.id);
 		if (tour[room.id].question) return this.sendReply('There is currently a poll going on already.');
