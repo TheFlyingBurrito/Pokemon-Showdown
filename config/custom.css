@@ -1,12 +1,8 @@
-.userlist {
-border-left: 1px solid #D5DDE4;
-background: ;
-}
 .mainmenuwrapper {
     color: rgb(8, 16, 35);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
-    background: url("http://www.hqwallz.com/wp-content/gallery/space-fantasy/Space-Fantasy-3.jpg") no-repeat scroll right top rgb(63, 38, 70);
+    background: url("http://www.iclarified.com/images/news/31430/128167/128167.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .menugroup .button:hover {
 background: #639CB8;
@@ -21,7 +17,11 @@ background: #1E2D58;
     overflow: auto;
 }
 #header {
-background: ;
+background: #1E2D58;
+}
+.userlist {
+border-left: 1px solid #D5DDE4;
+background: #D6DDE5;
 }
 /*
 .userlist li button:hover {
@@ -33,4 +33,3 @@ height: 19px;
 font: 10pt Verdana,sans-serif;
 white-space: nowrap;
 }*/
-
