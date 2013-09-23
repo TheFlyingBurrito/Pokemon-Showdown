@@ -21,7 +21,7 @@ background: #1E2D58;
 }
 .userlist {
 border-left: 1px solid #D5DDE4;
-background: #D6DDE5;
+background: #D6DDE5 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") no-repeat scroll right bottom;
 }
 /*
 .userlist li button:hover {
