@@ -3,9 +3,10 @@ border-left: 1px solid #D5DDE4;
 background: #D6DDE5;
 }
 .mainmenuwrapper {
+    color: rgb(8, 16, 35);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
-    background: url("http://images5.fanpop.com/image/photos/31600000/Pokemon-wallpaper-made-it-myself-pokemon-31681709-1680-1050.jpg") no-repeat scroll right;
+    background: url("http://www.iclarified.com/images/news/31430/128167/128167.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .menugroup .button:hover {
 background: #639CB8;
@@ -32,4 +33,3 @@ height: 19px;
 font: 10pt Verdana,sans-serif;
 white-space: nowrap;
 }*/
-
