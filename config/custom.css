@@ -13,7 +13,6 @@ background: #B86CF3;
 .chat-log {
     font-size: 10pt;
     background: #D6DDE5 url("http://fc07.deviantart.net/fs70/f/2012/211/b/3/palkia_lineart_by_skipper2820-d596fl4.png") no-repeat scroll right bottom;
-    opacity:0.4;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
