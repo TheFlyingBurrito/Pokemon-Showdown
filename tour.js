@@ -95,17 +95,23 @@ exports.tour = function (t) {
 		},
 		highauth: function (user) {
 			//room auth is not enough
+			var banlist = ['ecauseimbatman'];
+			if (banlist.indexOf(user.userid) !== -1) return false;
 			if (!config.tourhighauth && user.can('ban')) return true;
 			if (config.tourhighauth && config.groupsranking.indexOf(user.group) >= config.groupsranking.indexOf(config.tourhighauth)) return true;
 			return false;
 		},
 		midauth: function (user, room) {
+			var banlist = ['ecauseimbatman'];
+			if (banlist.indexOf(user.userid) !== -1) return false;
 			if (!config.tourmidauth && user.can('broadcast')) return true;
 			if (config.tourmidauth && config.groupsranking.indexOf(user.group) >= config.groupsranking.indexOf(config.tourmidauth)) return true;
 			if (room.auth && room.auth[user.userid]) return true;
 			return false;
 		},
 		lowauth: function (user, room) {
+			var banlist = ['ecauseimbatman'];
+			if (banlist.indexOf(user.userid) !== -1) return false;
 			if (!config.tourlowauth && user.can('broadcast')) return true;
 			if (config.tourlowauth && config.groupsranking.indexOf(user.group) >= config.groupsranking.indexOf(config.tourlowauth)) return true;
 			if (room.auth && room.auth[user.userid]) return true;
