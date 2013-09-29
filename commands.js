@@ -139,8 +139,12 @@ var commands = exports.commands = {
 		if (targetUser.locked && !user.can('lock', targetUser)) {
 			return this.popupReply('This user is locked and cannot PM.');
 		}
-		if (targetUser.ignorePMs && !user.can('lock', targetUser) && (!targetUser.can('lock') || targetUser.can('hotpatch'))) {
-			return this.popupReply('This user is blocking Private Messages right now.');
+		if (targetUser.ignorePMs && !user.can('lock')) {
+			if (!targetUser.can('lock')) {
+				return this.popupReply('This user is blocking Private Messages right now.');
+			} else if (targetUser.can('hotpatch')) {
+				return this.popupReply('This admin is too busy to answer Private Messages right now. Please contact a different staff member.');
+			}
 		}
 
 		target = this.canTalk(target, null);
@@ -220,18 +224,37 @@ var commands = exports.commands = {
 		if (!this.can('makeroom')) return;
 		if (target === 'off') {
 			delete room.isPrivate;
-			this.addModCommand(user.name+' made the room public.');
+			this.addModCommand(user.name+' made this room public.');
 			if (room.chatRoomData) {
 				delete room.chatRoomData.isPrivate;
 				Rooms.global.writeChatRoomData();
 			}
 		} else {
 			room.isPrivate = true;
-			this.addModCommand(user.name+' made the room private.');
+			this.addModCommand(user.name+' made this room private.');
 			if (room.chatRoomData) {
 				room.chatRoomData.isPrivate = true;
 				Rooms.global.writeChatRoomData();
 			}
+		}
+	},
+
+	officialchatroom: 'officialroom',
+	officialroom: function(target, room, user) {
+		if (!this.can('makeroom')) return;
+		if (!room.chatRoomData) {
+			return this.sendReply("/officialroom - This room can't be made official");
+		}
+		if (target === 'off') {
+			delete room.isOfficial;
+			this.addModCommand(user.name+' made this chat room unofficial.');
+			delete room.chatRoomData.isOfficial;
+			Rooms.global.writeChatRoomData();
+		} else {
+			room.isOfficial = true;
+			this.addModCommand(user.name+' made this chat room official.');
+			room.chatRoomData.isOfficial = true;
+			Rooms.global.writeChatRoomData();
 		}
 	},
 
@@ -640,10 +663,12 @@ var commands = exports.commands = {
 		this.addModCommand(''+targetUser.name+' was muted by '+user.name+' for 7 minutes.' + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "));
+		this.add('|unlink|' + targetUser.userid);
 
 		targetUser.mute(room.id, 7*60*1000);
 	},
 
+	hm: 'hourmute',
 	hourmute: function(target, room, user) {
 		if (!target) return this.parse('/help hourmute');
 
@@ -663,6 +688,7 @@ var commands = exports.commands = {
 		this.addModCommand(''+targetUser.name+' was muted by '+user.name+' for 60 minutes.' + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "));
+		this.add('|unlink|' + targetUser.userid);
 
 		targetUser.mute(room.id, 60*60*1000, true);
 	},
@@ -747,7 +773,7 @@ var commands = exports.commands = {
 
 		targetUser.popup(user.name+" has banned you." + (config.appealurl ? ("  If you feel that your banning was unjustified you can appeal the ban:\n" + config.appealurl) : "") + "\n\n"+target);
 
-		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
+		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""), ' ('+targetUser.latestIp+')');
 		var alts = targetUser.getAlts();
 		if (alts.length) {
 			this.addModCommand(""+targetUser.name+"'s alts were also banned: "+alts.join(", "));
@@ -883,7 +909,7 @@ var commands = exports.commands = {
 		if (!config.groups[nextGroup]) {
 			return this.sendReply('Group \'' + nextGroup + '\' does not exist.');
 		}
-		if (!user.checkPromotePermission(currentGroup, nextGroup)) {
+		if (!user.canPromote(currentGroup, nextGroup)) {
 			return this.sendReply('/' + cmd + ' - Access denied.');
 		}
 
@@ -928,7 +954,7 @@ var commands = exports.commands = {
 			return this.sendReply('Moderated chat is currently set to: '+room.modchat);
 		}
 		if (!this.can('modchat', null, room)) return false;
-		if (room.modchat && config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
 			return this.sendReply('/modchat - Access denied for removing a setting higher than ' + config.groupsranking[1] + '.');
 		}
 
@@ -945,6 +971,9 @@ var commands = exports.commands = {
 		case 'false':
 		case 'no':
 			room.modchat = false;
+			break;
+		case 'autoconfirmed':
+			room.modchat = 'autoconfirmed';
 			break;
 		default:
 			if (!config.groups[target]) {
@@ -1263,19 +1292,17 @@ var commands = exports.commands = {
 		fs.readFile('config/ipbans.txt', function (err, data) {
 			if (err) return;
 			data = (''+data).split("\n");
-			var count = 0;
 			for (var i=0; i<data.length; i++) {
-				data[i] = data[i].split('#')[0].trim();
-				if (data[i] && !Users.bannedIps[data[i]]) {
-					Users.bannedIps[data[i]] = '#ipban';
-					count++;
+				var line = data[i].split('#')[0].trim();
+				if (!line) continue;
+				if (line.indexOf('/') >= 0) {
+					rangebans.push(line);
+				} else if (line && !Users.bannedIps[line]) {
+					Users.bannedIps[line] = '#ipban';
 				}
 			}
-			if (!count) {
-				connection.sendTo(room, 'No IPs were banned; ipbans.txt has not been updated since the last time /loadbanlist was called.');
-			} else {
-				connection.sendTo(room, ''+count+' IPs were loaded from ipbans.txt and banned.');
-			}
+			Users.checkRangeBanned = Cidr.checker(rangebans);
+			connection.sendTo(room, 'ibans.txt has been reloaded.');
 		});
 	},
 
@@ -1286,7 +1313,7 @@ var commands = exports.commands = {
 	},
 
 	updateserver: function(target, room, user, connection) {
-		if (!user.checkConsolePermission(connection)) {
+		if (!user.hasConsoleAccess(connection)) {
 			return this.sendReply('/updateserver - Access denied.');
 		}
 
@@ -1441,8 +1468,19 @@ var commands = exports.commands = {
 		return;
 	},
 
+	bash: function(target, room, user, connection) {
+		if (!user.hasConsoleAccess(connection)) {
+			return this.sendReply('/bash - Access denied.');
+		}
+
+		var exec = require('child_process').exec;
+		exec(target, function(error, stdout, stderr) {
+			connection.sendTo(room, ('' + stdout + stderr));
+		});
+	},
+
 	eval: function(target, room, user, connection, cmd, message) {
-		if (!user.checkConsolePermission(connection)) {
+		if (!user.hasConsoleAccess(connection)) {
 			return this.sendReply("/eval - Access denied.");
 		}
 		if (!this.canBroadcast()) return;
@@ -1460,7 +1498,7 @@ var commands = exports.commands = {
 	},
 
 	evalbattle: function(target, room, user, connection, cmd, message) {
-		if (!user.checkConsolePermission(connection)) {
+		if (!user.hasConsoleAccess(connection)) {
 			return this.sendReply("/evalbattle - Access denied.");
 		}
 		if (!this.canBroadcast()) return;

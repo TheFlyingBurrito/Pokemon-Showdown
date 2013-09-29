@@ -150,11 +150,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Steel"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Steel' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -375,11 +375,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Rock"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Rock' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -451,11 +451,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Normal"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Normal' && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -492,8 +492,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifyAtk: function(atk) {
-			return atk * 1.5;
+		onModifyAtk: function(atkMod) {
+			return this.chain(atkMod, 1.5);
 		},
 		isChoice: true,
 		num: 220,
@@ -516,8 +516,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifySpe: function(spe) {
-			return spe * 1.5;
+		onModifySpe: function(speMod) {
+			return this.chain(speMod, 1.5);
 		},
 		isChoice: true,
 		num: 287,
@@ -540,8 +540,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifySpA: function(spa) {
-			return spa * 1.5;
+		onModifySpA: function(spaMod) {
+			return this.chain(spaMod, 1.5);
 		},
 		isChoice: true,
 		num: 297,
@@ -557,11 +557,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Fighting"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Fighting' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -590,11 +590,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Flying"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Flying' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -612,11 +612,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Dark"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Dark' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -706,9 +706,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30
 		},
-		onModifySpD: function(spd, pokemon) {
+		onModifySpD: function(spdMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Clamperl') {
-				return spd * 2;
+				return this.chain(spdMod, 2);
 			}
 		},
 		num: 227,
@@ -722,9 +722,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 90
 		},
-		onModifySpA: function(spa, pokemon) {
+		onModifySpA: function(spaMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Clamperl') {
-				return spa * 2;
+				return this.chain(spaMod, 2);
 			}
 		},
 		num: 226,
@@ -990,14 +990,14 @@ exports.BattleItems = {
 		fling: {
 			basePower: 40
 		},
-		onModifyDef: function(def, pokemon) {
+		onModifyDef: function(defMod, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
-				return def * 1.5;
+				return this.chain(defMod, 1.5);
 			}
 		},
-		onModifySpD: function(spd, pokemon) {
+		onModifySpD: function(spdMod, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
-				return spd * 1.5;
+				return this.chain(spdMod, 1.5);
 			}
 		},
 		num: 538,
@@ -1011,9 +1011,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 10
 		},
-		onModifyDamage: function(damage, source, target, move) {
+		onModifyDamage: function(damageMod, source, target, move) {
 			if (move && this.getEffectiveness(move.type, target) > 0) {
-				return this.modify(damage, 1.2);
+				return this.chain(damageMod, 1.2);
 			}
 		},
 		num: 268,
@@ -1357,11 +1357,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Dragon"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Dragon' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -1533,8 +1533,8 @@ exports.BattleItems = {
 		onModifyPokemon: function(pokemon) {
 			pokemon.negateImmunity['Ground'] = true;
 		},
-		onModifySpe: function(spe) {
-			return spe / 2;
+		onModifySpe: function(speMod) {
+			return this.chain(speMod, .5);
 		},
 		num: 278,
 		gen: 4,
@@ -1587,11 +1587,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Ghost"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Ghost' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -1609,11 +1609,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Poison"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Poison' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -1803,10 +1803,10 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30
 		},
-		onModifyDamage: function(damage, source, target, move) {
+		onModifyDamage: function(damageMod, source, target, move) {
 			if (damage > 0 && source) {
 				source.addVolatile('lifeorb');
-				damage = this.modify(damage, 1.3);
+				damage = this.chain(damageMod, 1.3);
 			}
 			return damage;
 		},
@@ -1831,14 +1831,14 @@ exports.BattleItems = {
 			basePower: 30,
 			status: 'par'
 		},
-		onModifyAtk: function(atk, pokemon) {
+		onModifyAtk: function(atkMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Pikachu') {
-				return atk * 2;
+				return this.chain(atkMod, 2);
 			}
 		},
-		onModifySpA: function(spa, pokemon) {
+		onModifySpA: function(spaMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Pikachu') {
-				return spa * 2;
+				return this.chain(spaMod, 2);
 			}
 		},
 		num: 236,
@@ -1942,8 +1942,8 @@ exports.BattleItems = {
 		fling: {
 			basePower: 60
 		},
-		onModifySpe: function(spe) {
-			return spe / 2;
+		onModifySpe: function(speMod) {
+			return this.chain(speMod, 0.5);
 		},
 		num: 215,
 		gen: 3,
@@ -2092,9 +2092,9 @@ exports.BattleItems = {
 			basePower: 10
 		},
 		spritenum: 287,
-		onModifyDef: function(def, pokemon) {
+		onModifyDef: function(defMod, pokemon) {
 			if (pokemon.template.species === 'Ditto') {
-				return def * 2;
+				return this.chain(defMod, 2);
 			}
 		},
 		num: 257,
@@ -2112,19 +2112,23 @@ exports.BattleItems = {
 			pokemon.addVolatile('metronome');
 		},
 		effect: {
-			onModifyDamage: function(damage, source, target, move) {
-				if (source.item !== 'metronome') {
-					source.removeVolatile('metronome');
+			onStart: function(pokemon) {
+				this.effectData.numConsecutive = 0;
+				this.effectData.lastMove = '';
+			},
+			onBeforeMove: function(pokemon, target, move) {
+				if (pokemon.item !== 'metronome') {
+					pokemon.removeVolatile('metronome');
 					return;
 				}
-				if (!this.effectData.move || this.effectData.move !== move.id) {
-					this.effectData.move = move.id;
-					this.effectData.numConsecutive = 0;
-				} else if (this.effectData.numConsecutive < 5) {
-					this.effectData.numConsecutive++;
-				}
+				if (this.effectData.lastMove === move.id) this.effectData.numConsecutive++;
+				else this.effectData.numConsecutive = 0;
+				this.effectData.lastMove = move.id;
+			},
+			onModifyDamage: function(damageMod, source, target, move) {
+				var numConsecutive = this.effectData.numConsecutive > 5 ? 5 : this.effectData.numConsecutive;
 				var bpMod = [1, 1.2, 1.4, 1.6, 1.8, 2];
-				return this.modify(damage, bpMod[this.effectData.numConsecutive]);
+				return this.chain(damageMod, bpMod[numConsecutive]);
 			}
 		},
 		num: 277,
@@ -2319,11 +2323,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Fire"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Fire' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -2410,11 +2414,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Water"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Water' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -2432,11 +2436,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Psychic"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Psychic' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -2676,9 +2680,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 10
 		},
-		onModifySpe: function(spe, pokemon) {
+		onModifySpe: function(speMod, pokemon) {
 			if (pokemon.template.species === 'Ditto') {
-				return spe * 2;
+				return this.chain(speMod, 2);
 			}
 		},
 		num: 274,
@@ -2821,11 +2825,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Grass"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Grass' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -3075,11 +3079,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Ground"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Ground' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -3203,14 +3207,14 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30
 		},
-		onModifySpA: function(spa, pokemon) {
+		onModifySpA: function(spaMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Latios' || pokemon.baseTemplate.species === 'Latias') {
-				return spa * 1.5;
+				return this.chain(spaMod, 1.5);
 			}
 		},
-		onModifySpD: function(spd, pokemon) {
+		onModifySpD: function(spdMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Latios' || pokemon.baseTemplate.species === 'Latias') {
-				return spd * 1.5;
+				return this.chain(spdMod, 1.5);
 			}
 		},
 		num: 225,
@@ -3415,11 +3419,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Bug"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Bug' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -3435,9 +3439,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 90
 		},
-		onModifyAtk: function(atk, pokemon) {
+		onModifyAtk: function(atkMod, pokemon) {
 			if (pokemon.baseTemplate.species === 'Cubone' || pokemon.baseTemplate.species === 'Marowak') {
-				return atk * 2;
+				return this.chain(atkMod, 2);
 			}
 		},
 		num: 258,
@@ -3522,11 +3526,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Electric"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Electric' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},
@@ -3697,11 +3701,11 @@ exports.BattleItems = {
 			basePower: 60,
 			type: "Ice"
 		},
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function(damageMod, source, target, move) {
 			if (move.type === 'Ice' && this.getEffectiveness(move.type, target) > 0 && !target.volatiles['substitute']) {
 				if (target.eatItem()) {
 					this.debug('-50% reduction');
-					return this.modify(damage, 0.5);
+					return this.chain(damageMod, 0.5);
 				}
 			}
 		},

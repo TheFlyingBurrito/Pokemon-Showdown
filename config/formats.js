@@ -30,6 +30,13 @@ exports.Formats = [
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
 	{
+		name: "OU (No Stealth Rock)",
+		section: "Singles",
+
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Stealth Rock']
+	},
+	{
 		name: "Ubers",
 		section: "Singles",
 
@@ -45,11 +52,11 @@ exports.Formats = [
 		banlist: ['OU', 'BL', 'Drought', 'Sand Stream']
 	},
 	{
-		name: "UU (suspect test)",
+		name: "UU (current)",
 		section: "Singles",
 
 		ruleset: ['OU'],
-		banlist: ['OU', 'BL', 'Drought', 'Sand Stream', 'Victini']
+		banlist: ['OU', 'BL', 'Drought', 'Sand Stream']
 	},
 	{
 		name: "RU",
@@ -162,14 +169,16 @@ exports.Formats = [
 		team: 'random',
 		searchShow: false,
 		debug: true,
-		ruleset: ['PotD', 'Pokemon', 'HP Percentage Mod']
+		ruleset: ['PotD', 'Pokemon', 'HP Percentage Mod'],
+		
+		column: 2
 	},
 	{
 		name: "Smogon Doubles",
 		section: 'Doubles',
 
 		gameType: 'doubles',
-		ruleset: ['Pokemon', 'Team Preview', 'Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Evasion Abilities Clause', 'HP Percentage Mod'],
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['Unreleased', 'Illegal', 'Dark Void', 'Soul Dew', 'Sky Drop',
 			'Mewtwo',
 			'Lugia',
@@ -180,7 +189,7 @@ exports.Formats = [
 			'Dialga',
 			'Palkia',
 			'Giratina', 'Giratina-Origin',
-			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
+			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
 			'Reshiram',
 			'Zekrom',
 			'Kyurem-White'
@@ -192,7 +201,7 @@ exports.Formats = [
 
 		gameType: 'doubles',
 		searchShow: false,
-		ruleset: ['Pokemon', 'Team Preview', 'Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Evasion Abilities Clause', 'HP Percentage Mod'],
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['Unreleased', 'Illegal', 'Dark Void', 'Sky Drop']
 	},
 	{
@@ -228,7 +237,7 @@ exports.Formats = [
 			'Manaphy',
 			'Darkrai',
 			'Shaymin', 'Shaymin-Sky',
-			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
+			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
 			'Victini',
 			'Reshiram',
 			'Zekrom',
@@ -395,7 +404,7 @@ exports.Formats = [
 		},
 		ruleset: ['Pokemon', 'Standard'],
 		banlist: ['Unreleased', 'Illegal', 'Soul Dew',
-			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
+			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
 			'Blaziken',
 			'Darkrai',
 			'Deoxys', 'Deoxys-Attack',
@@ -445,7 +454,9 @@ exports.Formats = [
 
 		mod: 'gen4',
 		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber']
+		banlist: ['Uber'],
+		
+		column: 2
 	},
 	{
 		name: "[Gen 4] UU (beta)",

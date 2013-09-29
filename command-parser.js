@@ -140,9 +140,9 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 			logEntry: function(data) {
 				room.logEntry(data);
 			},
-			addModCommand: function(result) {
-				this.add(result);
-				this.logModCommand(result);
+			addModCommand: function(text, logOnlyText) {
+				this.add(text);
+				this.logModCommand(text+(logOnlyText||''));
 			},
 			logModCommand: function(result) {
 				modlog.write('['+(new Date().toJSON())+'] ('+room.id+') '+result+'\n');
@@ -215,7 +215,7 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 
 		if (message.substr(0,1) === '/' && cmd) {
 			// To guard against command typos, we now emit an error message
-			return connection.send('The command "/'+cmd+'" was unrecognized. To send a message starting with "/'+cmd+'", type "//'+cmd+'".');
+			return connection.sendTo(room.id, 'The command "/'+cmd+'" was unrecognized. To send a message starting with "/'+cmd+'", type "//'+cmd+'".');
 		}
 	}
 
@@ -293,8 +293,8 @@ function canTalk(user, room, connection, message) {
 					userGroup = '+';
 				}
 			}
-			if (!user.authenticated && room.modchat === true) {
-				connection.sendTo(room, 'Because moderated chat is set, you must be registered to speak in lobby chat. To register, simply win a rated battle by clicking the look for battle button');
+			if (!user.autoconfirmed && (room.auth && room.auth[user.userid] || user.group) === ' ' && room.modchat === 'autoconfirmed') {
+				connection.sendTo(room, 'Because moderated chat is set, your account must be at least one week old and you must have won at least one ladder game to speak in this chat.');
 				return false;
 			} else if (config.groupsranking.indexOf(userGroup) < config.groupsranking.indexOf(room.modchat)) {
 				var groupName = config.groups[room.modchat].name;
@@ -323,7 +323,7 @@ function canTalk(user, room, connection, message) {
 		if (/\bnimp\.org\b/i.test(message)) return false;
 
 		// remove zalgo
-		message = message.replace(/[\u0300-\u036f\u0E2F-\u0E4F]{3,}/g,'');
+		message = message.replace(/[\u0300-\u036f\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]{3,}/g,'');
 
 		if (room && room.id === 'lobby') {
 			var normalized = message.trim();

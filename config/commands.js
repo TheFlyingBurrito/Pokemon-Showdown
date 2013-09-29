@@ -184,8 +184,8 @@ var commands = exports.commands = {
 		if (config.groups[targetUser.group] && config.groups[targetUser.group].name) {
 			this.sendReply('Group: ' + config.groups[targetUser.group].name + ' (' + targetUser.group + ')');
 		}
-		if (targetUser.staffAccess) {
-			this.sendReply('(Pok\xE9mon Showdown Development Staff)');
+		if (targetUser.isSysop) {
+			this.sendReply('(Pok\xE9mon Showdown System Operator)');
 		}
 		if (!targetUser.authenticated) {
 			this.sendReply('(Unregistered)');
@@ -246,26 +246,18 @@ var commands = exports.commands = {
 	data: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 
-		var pokemon = Tools.getTemplate(target);
-		var item = Tools.getItem(target);
-		var move = Tools.getMove(target);
-		var ability = Tools.getAbility(target);
-
 		var data = '';
-		if (pokemon.exists) {
-			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
-		}
-		if (ability.exists) {
-			data += '|c|~|/data-ability '+ability.name+'\n';
-		}
-		if (item.exists) {
-			data += '|c|~|/data-item '+item.name+'\n';
-		}
-		if (move.exists) {
-			data += '|c|~|/data-move '+move.name+'\n';
-		}
-		if (!data) {
-			data = "||No pokemon, item, move, or ability named '"+target+"' was found. (Check your spelling?)";
+		var targetId = toId(target);
+		var newTargets = Tools.dataSearch(target);
+		if (newTargets && newTargets.length) {
+			for (var i = 0; i < newTargets.length; i++) {
+				if (newTargets[i].id !== targetId && !Tools.data.Aliases[targetId] && !i) {
+					data = "No Pokemon, item, move or ability named '" + target + "' was found. Showing the data of '" + newTargets[0].name + "' instead.\n";
+				}
+				data += '|c|~|/data-' + newTargets[i].searchType + ' ' + newTargets[i].name + '\n';
+			}
+		} else {
+			data = "No Pokemon, item, move or ability named '" + target + "' was found. (Check your spelling?)";
 		}
 
 		this.sendReply(data);
@@ -276,10 +268,11 @@ var commands = exports.commands = {
 
 		if (!target) return this.parse('/help dexsearch');
 		var targets = target.split(',');
-		var target;
 		var moves = {}, tiers = {}, colours = {}, ability = {}, gens = {}, types = {};
+		var allTiers = {'uber':1,'ou':1,'uu':1,'ru':1,'nu':1,'lc':1,'cap':1,'bl':1,'bl2':1,'nfe':1};
+		var allColours = {'green':1,'red':1,'blue':1,'white':1,'brown':1,'yellow':1,'purple':1,'pink':1,'gray':1,'black':1};
 		var count = 0;
-		var all = false;
+		var showAll = false;
 		var output = 10;
 
 		for (var i in targets) {
@@ -290,7 +283,7 @@ var commands = exports.commands = {
 					moves.count = 0;
 				}
 				if (moves.count === 4) {
-					return this.sendReply('Specify a maximum of 4 moves.');
+					return this.sendReplyBox('Specify a maximum of 4 moves.');
 				}
 				moves[target] = 1;
 				moves.count++;
@@ -304,7 +297,7 @@ var commands = exports.commands = {
 					ability.count = 0;
 				}
 				if (ability.count === 1) {
-					return this.sendReply('Specify only one ability.');
+					return this.sendReplyBox('Specify only one ability.');
 				}
 				ability[target] = 1;
 				ability.count++;
@@ -312,62 +305,69 @@ var commands = exports.commands = {
 			}
 
 			target = targets[i].trim().toLowerCase();
-			if (['fire','water','electric','dragon','rock','fighting','ground','ghost','psychic','dark','bug','flying','grass','poison','normal','steel','ice'].indexOf(toId(target.substring(0, target.length - 4))) > -1) {
-				if (!types.count) {
-					count++;
-					types.count = 0;
-				}
-				if (types.count === 2) {
-					return this.sendReply('Specify a maximum of two types.');
-				}
-				types[toId(target.substring(0, target.length - 4)).substring(0, 1).toUpperCase() + toId(target.substring(0, target.length - 4)).substring(1)] = 1;
-				types.count++;
-			}
-			else if (['uber','ou','uu','ru','nu','lc','cap','bl','bl2','nfe','illegal'].indexOf(target) > -1) {
+			if (target in allTiers) {
 				if (!tiers.count) {
 					count++;
 					tiers.count = 0;
 				}
 				tiers[target] = 1;
 				tiers.count++;
+				continue;
 			}
-			else if (['green','red','blue','white','brown','yellow','purple','pink','gray','black'].indexOf(target) > -1) {
+			if (target in allColours) {
 				if (!colours.count) {
 					count++;
 					colours.count = 0;
 				}
 				colours[target] = 1;
 				colours.count++;
+				continue;
 			}
-			else if (parseInt(target, 10) > 0) {
+			var targetInt = parseInt(target);
+			if (0 < targetInt && targetInt < 6) {
 				if (!gens.count) {
 					count++;
 					gens.count = 0;
 				}
-				gens[parseInt(target, 10)] = 1;
+				gens[targetInt] = 1;
 				gens.count++;
+				continue;
 			}
-			else if (target === 'all') {
+			if (target === 'all') {
 				if (this.broadcasting) {
-					return this.sendReply('A search with the parameter "all" cannot be broadcast.')
+					return this.sendReplyBox('A search with the parameter "all" cannot be broadcast.')
 				}
-				all = true;
+				showAll = true;
+				continue;
 			}
-			else {
-				return this.sendReply('"' + target + '" could not be found in any of the search categories.');
+			if (target.indexOf(' type') > -1) {
+				target = target.charAt(0).toUpperCase() + target.slice(1, target.indexOf(' type'));
+				if (target in Tools.data.TypeChart) {
+					if (!types.count) {
+						count++;
+						types.count = 0;
+					}
+					if (types.count === 2) {
+						return this.sendReplyBox('Specify a maximum of two types.');
+					}
+					types[target] = 1;
+					types.count++;
+					continue;
+				}
+			} else {
+				return this.sendReplyBox('"' + targets[i].trim() + '" could not be found in any of the search categories.');
 			}
 		}
 
-		if (all && count === 0) return this.sendReply('No search parameters other than "all" were found.\nTry "/help dexsearch" for more information on this command.');
+		if (showAll && count === 0) return this.sendReplyBox('No search parameters other than "all" were found.<br />Try "/help dexsearch" for more information on this command.');
 
 		while (count > 0) {
 			count--;
 			var tempResults = [];
 			if (!results) {
 				for (var pokemon in Tools.data.Pokedex) {
-					if (pokemon === 'arceusunknown') continue;
 					pokemon = Tools.getTemplate(pokemon);
-					if (!(!('illegal' in tiers) && pokemon.tier === 'Illegal')) {
+					if (pokemon.tier !== 'Illegal' && (pokemon.tier.slice(2).toLowerCase() !== 'cap' || 'cap' in tiers)) {
 						tempResults.add(pokemon);
 					}
 				}
@@ -391,7 +391,7 @@ var commands = exports.commands = {
 			if (tiers.count > 0) {
 				for (var mon in tempResults) {
 					if ('cap' in tiers) {
-						if (tempResults[mon].tier.substring(2).toLowerCase() === 'cap') results.add(tempResults[mon]);
+						if (tempResults[mon].tier.slice(2).toLowerCase() === 'cap') results.add(tempResults[mon]);
 					}
 					if (tempResults[mon].tier.toLowerCase() in tiers) results.add(tempResults[mon]);
 				}
@@ -426,7 +426,7 @@ var commands = exports.commands = {
 					for (var i in moves) {
 						move = Tools.getMove(i);
 						if (move.id !== 'count') {
-							if (!move.exists) return this.sendReply('"' + move + '" is not a known move.');
+							if (!move.exists) return this.sendReplyBox('"' + move + '" is not a known move.');
 							problem = Tools.checkLearnset(move, template, lsetData);
 							if (problem) break;
 						}
@@ -447,19 +447,21 @@ var commands = exports.commands = {
 		}
 
 		var resultsStr = '';
-		if (results.length > 0) {
-			if (all || results.length <= output) {
-				for (var i = 0; i < results.length; i++) resultsStr += results[i].species + ', ';
+		if (results && results.length > 0) {
+			for (var i = 0; i < results.length; ++i) results[i] = results[i].species;
+			if (showAll || results.length <= output) {
+				resultsStr = results.join(', ');
 			} else {
 				var hidden = string(results.length - output);
 				results.sort(function(a,b) {return Math.round(Math.random());});
-				for (var i = 0; i < output; i++) resultsStr += results[i].species + ', ';
-				resultsStr += ' and ' + hidden + ' more. Redo the search with "all" as a search parameter to show all results.  '
+				var shown = results.slice(0, 10);
+				resultsStr = shown.join(', ');
+				resultsStr += ', and ' + hidden + ' more. Redo the search with "all" as a search parameter to show all results.';
 			}
 		} else {
-			resultsStr = 'No Pokemon found.  ';
+			resultsStr = 'No Pokémon found.';
 		}
-		return this.sendReplyBox(resultsStr.substring(0, resultsStr.length - 2));
+		return this.sendReplyBox(resultsStr);
 	},
 
 	learnset: 'learn',
@@ -708,10 +710,6 @@ var commands = exports.commands = {
 		if (target === 'all' || target === 'stabmons') {
 			matched = true;
 			buffer += '- <a href="http://www.smogon.com/forums/threads/3484106/">STABmons</a>';
-		}
-		if (target === 'all' || target === 'vgc2013' || target === 'vgc') {
-			matched = true;
-			buffer += '- <a href="http://www.smogon.com/forums/threads/3471161/">VGC 2013</a><br />';
 		}
 		if (target === 'all' || target === 'omotm' || target === 'omofthemonth' || target === 'month') {
 			matched = true;
@@ -1089,6 +1087,32 @@ var commands = exports.commands = {
 			this.logModCommand('The Pokemon of the Day was removed by '+user.name+'.');
 		}
 	},
+	
+	roll: 'dice',
+	dice: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		var d = target.indexOf("d");
+		if (d != -1) {
+			var num = parseInt(target.substring(0,d));
+			faces = NaN;
+			if (target.length > d) var faces = parseInt(target.substring(d + 1));
+			if (isNaN(num)) num = 1;
+			if (isNaN(faces)) return this.sendReply("The number of faces must be a valid integer.");
+			if (faces < 1 || faces > 1000) return this.sendReply("The number of faces must be between 1 and 1000");
+			if (num < 1 || num > 20) return this.sendReply("The number of dice must be between 1 and 20");
+			var rolls = new Array();
+			var total = 0;
+			for (var i=0; i < num; i++) {
+				rolls[i] = (Math.floor(faces * Math.random()) + 1);
+				total += rolls[i];
+			}
+			return this.sendReplyBox('Random number ' + num + 'x(1 - ' + faces + '): ' + rolls.join(', ') + '<br />Total: ' + total);
+		}
+		if (target && isNaN(target) || target.length > 21) return this.sendReply('The max roll must be a number under 21 digits.');
+		var maxRoll = (target)? target : 6;
+		var rand = Math.floor(maxRoll * Math.random()) + 1;
+		return this.sendReplyBox('Random number (1 - ' + maxRoll + '): ' + rand);
+	},
 
 	register: function() {
 		if (!this.canBroadcast()) return;
@@ -1096,7 +1120,7 @@ var commands = exports.commands = {
 	},
 
 	br: 'banredirect',
-	banredirect: function() {
+	banredirect: function(){ 
 		this.sendReply('/banredirect - This command is obsolete and has been removed.');
 	},
 
@@ -1248,13 +1272,17 @@ var commands = exports.commands = {
 		}
 		if (target === 'all' || target === 'dexsearch') {
 			matched = true;
-			this.sendReply('Searches for Pokemon that fulfill the selected criteria.');
+			this.sendReply('/dexsearch [type], [move], [move], ... - Searches for Pokemon that fulfill the selected criteria.');
 			this.sendReply('Search categories are: type, tier, color, moves, ability, gen.');
 			this.sendReply('Valid colors are: green, red, blue, white, brown, yellow, purple, pink, gray and black.');
-			this.sendReply('Valid tiers are: Uber/OU/BL/UU/BL2/RU/NU/NFE/LC/CAP/Illegal.');
+			this.sendReply('Valid tiers are: Uber/OU/BL/UU/BL2/RU/NU/NFE/LC/CAP.');
 			this.sendReply('Types must be followed by " type", e.g., "dragon type".');
-			this.sendReply('/dexsearch [type], [move], [move],...');
 			this.sendReply('The order of the parameters does not matter.');
+		}
+		if (target === 'all' || target === 'dice' || target === 'roll') {
+			matched = true;
+			this.sendReply('/dice [optional max number] - Randomly picks a number between 1 and 6, or between 1 and the number you choose.');
+			this.sendReply('/dice [number of dice]d[number of sides] - Simulates rolling a number of dice, e.g., /dice 2d4 simulates rolling two 4-sided dice.');
 		}
 		if (target === 'all' || target === 'join') {
 			matched = true;
@@ -1324,9 +1352,9 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/mute OR /m [username], [reason] - Mute user with reason for 7 minutes. Requires: % @ & ~');
 		}
-		if (target === '%' || target === 'hourmute') {
+		if (target === '%' || target === 'hourmute' || target === 'hm') {
 			matched = true;
-			this.sendReply('/hourmute [username], [reason] - Mute user with reason for an hour. Requires: % @ & ~');
+			this.sendReply('/hourmute OR /hm [username], [reason] - Mute user with reason for an hour. Requires: % @ & ~');
 		}
 		if (target === '%' || target === 'unmute') {
 			matched = true;
@@ -1359,7 +1387,7 @@ var commands = exports.commands = {
 		}
 		if (target === '@' || target === 'modchat') {
 			matched = true;
-			this.sendReply('/modchat [off/+/%/@/&/~] - Set the level of moderated chat. Requires: @ for off/+ options, & ~ for all the options');
+			this.sendReply('/modchat [off/autoconfirmed/+/%/@/&/~] - Set the level of moderated chat. Requires: @ for off/autoconfirmed/+ options, & ~ for all the options');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
@@ -1407,7 +1435,7 @@ var commands = exports.commands = {
 		}
 		if (!target) {
 			this.sendReply('COMMANDS: /msg, /reply, /ip, /rating, /nick, /avatar, /rooms, /whois, /help, /away, /back, /timestamps');
-			this.sendReply('INFORMATIONAL COMMANDS: /data, /groups, /opensource, /avatars, /faq, /rules, /intro, /tiers, /othermetas, /learn, /analysis, /calc (replace / with ! to broadcast. (Requires: + % @ & ~))');
+			this.sendReply('INFORMATIONAL COMMANDS: /data, /dexsearch, /groups, /opensource, /avatars, /faq, /rules, /intro, /tiers, /othermetas, /learn, /analysis, /calc (replace / with ! to broadcast. (Requires: + % @ & ~))');
 			this.sendReply('For details on all room commands, use /roomhelp');
 			this.sendReply('For details on all commands, use /help all');
 			if (user.group !== config.groupsranking[0]) {
