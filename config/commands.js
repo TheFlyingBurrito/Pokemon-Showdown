@@ -255,22 +255,6 @@ var commands = exports.commands = {
 		if (target === "chinlar") {
 			data = "The boss :3"
 		}
-		if (target === "professor shedinja") {
-			data = "The coolest guy here :D"
-			
-		}
-		if (target === "windex drinker") {
-			data = "Loves Cats"
-		
-		}
-		if (target === "oak") {
-			data = "The guy you talk to and instantly know he's the most badass motherfucker in the room."
-			
-		}
-		if (target === "gamebreaker") {
-			data = "The Nerdy gamer of the server @.@"
-			
-		}
 		if (pokemon.exists) {
 			data += '|c|~|/data-pokemon '+pokemon.name+'\n';
 		}
