@@ -1083,7 +1083,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<img src="http://i.imgflip.com/26am.jpg" />');
 		}
-		if (target === 'Fragequit'){
+		if (target === 'fragequit'){
 			matched = true;
 			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" />');
 		}
