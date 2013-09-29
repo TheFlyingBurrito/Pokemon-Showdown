@@ -19,6 +19,7 @@ if (typeof spamroom == "undefined") {
 if (!Rooms.rooms.spamroom) {
 	Rooms.rooms.spamroom = new Rooms.ChatRoom("spamroom", "spamroom");
 	Rooms.rooms.spamroom.isPrivate = true;
+	Rooms.rooms.spamroom.staffRoom = true;
 }
 
 var crypto = require('crypto');
