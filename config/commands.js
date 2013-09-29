@@ -1077,7 +1077,7 @@ var commands = exports.commands = {
                 }
 		if (target === 'troll'){
 			matched = true;
-			this.sendReplyBox('http://static.freepik.com/free-photo/trollface_17-403125921.jpg');
+			this.sendReplyBox('<img src="http://static.freepik.com/free-photo/trollface_17-403125921.jpg" />');
 		}
 		if (target === 'aliens'){
 			matched = true;
