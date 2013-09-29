@@ -978,48 +978,7 @@ var commands = exports.commands = {
 			'<b><font color="green">BATTLE FRONTIER RULES</font></b><br>' +
 			'-Goal of the Frontier League is to beat the 6 Frontier Brains and the Grand Frontier Brain.<br><br>-If a challenger loses to a Frontier Brain he cant challenge that frontier brain again till 24 hours after the match.He can still challenge other brains normally though<br><br>-To beat a Frontier, you must beat them once for the Silver Medal and a second time for the Gold Medal; only once you obtain the Gold Medal do you obtain the Badge of that Frontier. You do not ever lose your Gold or Silver Medals, nor your Frontier Badge, once you have obtained them.<br><br>-Each Person has the right to Honor Challenge a Frontier Brain. Honor Challenge is a best out of 3 match at the ruleset of the Frontier Brain that is challenged. If the Challenger wins the honor challenge ( wins 2 out of 3 matches ) he replaces the curent Frontier Brain. If the Frontier Brain Wins ( wins 2 out of 3 matches ) he gets to keep his place as a Frontier Brain. A honor match must be first approved by leader of parukia ( Gary Oak ) . Each Challenger has the right of one honor challenge and no more.Grand Frontier Brains cannot be honor challenged<br><br>-When a Frontier Brain Completes 3 Succesfull and victorious honor challenges he gets the honored status. Honored Status means that he cannot be Honor Challenged anymore and can only lose his place due to inactivity or dual acount scam.<br><br>-The First One that wins the Frontier League becomes the Grand Frontier Brain.<br><br>-Each time a Challenger beats the Frontier he becomes the new Grand Frontier Brain.<br><br>-The Challenger must beat the Grand Frontier Brain in order to take his place. The Frontier is considered complete once the Grand Frontier Brain is beated by the challenger.<br><br>-When a Challenger beats a Frontier Brain he is given the Frontier Brains Badge as in symbol that he completed a challenge. Badges are non resetable and cannot be taken back.<br><br>-The Challenger can challenge the member of the Frontier League at any row possible.<br><br>-The Challenger can challenge the Grant Frontier Brain only when he all 6 Frontier Badges<br><br>-If a Grand Frontier Brain loses from a Challenger by a Honor Challenge he is no longer member of the Frontier . However he has the right to challenge it again as a Challenger this time.<br><br>-Frontier Brains have no right to challenge the Frontier except they lose a honor challenge since they are not considered as Frontier Brains anymore but as plain Challengers.<br><br>-Any Kind of dual account to trick the Frontier in order to get more places on the Frontier is going to get all your badges reset if you have any and if you are a Frontier Brain you are going to be removed from that place imidiatelly.<br><br>-After 21 days of complete inactivity a Frontier Brain is kicked out of his place and a new one is decided by a tournament of the tier he was.<br><br>-Vacation status of a Frontier Brain is when he needs to go somewhere for a long time. Till he comes back a replacement is decided by a tournament of his tier. If Grand Frontier Brain is in vacation status and his replacement loses both him and his replacement are replaced by the challenger that beated the one replacing the Grand Frontier Brain.<br><br>-Vacation status replacements cannot be Honor Challenged<br><br>-Rules Written by : The Flying Burrito<br>-Rules Approved by : Gary Oak (Owner Of Parukia)');
 	},
-	
-	brainlist: 'brain',
-	brains: 'brain',
-	brain: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		target = target.toLowerCase();
-		var matched = false;
-		if (target === ''){
-			matched = true;
-			this.sendReplyBox('<b><font color="green">FRONTIER BRAINS</font></b><br><br>Ubers: Frage<br>OU: Obey<br>UU: The Flying Burrito<br>RU: Usurped Azure<br>NU: NU King Gary<br>Balanced Hackmons: Gamebrεaker<br><br><b><font color="purple">Do /brain [name] such as /brain Chinlar to see their rules.</font>');
-                }
-		if (target === 'usurped azure'){
-			matched = true;
-			this.sendReplyBox('<b>Usurped Azure</b><br><br><b>Tier: RU</b><br><br><img src="http://i.imgur.com/DW5T3bM.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 1 Losses<br><br><b>Frontier Rules</b><br>- Unaware Banned<br>- No Status Moves[anything that inhibits a pokemons performance)<br>-Best Out Of 3 Single Matches');
-		}
-		if (target === 'nu king gary'){
-			matched = true;
-			this.sendReplyBox('<b>NU King Gary</b><br><br><b>Tier: NU</b><br><br><img src="http://i.imgur.com/WsRxH6L.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 5 Losses<br><br><b>Frontier Rules</b><br>- Electabuzz and Liepard Banned<br>- Baton Pass Banned (Full and Quick Passing)');
-		}
-		if (target === 'gamebreaker'){
-			matched = true;
-			this.sendReplyBox('<b>Gamebreaker</b><br><br><b>Tier: Balanced Hackmons</b><br><br><img src="http://i.imgur.com/M6PI4nR.png"><br><br><b>Wins / Losses</b><br> 4 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- No More than 1 Pokemon of the Same Species<br>- Baton Pass Banned<br>- Mold Breaker/Teravolt/Turboblaze Banned');
-		}
-		if (target === 'frage'){
-			matched = true;
-			this.sendReplyBox('<b>Frage</b><br><br><b>Tier: Ubers</b><br><br><img src="http://i.imgur.com/zxTVEjc.png"><br><br><b>Wins / Losses</b><br> 0 Wins - 0 Losses<br><br><b>Frontier Rules</b><br>- Best out of 3 singles battles<br>- Perish Song, Dual Screens, Baton Pass, and Arceus-Normal Banned');
-		}
-		if (target === 'the flying burrito'){
-			matched = true;
-			this.sendReplyBox('<b>The Flying Burrito</b><br><br><b>Tier: UU</b><br><br><img src="http://i.imgur.com/hUkStIH.png"><br><br><b>Wins / Losses</b><br> 12 Wins - 6 Losses<br><br><b>Frontier Rules</b><br>- Dragon Type Pokemon Banned<br>- Only Pokemon from the UU tier allowed<br>- Piloswine Allowed');
-		}
-		if (target === 'obey'){
-			matched = true;
-			this.sendReplyBox('<b>cv$h killv / Obey</b><br><br><b>Tier: OU</b><br><br><img src="http://i.imgur.com/q5jPwcw.png"><br><br><b>Wins / Losses</b><br> 5 Wins - 0 Losses<br>Honored Status<br><br><b>Frontier Rules</b><br>- Baton Pass, Kyurem Black, Infernape Banned');
-		}		
-		if (target === ''){
-			}
-		else if (!matched) {
-
-			this.sendReply('The user '+target+' is not a Frontier Brain.');
-		}
-	},
+	-
 	
 	challengerlist: 'challenger',
 	challengers: 'challenger',
@@ -1065,7 +1024,58 @@ var commands = exports.commands = {
 			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/Lvrd Obey<br>Windex Drinker<br>Frage<br>Professor Shedinja<br>Usurped Azure<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
 		}
         },	
-		
+	memes: 'meme',
+	meme: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		target = target.toLowerCase();
+		var matched = false;
+		if (target === ''){
+			matched = true;
+			this.sendReplyBox('<b><font color="green">We have a good amount of memes and not only to use in chat you can always suggest another one to be added</font></b>');
+                }
+		if (target === 'troll'){
+			matched = true;
+			this.sendReplyBox('http://static.freepik.com/free-photo/trollface_17-403125921.jpg');
+		}
+		if (target === 'aliens'){
+			matched = true;
+			this.sendReplyBox('http://i.imgflip.com/26am.jpg');
+		}
+		if (target === 'Fragequit'){
+			matched = true;
+			this.sendReplyBox('http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg');
+		}
+		if (target === 'fuck yeah'){
+			matched = true;
+			this.sendReplyBox('http://logout.hu/dl/upc/2011-06/139344_mem.jpg');
+		}
+		if (target === 'scumbagsteve'){
+			matched = true;
+			this.sendReplyBox('http://jakubmarian.com/wp-content/uploads/2013/07/steve_doritos.jpg');
+		}
+		if (target === 'umad'){
+			matched = true;
+			this.sendReplyBox('http://images.t-nation.com/forum_images/auto/r/786x0/9/9/99bed_ORIG-umadbro2.jpg');
+		}
+		if (target === '69'){
+			matched = true;
+			this.sendReplyBox('http://www.pxleyes.com/images/contests/numbers-dd/fullsize/69-4d0fddc96d685.jpg');
+                }
+                if (target === 'genius'){
+			matched = true;
+			this.sendReplyBox('http://cdn.memegenerator.net/instances/400x/28229185.jpg');
+		}
+                if (target === 'yousuck'){
+			matched = true;
+			this.sendReplyBox('http://1.bp.blogspot.com/-4f8Dd9lsLPk/UXql0oQGNpI/AAAAAAAADEg/DEJI_TjqUvE/s1600/hooray_you_suck_yellow_chick_pom_pons_black_bkgd.gif');
+		}		
+                if (target === ''){
+			}
+		else if (!matched) {
+
+			this.sendReply(''+target+' is not available or non existent.');
+		}
+	},	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
