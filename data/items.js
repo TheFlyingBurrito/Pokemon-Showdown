@@ -1804,11 +1804,11 @@ exports.BattleItems = {
 			basePower: 30
 		},
 		onModifyDamage: function(damageMod, source, target, move) {
-			if (damage > 0 && source) {
+			if (damageMod > 0 && source) {
 				source.addVolatile('lifeorb');
-				damage = this.chain(damageMod, 1.3);
+				damageMod = this.chain(damageMod, 1.3);
 			}
-			return damage;
+			return damageMod;
 		},
 		effect: {
 			duration: 1,
