@@ -1,14 +1,14 @@
 .mainmenuwrapper {
-    color: rgb(8, 16, 35);
+    color: rgb(50, 55, 51);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
     background: url("http://i.imm.io/1hijx.png") no-repeat scroll right top rgb(63, 38, 70);
 }
 .menugroup .button:hover {
-background: #CD98F7;
+background: #B95054;
 }
 .menugroup .button {
-background: #B86CF3;
+background: #E76469;
 }
 .chat-log {
     font-size: 10pt;
@@ -18,7 +18,7 @@ background: #B86CF3;
 }
 #header {
 color: rbg(184, 108, 243);
-background: #B86CF3 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
+background: #E76469 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
 }
 .userlist {
 background: #D6DDE5;
