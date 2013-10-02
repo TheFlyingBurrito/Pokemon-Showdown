@@ -1064,8 +1064,60 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<b><font color="green">Honor Challengers</font></b><br><br>EricSaysHi<br>XLR8R<br>Raiykid<br>Obey/cv$killv/Lvrd Obey<br>Windex Drinker<br>Frage<br>Professor Shedinja<br>Usurped Azure<br><br><b><font color="purple">The people listed here cannot honor challenge a frontier brain any more since they wasted their honor challenge</font>');
 		}
-        },
+        },	
         
+	memes: 'meme',
+	meme: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		target = target.toLowerCase();
+		var matched = false;
+		if (target === ''){
+			matched = true;
+			this.sendReplyBox('<b><font color="green">We have a good amount of memes and not only to use in chat you can always suggest another one to be added</font></b>');
+                }
+		if (target === 'troll'){
+			matched = true;
+			this.sendReplyBox('<img src="http://static.freepik.com/free-photo/trollface_17-403125921.jpg" />');
+		}
+		if (target === 'aliens'){
+			matched = true;
+			this.sendReplyBox('<img src="http://i.imgflip.com/26am.jpg" />');
+		}
+		if (target === 'fragequit'){
+			matched = true;
+			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" />');
+		}
+		if (target === 'fuck yeah'){
+			matched = true;
+			this.sendReplyBox('<img src="http://logout.hu/dl/upc/2011-06/139344_mem.jpg" />');
+		}
+		if (target === 'scumbagsteve'){
+			matched = true;
+			this.sendReplyBox('<img src="http://jakubmarian.com/wp-content/uploads/2013/07/steve_doritos.jpg" />');
+		}
+		if (target === 'umad'){
+			matched = true;
+			this.sendReplyBox('<img src="http://images.t-nation.com/forum_images/auto/r/786x0/9/9/99bed_ORIG-umadbro2.jpg" />');
+		}
+		if (target === '69'){
+			matched = true;
+			this.sendReplyBox('<img src="http://www.pxleyes.com/images/contests/numbers-dd/fullsize/69-4d0fddc96d685.jpg" />');
+                }
+                if (target === 'genius'){
+			matched = true;
+			this.sendReplyBox('<img src="http://cdn.memegenerator.net/instances/400x/28229185.jpg" />');
+		}
+                if (target === 'yousuck'){
+			matched = true;
+			this.sendReplyBox('<img src="http://1.bp.blogspot.com/-4f8Dd9lsLPk/UXql0oQGNpI/AAAAAAAADEg/DEJI_TjqUvE/s1600/hooray_you_suck_yellow_chick_pom_pons_black_bkgd.gif" />');
+		}		
+                if (target === ''){
+			}
+		else if (!matched) {
+
+			this.sendReply(''+target+' is not available or non existent.');
+		}
+	},		
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
