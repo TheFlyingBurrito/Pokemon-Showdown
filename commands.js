@@ -718,6 +718,8 @@ var commands = exports.commands = {
 
 	b: 'ban',
 	ban: function(target, room, user) {
+	        var banlist = ['44hy'];
+		if (banlist.indexOf(user.userid) !== -1) return false;		
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
