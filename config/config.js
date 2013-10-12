@@ -222,6 +222,7 @@ exports.groups = {
 		rangeban: true,
 		potd: true,
 		disableladder: true,
+		forcerenameto:true,
 		globalonly: true,
 		rank: 5
 	},
@@ -246,7 +247,6 @@ exports.groups = {
 		modchat: true,
 		roomvoice: true,
 		forcerename: true,
-		forcerenameto:true,
 		ip: true,
 		alts: '@u',
 		rank: 3
