@@ -422,6 +422,10 @@ exports.BattleScripts = {
 				hitResult = this.setWeather(moveData.weather, pokemon, move);
 				didSomething = didSomething || hitResult;
 			}
+			if (moveData.terrain) {
+				hitResult = this.setTerrain(moveData.terrain, pokemon, move);
+				didSomething = didSomething || hitResult;
+			}
 			if (moveData.pseudoWeather) {
 				hitResult = this.addPseudoWeather(moveData.pseudoWeather, pokemon, move);
 				didSomething = didSomething || hitResult;
@@ -493,6 +497,7 @@ exports.BattleScripts = {
 		pokemon.formeChange(template);
 		pokemon.baseTemplate = template; // mega evolution is permanent :o
 		pokemon.setAbility(template.abilities['0']);
+		pokemon.baseAbility = pokemon.ability;
 
 		side.megaEvo = 1;
 		return true;
@@ -1507,7 +1512,7 @@ exports.BattleScripts = {
 		var pokemonLeft = 0;
 		var pokemon = [];
 		for (var i in this.data.FormatsData) {
-			if (this.data.FormatsData[i].viableMoves && this.data.FormatsData[i].num < 650) {
+			if (this.data.FormatsData[i].viableMoves && this.getTemplate(i).gen < 6) {
 				keys.push(i);
 			}
 		}
