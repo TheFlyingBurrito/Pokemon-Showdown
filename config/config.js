@@ -217,6 +217,7 @@ exports.groups = {
 		jurisdiction: '@u',
 		promote: 'u',
 		forcewin: true,
+		declare: true,
 		modchatall: true,
 		rangeban: true,
 		potd: true,
