@@ -1,3 +1,3 @@
 exports.BattleScripts = {
-	gen: 5
+	gen: 6
 };
