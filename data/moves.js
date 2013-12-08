@@ -450,7 +450,7 @@ exports.BattleMovedex = {
 				for (var i=0; i<pokemon.moves.length; i++) {
 					var move = pokemon.moves[i];
 					var noAssist = {
-						assist:1, bestow:1, chatter:1, circlethrow:1, copycat:1, counter:1, covet:1, destinybond:1, detect:1, dragontail:1, endure:1, feint:1, focuspunch:1, followme:1, helpinghand:1, mefirst:1, metronome:1, mimic:1, mirrorcoat:1, mirrormove:1, naturepower:1, protect:1, ragepowder:1, sketch:1, sleeptalk:1, snatch:1, struggle:1, switcheroo:1, thief:1, transform:1, trick:1
+						assist:1, bestow:1, bounce:1, chatter:1, circlethrow:1, copycat:1, counter:1, covet:1, destinybond:1, detect:1, dig:1, dive:1, dragontail:1, endure:1, feint:1, fly:1, focuspunch:1, followme:1, helpinghand:1, mefirst:1, metronome:1, mimic:1, mirrorcoat:1, mirrormove:1, naturepower:1, phantomforce:1, protect:1, ragepowder:1, shadowforce:1, sketch:1, sleeptalk:1, snatch:1, struggle:1, switcheroo:1, thief:1, transform:1, trick:1
 					};
 					if (move && !noAssist[move]) {
 						moves.push(move);
@@ -1785,6 +1785,7 @@ exports.BattleMovedex = {
 		name: "Confide",
 		pp: 20,
 		priority: 0,
+		isNotProtectable: true,
 		boosts: {
 			spa: -1
 		},
@@ -2373,7 +2374,7 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "Lowers one adjacent target's evasion by 1 stage. Whether or not the target's evasion was affected, the effects of Reflect, Light Screen, Safeguard, Mist, Spikes, Toxic Spikes, Stealth Rock, and Sticky Web end for the user's and the target's sides. Pokemon protected by Magic Coat or the Ability Magic Bounce are unaffected and instead use this move themselves. Ignores a target's Substitute, although a Substitute will still block the evasion lowering.",
-		shortDesc: "Removes hazards from both sides, lowers target's evasion by 1.",
+		shortDesc: "Removes hazards from field. Lowers foe's evasion.",
 		id: "defog",
 		name: "Defog",
 		pp: 15,
@@ -3152,7 +3153,7 @@ exports.BattleMovedex = {
 		gen: 6,
 		accuracy: 100,
 		basePower: 0,
-		category: "Special",
+		category: "Status",
 		desc: "Harshly lowers the target's Special Attack stat.",
 		shortDesc: "Lowers the target's Sp. Atk by 2.",
 		id: "eerieimpulse",
@@ -4271,20 +4272,23 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "The user raises the Defense stat of all Grass-type Pokemon in battle.",
-		shortDesc: "Raises Defense by 2 of Grass types in battle.",
+		shortDesc: "Raises Defense by 1 of Grass types in battle.",
 		id: "flowershield",
 		name: "Flower Shield",
 		pp: 25,
 		priority: 0,
 		onHitField: function(target, source) {
+			var targets = [];
 			for (var i=0; i<this.sides.length; i++) {
 				for (var j=0; j<this.sides[i].active.length; j++) {
 					if (this.sides[i].active[j] && this.sides[i].active[j].hasType('Grass')) {
-						// Apply the boost from source's Flower Shield if it has Grass type
-						this.boost({def: 2}, this.sides[i].active[j], source, this.getMove('Flower Shield'));
+						// This move affects every Grass-type Pokemon in play.
+						targets.push(this.sides[i].active[j]);
 					}
 				}
 			}
+			if (!targets.length) return false; // No targets; move fails
+			for (var i=0; i<targets.length; i++) this.boost({def: 1}, targets[i], source, this.getMove('Flower Shield'));
 		},
 		secondary: false,
 		target: "all",
@@ -4520,16 +4524,17 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		desc: "Changes the target's type to Grass.",
-		shortDesc: "Changes the target's type to Grass.",
+		desc: "Adds Grass to the target's type(s). If the target already has three types, the third is replaced.",
+		shortDesc: "Adds Grass to the target's type(s).",
 		id: "forestscurse",
 		name: "Forest's Curse",
 		pp: 20,
 		priority: 0,
 		isBounceable: true,
 		onHit: function(target) {
-			this.add('-start', target, 'typechange', 'Grass');
-			target.types = ['Grass'];
+			if (target.hasType("Grass")) return false;
+			target.types = target.types.slice(0,2).concat(["Grass"]);
+			this.add("-start", target, "typechange", target.types.join("/"), "[from] move: Forest's Curse");
 		},
 		secondary: false,
 		target: "normal",
@@ -4987,24 +4992,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Normal"
 	},
-	"glowpunch": {
-		num: -6,
-		gen: 6,
-		accuracy: 100,
-		basePower: 70,
-		category: "Physical",
-		desc: "Deals damage to one adjacent target. Makes contact. Damage is boosted to 1.2x by the Ability Iron Fist.",
-		shortDesc: "Deals damage to one adjacent target.",
-		id: "glowpunch",
-		name: "Glow Punch",
-		pp: 20,
-		priority: 0,
-		isContact: true,
-		isPunchAttack: true,
-		secondary: false,
-		target: "normal",
-		type: "Fire"
-	},
 	"grassknot": {
 		num: 447,
 		accuracy: 100,
@@ -5146,7 +5133,8 @@ exports.BattleMovedex = {
 			onStart: function(target, source) {
 				this.add('-fieldstart', 'move: Grassy Terrain');
 			},
-			onResidualOrder: 7,
+			onResidualOrder: 5,
+			onResidualSubOrder: 2,
 			onResidual: function(battle) {
 				this.debug('onResidual battle');
 				for (var s in battle.sides) {
@@ -5480,6 +5468,24 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fighting"
 	},
+	"happyhour": {
+		num: 603,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Doubles the prize money received after battle.",
+		shortDesc: "No effect.",
+		id: "happyhour",
+		name: "Happy Hour",
+		pp: 30,
+		priority: 0,
+		onHit: function(target) {
+			this.add('-message', 'Everyone is caught up in the happy atmosphere!');
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal"
+	},
 	"harden": {
 		num: 106,
 		accuracy: true,
@@ -5682,10 +5688,8 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		isBounceable: true,
-		isPulseMove: true,
 		onHit: function(pokemon) {
-			if (pokemon.ability === 'megalauncher') this.heal(this.modify(pokemon.maxhp, 0.75));
-			else this.heal(Math.ceil(pokemon.maxhp * 0.5));
+			this.heal(Math.ceil(pokemon.maxhp * 0.5));
 		},
 		secondary: false,
 		target: "normal",
@@ -6716,7 +6720,7 @@ exports.BattleMovedex = {
 		id: "infestation",
 		isViable: true,
 		name: "Infestation",
-		pp: 35,
+		pp: 20,
 		priority: 0,
 		isContact: true,
 		volatileStatus: 'partiallytrapped',
@@ -6931,7 +6935,7 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "Protects the user from attacks. Contactors get their Attack lowered by 2 stages. Priority +4",
-		shortDesc: "Protects the user from attacks. Contactors get -Atk.",
+		shortDesc: "Protects user from attacks. Contactors get -Atk.",
 		id: "kingsshield",
 		isViable: true,
 		name: "King's Shield",
@@ -6981,7 +6985,7 @@ exports.BattleMovedex = {
 		basePower: 65,
 		category: "Physical",
 		desc: "Deals damage to one adjacent target and causes it to drop its held item. Does 50% more damage if the target is holding an item. This move cannot force Pokemon with the Ability Sticky Hold to lose their held item, or force a Giratina, an Arceus, or a Genesect to lose their Griseous Orb, Plate, or Drive, respectively. It also cannot remove Mega Stones. Items lost to this move cannot be regained with Recycle. Makes contact.",
-		shortDesc: "Removes the target's held item. 1.5x damage if the target is holding an item.",
+		shortDesc: "1.5x damage if foe holds an item. Removes item.",
 		id: "knockoff",
 		isViable: true,
 		name: "Knock Off",
@@ -7538,12 +7542,12 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "For 5 turns, the held items of all active Pokemon have no effect. During the effect, Fling and Natural Gift are prevented from being used by all active Pokemon. If this move is used during the effect, the effect ends. Priority -7.",
+		desc: "For 5 turns, the held items of all active Pokemon have no effect. During the effect, Fling and Natural Gift are prevented from being used by all active Pokemon. If this move is used during the effect, the effect ends.",
 		shortDesc: "For 5 turns, all held items have no effect.",
 		id: "magicroom",
 		name: "Magic Room",
 		pp: 10,
-		priority: -7,
+		priority: 0,
 		onHitField: function(target, source, effect) {
 			if (this.pseudoWeather['magicroom']) {
 				this.removePseudoWeather('magicroom', source, effect, '[of] '+source);
@@ -7623,45 +7627,6 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Steel"
-	},
-	"magneticfield": {
-		num: -6,
-		gen: 6,
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "For 5 turns, powers up Electric attacks.",
-		shortDesc: "For 5 turns, powers up Electric attacks.",
-		id: "magneticfield",
-		name: "Magnetic Field",
-		pp: 5,
-		priority: 0,
-		pseudoWeather: 'magneticfield',
-		effect: {
-			duration: 5,
-			durationCallback: function(target, source, effect) {
-				if (source && source.ability === 'persistent') {
-					return 7;
-				}
-				return 5;
-			},
-			onBasePower: function(basePower, user, target, move) {
-				if (move.type === 'Electric') {
-					this.debug('electric move strengthened');
-					return this.chainModify(1.5);
-				}
-			},
-			onStart: function() {
-				this.add('-fieldstart', 'move: Magnetic Field');
-			},
-			onResidualOrder: 22,
-			onEnd: function() {
-				this.add('-fieldend', 'move: Magnetic Field');
-			}
-		},
-		secondary: false,
-		target: "all",
-		type: "Electric"
 	},
 	"magneticflux": {
 		num: -6,
@@ -8353,7 +8318,7 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "For five turns, Grounded Pokemon cannot have major status problems or confusion inflicted on them by other Pokemon. Their Dragon-type moves are weakened by 50%.",
-		shortDesc: "If on ground, prevents status + Dragon moves weaker.",
+		shortDesc: "Prevents status and weakens Dragon if grounded.",
 		id: "mistyterrain",
 		name: "Misty Terrain",
 		pp: 10,
@@ -9005,6 +8970,7 @@ exports.BattleMovedex = {
 		name: "Parting Shot",
 		pp: 20,
 		priority: 0,
+		isSoundBased: true,
 		selfSwitch: true,
 		boosts: {
 			atk: -1,
@@ -9217,22 +9183,6 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Bug"
-	},
-	"playaround": {
-		num: -6,
-		gen: 6,
-		accuracy: 100,
-		basePower: 70,
-		category: "Physical",
-		desc: "Deals damage to one adjacent target.",
-		shortDesc: "Deals damage to one adjacent target.",
-		id: "playaround",
-		name: "Play Around",
-		pp: 20,
-		priority: 0,
-		secondary: false,
-		target: "normal",
-		type: "Fairy"
 	},
 	"playnice": {
 		num: -6,
@@ -10113,6 +10063,9 @@ exports.BattleMovedex = {
 		volatileStatus: 'ragepowder',
 		effect: {
 			duration: 1,
+			onStart: function(pokemon) {
+				this.add('-start', pokemon, 'move: Rage Powder');
+			},
 			onFoeRedirectTarget: function(target, source, source2, move) {
 				if (!source.hasType('Grass') && this.validTarget(this.effectData.target, source, move.target)) {
 					this.debug("Rage Powder redirected target of move");
@@ -10341,7 +10294,7 @@ exports.BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		onHit: function(target, source) {
-			this.add('-start', source, 'typechange', target.types.join(', '), '[from] move: Reflect Type', '[of] '+target);
+			this.add('-start', source, 'typechange', target.types.join('/'), '[from] move: Reflect Type', '[of] '+target);
 			source.types = target.types;
 		},
 		secondary: false,
@@ -12166,7 +12119,7 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "In addition to protecting the user from attacks, this move also damages any attacker who makes direct contact by 1/8 of their maximum HP.",
-		shortDesc: "Protects user. Damages attackers that make contact.",
+		shortDesc: "Protects user. Damages contactors.",
 		id: "spikyshield",
 		isViable: true,
 		name: "Spiky Shield",
@@ -12515,7 +12468,7 @@ exports.BattleMovedex = {
 		effect: {
 			// this is a side condition
 			onStart: function(side) {
-				this.add('-sidestart',side,'move: Stealth Rock');
+				this.add('-sidestart', side, 'move: Stealth Rock');
 			},
 			onSwitchIn: function(pokemon) {
 				var typeMod = this.getEffectiveness('Rock', pokemon);
@@ -12575,7 +12528,8 @@ exports.BattleMovedex = {
 			},
 			onSwitchIn: function(pokemon) {
 				if (!pokemon.runImmunity('Ground')) return;
-				this.boost({spe: -1}, pokemon, pokemon, this.getMove('stickyweb'));
+				this.add('-activate', pokemon, 'move: Sticky Web');
+				this.boost({spe: -1}, pokemon, pokemon.side.foe.active[0], this.getMove('stickyweb'));
 			}
 		},
 		secondary: false,
@@ -13884,16 +13838,17 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		desc: "Causes one adjacent target to become a Ghost-type. Fails if the target is an Arceus. Pokemon protected by Magic Coat or the Ability Magic Bounce are unaffected and instead use this move themselves.",
-		shortDesc: "Changes the target's type to Ghost.",
+		desc: "Adds Ghost to the target's type(s). If the target already has three types, the third is replaced.",
+		shortDesc: "Adds Ghost to the target's type(s).",
 		id: "trickortreat",
 		name: "Trick-or-Treat",
 		pp: 20,
 		priority: 0,
 		isBounceable: true,
 		onHit: function(target) {
-			this.add('-start', target, 'typechange', 'Ghost');
-			target.types = ['Ghost'];
+			if (target.hasType('Ghost')) return false;
+			target.types = target.types.slice(0,2).concat(['Ghost']);
+			this.add('-start', target, 'typechange', target.types.join('/'), '[from] move: Trick-or-Treat');
 		},
 		secondary: false,
 		target: "normal",
@@ -14708,12 +14663,12 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "For 5 turns, all active Pokemon have their Defense and Special Defense stats swapped. Stat stage changes are unaffected. If this move is used during the effect, the effect ends. Priority -7.",
+		desc: "For 5 turns, all active Pokemon have their Defense and Special Defense stats swapped. Stat stage changes are unaffected. If this move is used during the effect, the effect ends.",
 		shortDesc: "For 5 turns, all Defense and Sp. Def stats switch.",
 		id: "wonderroom",
 		name: "Wonder Room",
 		pp: 10,
-		priority: -7,
+		priority: 0,
 		onHitField: function(target, source, effect) {
 			if (this.pseudoWeather['wonderroom']) {
 				this.removePseudoWeather('wonderroom', source, effect, '[of] '+source);
@@ -14784,7 +14739,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		desc: "Causes one adjacent target's Ability to become Insomnia. Fails if the target's Ability is Insomnia, Multitype, or Truant. Pokemon protected by Magic Coat or the Ability Magic Bounce are unaffected and instead use this move themselves.",
+		desc: "Causes one adjacent target's Ability to become Insomnia. Fails if the target's Ability is Insomnia, Multitype, Stance Change or Truant. Pokemon protected by Magic Coat or the Ability Magic Bounce are unaffected and instead use this move themselves.",
 		shortDesc: "The target's Ability becomes Insomnia.",
 		id: "worryseed",
 		name: "Worry Seed",
@@ -14792,7 +14747,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		isBounceable: true,
 		onTryHit: function(pokemon) {
-			var bannedAbilities = {insomnia:1, multitype:1, truant:1};
+			var bannedAbilities = {insomnia:1, multitype:1, stancechange:1, truant:1};
 			if (bannedAbilities[pokemon.ability]) {
 				return false;
 			}
