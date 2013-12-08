@@ -1123,6 +1123,12 @@ var commands = exports.commands = {
 			this.sendReply(''+target+' is not available or non existent.');
 		}
 	},
+	
+	donate: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Donate to Parukia to help us keep our servers online as well as raise enough money to open our new forum!<br><br><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QPKGXD5TUBRVJ&lc=US&item_name=Parukia&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted">Donate!</a><br><b>NOTE: You must be logged into a Paypal account to donate. To donate money without having a bank account, credit card or debit card (basically via cash), see this page on <a href="https://www.paypal.com/webapps/mpp/greendot-moneypak">MoneyPaks</a>.</b>
+
+	},
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
