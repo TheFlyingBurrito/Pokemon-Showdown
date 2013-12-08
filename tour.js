@@ -700,8 +700,8 @@ var cmds = {
 		var joinButton = '<button name="joinTour" value="' + room.id + '">Unirse</button>';
 		var joinHelp = 'Digita </font> <font color="red">/j</font> <font color="green"> para unirte.</font>';
 		
-		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' ha iniciado un torneo de formato ' + Tools.data.Formats[targets[0]].name + ' ' + (Tools.data.Formats[targets[0]].mod ? '' : '(Gen 6). ') + joinHelp + '</h2><b><font color="blueviolet">Jugadores:</font></b> ' + targets[1] + '<br /><font color="blue"><b>FORMATO:</b></font> ' + Tools.data.Formats[targets[0]].name + '<hr /><br /><font color="red"><b>Recuerda que deberas mantener tu nombre hasta el final.</b></font>');
-		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>El torneo empezara en ' + tour.timers[rid].time + ' minuto' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
+		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[tempTourTier].name + ' Tournament.</font> <font color="red">/j</font> <font color="green">to join!</font></h2><b><font color="blueviolet">PLAYERS:</font></b> ' + targets[1] + '<br /><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tempTourTier].name + '<hr />');
+		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
 	},
 
 	endtour: function (target, room, user, connection) {
