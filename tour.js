@@ -700,7 +700,7 @@ var cmds = {
 		var joinButton = '<button name="joinTour" value="' + room.id + '">Join</button>';
 		var joinHelp = 'Type </font> <font color="red">/j</font> <font color="green"> to join.</font>';
 		
-		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[targets[0]].name + ' Tournament ' + (Tools.data.Formats[targets[0]].mod ? '' : '(Gen 6). ') + joinButton + '</h2><b><font color="blueviolet">Players:</font></b> ' + targets[1] + '<br /><font color="blue"><b>Tier:</b></font> ' + Tools.data.Formats[targets[0]].name + '<hr /><br /><font color="red"><b>Remember to keep your name during the tournament.</b></font>');
+		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[targets[0]].name + ' Tournament ' + (Tools.data.Formats[targets[0]].mod ? '' : '(Gen 6). ') + joinHelp + '</h2><b><font color="blueviolet">Players:</font></b> ' + targets[1] + '<br /><font color="blue"><b>Tier:</b></font> ' + Tools.data.Formats[targets[0]].name + '<hr /><br /><font color="red"><b>Remember to keep your name during the tournament.</b></font>');
 		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
 	},
 
