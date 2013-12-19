@@ -71,7 +71,7 @@ exports.reportjoins = true;
 // report battles - shows messages like "OU battle started" in the lobby
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 160 or so users.
-exports.reportbattles = true;
+exports.reportbattles = false;
 
 // moderated chat - prevent unregistered, unvoiced users from speaking
 //   This should only be enabled temporarily, when you're dealing with
