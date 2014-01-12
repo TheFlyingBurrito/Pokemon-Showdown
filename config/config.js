@@ -274,7 +274,6 @@ exports.groups = {
 		name: "Voice",
 		inherit: ' ',
 		broadcast: true,
-		fbi: true,
 		rank: 1
 	},
 	' ': {
