@@ -137,7 +137,7 @@ exports.herokuhack = false;
 // displayed in the client.
 exports.customavatars = {
 	//'userid': 'customavatar.png'
-	'chinlar': 'chinlar.gif',
+	'chinlar': 'crawdaunt.gif',
         'windexdrinker': 'ti.gif',
         'elitefouroak': 'oak.gif',
         'nukinggary': 'oak.gif',
