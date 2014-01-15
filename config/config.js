@@ -152,6 +152,7 @@ exports.customavatars = {
         'auraburst': 'aura.png',
         'dazel': 'dazel.gif',
         'isseihyodo': 'nojustno1.gif',
+        'izaya0rihara': 'dontdropit.gif',
         'theflyingburrito': 'tacoses.gif',
         'professorshedinja': 'shed.png',
         'professoroakjr': 'oak.gif',
