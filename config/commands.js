@@ -1121,7 +1121,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'burnheal'){
 			matched = true;
-			this.sendReplyBox('<img src="https://i.chzbgr.com/maxW500/6641641984/hE1D59CBB/" height="300" width="300" />');
+			this.sendReplyBox('<img src="http://0-media-cdn.foolz.us/ffuuka/board/vp/image/1366/75/1366755049411.png" height="300" width="300" />');
 		}
                 if (target === ''){
 			}
