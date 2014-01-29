@@ -1118,7 +1118,11 @@ var commands = exports.commands = {
                 if (target === 'yousuck'){
 			matched = true;
 			this.sendReplyBox('<img src="http://1.bp.blogspot.com/-4f8Dd9lsLPk/UXql0oQGNpI/AAAAAAAADEg/DEJI_TjqUvE/s1600/hooray_you_suck_yellow_chick_pom_pons_black_bkgd.gif" />');
-		}		
+		}
+		if (target === 'burnheal'){
+			matched = true;
+			this.sendReplyBox('<img src="https://i.chzbgr.com/maxW500/6641641984/hE1D59CBB/" height="300" width="300" />');
+		}
                 if (target === ''){
 			}
 		else if (!matched) {
