@@ -2,13 +2,13 @@
     color: rgb(50, 55, 51);
     font-size: 11pt;
     font-family: Verdana,Helvetica,Arial,sans-serif;
-    background: url("http://emersonwolfe.files.wordpress.com/2013/02/valentinesforda.jpg") no-repeat scroll right top rgb(50, 55, 51);
+    background: url("http://i.imgur.com/ww423FH.png") no-repeat scroll right top rgb(50, 55, 51);
 }
-.menugroup .button:hover {
-background: #FCCF79;
+.menugroup .button:hover {http://i.imgur.com/ww423FH.png
+background: #89A8CE;
 }
 .menugroup .button {
-background: #EBAE3B;
+background: #5782B9;
 }
 .chat-log {
     font-size: 10pt;
@@ -17,8 +17,8 @@ background: #EBAE3B;
     overflow: auto;
 }
 #header {
-color: rbg(235, 174, 59);
-background: #EBAE3B url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
+color: rbg(184, 108, 243);
+background: #5782B9 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
 }
 .userlist {
 background: #D6DDE5;
