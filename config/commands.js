@@ -1137,7 +1137,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'doge'){
 			matched = true;
-			this.sendReplyBox('<img src="http://0.media.dorkly.cvcdn.com/79/63/33f2d1f368e229c7e09baa64804307b4-a-wild-doge-appeared.jpg" />');
+			this.sendReplyBox('<img src="http://0.media.dorkly.cvcdn.com/79/63/33f2d1f368e229c7e09baa64804307b4-a-wild-doge-appeared.jpg" height="242" width="300" />');
 		}
                 if (target === ''){
 			}
