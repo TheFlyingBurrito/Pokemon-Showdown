@@ -1121,7 +1121,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'troll'){
 			matched = true;
-			this.sendReplyBox('<img src="http://static3.wikia.nocookie.net/__cb20131014231760/legomessageboards/images/c/c2/Troll-face.png" height="200" width="400" />');
+			this.sendReplyBox('<img src="http://static3.wikia.nocookie.net/__cb20131014231760/legomessageboards/images/c/c2/Troll-face.png" height="300" width="200" />');
 		}
                 if (target === ''){
 			}
