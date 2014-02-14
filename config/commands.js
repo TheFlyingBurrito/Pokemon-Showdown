@@ -1105,7 +1105,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'umad'){
 			matched = true;
-			this.sendReplyBox('<img src="http://images.t-nation.com/forum_images/auto/r/786x0/9/9/99bed_ORIG-umadbro2.jpg" />');
+			this.sendReplyBox('<img src="http://dailysnark.com/wp-content/uploads/2013/11/umad.gif" />');
 		}
 		if (target === '69'){
 			matched = true;
@@ -1122,6 +1122,18 @@ var commands = exports.commands = {
 		if (target === 'burnheal'){
 			matched = true;
 			this.sendReplyBox('<img src="http://0-media-cdn.foolz.us/ffuuka/board/vp/image/1366/75/1366755049411.png" height="300" width="300" />');
+		}
+		if (target === 'ou train'){
+			matched = true;
+			this.sendReplyBox('<img src="https://i.chzbgr.com/maxW500/7970259968/h1BCECD4B/" height="300" width="400" />');
+		}
+		if (target === 'gary train'){
+			matched = true;
+			this.sendReplyBox('<img src="http://25.media.tumblr.com/79f09b46546f72a8be7643b73760aae7/tumblr_mkziy58ed71s79jjoo1_250.gif" />');
+		}
+		if (target === 'if you know what i mean'){
+			matched = true;
+			this.sendReplyBox('<img src="http://fcdn.mtbr.com/attachments/california-norcal/805709d1370480032-should-strava-abandon-kom-dh-2790387-if-you-know-what-i-mean.png" />');
 		}
                 if (target === ''){
 			}
