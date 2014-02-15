@@ -7,8 +7,182 @@
  * @license MIT license
  */
 
-var Validator = (function() {
+if (!process.send) {
+	var validationCount = 0;
+	var pendingValidations = {};
 
+	var ValidatorProcess = (function() {
+		function ValidatorProcess() {
+			this.process = require('child_process').fork('team-validator.js');
+			var self = this;
+			this.process.on('message', function(message) {
+				// Protocol:
+				// success: "[id]|1[details]"
+				// failure: "[id]|0[details]"
+				var pipeIndex = message.indexOf('|');
+				var id = message.substr(0,pipeIndex);
+				var success = (message.charAt(pipeIndex+1) === '1');
+
+				if (pendingValidations[id]) {
+					ValidatorProcess.release(self);
+					pendingValidations[id](success, message.substr(pipeIndex+2));
+					delete pendingValidations[id];
+				}
+			});
+		}
+		ValidatorProcess.prototype.load = 0;
+		ValidatorProcess.prototype.active = true;
+		ValidatorProcess.processes = [];
+		ValidatorProcess.spawn = function() {
+			var num = config.validatorprocesses || 1;
+			for (var i = 0; i < num; ++i) {
+				this.processes.push(new ValidatorProcess());
+			}
+		};
+		ValidatorProcess.respawn = function() {
+			this.processes.splice(0).forEach(function(process) {
+				process.active = false;
+				if (!process.load) process.process.disconnect();
+			});
+			this.spawn();
+		};
+		ValidatorProcess.acquire = function() {
+			var process = this.processes[0];
+			for (var i = 1; i < this.processes.length; ++i) {
+				if (this.processes[i].load < process.load) {
+					process = this.processes[i];
+				}
+			}
+			++process.load;
+			return process;
+		};
+		ValidatorProcess.release = function(process) {
+			--process.load;
+			if (!process.load && !process.active) {
+				process.process.disconnect();
+			}
+		};
+		ValidatorProcess.send = function(format, team, callback) {
+			var process = this.acquire();
+			pendingValidations[validationCount] = callback;
+			process.process.send(''+validationCount+'|'+format+'|'+team);
+			++validationCount;
+		};
+		return ValidatorProcess;
+	})();
+
+	// Create the initial set of validator processes.
+	ValidatorProcess.spawn();
+
+	exports.ValidatorProcess = ValidatorProcess;
+	exports.pendingValidations = pendingValidations;
+
+	exports.validateTeam = function(format, team, callback) {
+		ValidatorProcess.send(format, team, callback);
+	};
+
+	var synchronousValidators = {};
+	exports.validateTeamSync = function(format, team) {
+		if (!synchronousValidators[format]) synchronousValidators[format] = new Validator(format);
+		return synchronousValidators[format].validateTeam(team);
+	};
+	exports.validateSetSync = function(format, set, teamHas) {
+		if (!synchronousValidators[format]) synchronousValidators[format] = new Validator(format);
+		return synchronousValidators[format].validateSet(set, teamHas);
+	};
+	exports.checkLearnsetSync = function(format, move, template, lsetData) {
+		if (!synchronousValidators[format]) synchronousValidators[format] = new Validator(format);
+		return synchronousValidators[format].checkLearnset(move, template, lsetData);
+	};
+} else {
+	require('sugar');
+	global.fs = require('fs');
+	global.config = require('./config/config.js');
+
+	if (config.crashguard) {
+		process.on('uncaughtException', function (err) {
+			require('./crashlogger.js')(err, 'A team validator process');
+		});
+	}
+
+	/**
+	 * Converts anything to an ID. An ID must have only lowercase alphanumeric
+	 * characters.
+	 * If a string is passed, it will be converted to lowercase and
+	 * non-alphanumeric characters will be stripped.
+	 * If an object with an ID is passed, its ID will be returned.
+	 * Otherwise, an empty string will be returned.
+	 */
+	global.toId = function(text) {
+		if (text && text.id) text = text.id;
+		else if (text && text.userid) text = text.userid;
+
+		return string(text).toLowerCase().replace(/[^a-z0-9]+/g, '');
+	};
+	global.toUserid = toId;
+
+	/**
+	 * Validates a username or Pokemon nickname
+	 */
+	var bannedNameStartChars = {'~':1, '&':1, '@':1, '%':1, '+':1, '-':1, '!':1, '?':1, '#':1, ' ':1};
+	global.toName = function(name) {
+		name = string(name);
+		name = name.replace(/[\|\s\[\]\,]+/g, ' ').trim();
+		while (bannedNameStartChars[name.charAt(0)]) {
+			name = name.substr(1);
+		}
+		if (name.length > 18) name = name.substr(0,18);
+		if (config.namefilter) {
+			name = config.namefilter(name);
+		}
+		return name.trim();
+	};
+
+	/**
+	 * Safely ensures the passed variable is a string
+	 * Simply doing ''+str can crash if str.toString crashes or isn't a function
+	 * If we're expecting a string and being given anything that isn't a string
+	 * or a number, it's safe to assume it's an error, and return ''
+	 */
+	global.string = function(str) {
+		if (typeof str === 'string' || typeof str === 'number') return ''+str;
+		return '';
+	};
+
+	global.Tools = require('./tools.js');
+
+	var validators = {};
+
+	function respond(id, success, details) {
+		process.send(id+(success?'|1':'|0')+details);
+	}
+
+	process.on('message', function(message) {
+		// protocol:
+		// "[id]|[format]|[team]"
+		var pipeIndex = message.indexOf('|');
+		var pipeIndex2 = message.indexOf('|', pipeIndex + 1);
+		var id = message.substr(0, pipeIndex);
+		var format = message.substr(pipeIndex + 1, pipeIndex2 - pipeIndex - 1);
+
+		if (!validators[format]) validators[format] = new Validator(format);
+		var parsedTeam = {};
+		try {
+			parsedTeam = JSON.parse(message.substr(pipeIndex2 + 1));
+		} catch (e) {
+			respond(id, false, "Your team was invalid and could not be parsed.");
+			return;
+		}
+		var problems = validators[format].validateTeam(parsedTeam);
+		if (problems && problems.length) {
+			respond(id, false, problems.join('\n'));
+		} else {
+			respond(id, true, JSON.stringify(parsedTeam));
+		}
+	});
+}
+
+var Validator = (function() {
 	function Validator(format) {
 		this.format = Tools.getFormat(format);
 		this.tools = Tools.mod(this.format);
@@ -45,22 +219,16 @@ var Validator = (function() {
 		}
 
 		for (var i=0; i<format.teamBanTable.length; i++) {
-			var bannedCombo = '';
+			var bannedCombo = true;
 			for (var j=0; j<format.teamBanTable[i].length; j++) {
 				if (!teamHas[format.teamBanTable[i][j]]) {
 					bannedCombo = false;
 					break;
 				}
-
-				if (j == 0) {
-					bannedCombo += format.teamBanTable[i][j];
-				} else {
-					bannedCombo += ' and '+format.teamBanTable[i][j];
-				}
 			}
 			if (bannedCombo) {
 				var clause = format.name ? " by "+format.name : '';
-				problems.push("Your team has the combination of "+bannedCombo+", which is banned"+clause+".");
+				problems.push("Your team has the combination of "+format.teamBanTable[i].join('+')+", which is banned"+clause+".");
 			}
 		}
 
@@ -142,17 +310,27 @@ var Validator = (function() {
 		}
 		template = tools.getTemplate(set.species);
 		item = tools.getItem(set.item);
+		if (item.id && !item.exists) {
+			return ['"'+set.item+"' is an invalid item."];
+		}
 		ability = tools.getAbility(set.ability);
 
 		var banlistTable = tools.getBanlistTable(format);
 
-		var check = toId(set.species);
+		var check = template.id;
 		var clause = '';
 		setHas[check] = true;
 		if (banlistTable[check]) {
 			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 			problems.push(set.species+' is banned'+clause+'.');
+		} else if (!tools.data.FormatsData[check] || !tools.data.FormatsData[check].tier) {
+			check = toId(template.baseSpecies);
+			if (banlistTable[check]) {
+				clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+				problems.push(template.baseSpecies+' is banned'+clause+'.');
+			}
 		}
+
 		check = toId(set.ability);
 		setHas[check] = true;
 		if (banlistTable[check]) {
@@ -177,7 +355,7 @@ var Validator = (function() {
 		if (banlistTable['illegal']) {
 			var totalEV = 0;
 			for (var k in set.evs) {
-				if (typeof set.evs[k] !== 'number') {
+				if (typeof set.evs[k] !== 'number' || set.evs[k] < 0) {
 					set.evs[k] = 0;
 				}
 				totalEV += set.evs[k];
@@ -315,9 +493,9 @@ var Validator = (function() {
 			if (!lsetData.sources && lsetData.sourcesBefore <= 3 && tools.getAbility(set.ability).gen === 4 && !template.prevo && tools.gen <= 5) {
 				problems.push(name+" has a gen 4 ability and isn't evolved - it can't use anything from gen 3.");
 			}
-			if (!lsetData.sources && lsetData.sourcesBefore >= 3 && (isHidden || tools.gen <= 5) && template.gen <= lsetData.sourcesBefore) {
+			if (lsetData.sourcesBefore >= 3 && (isHidden || tools.gen <= 5) && template.gen <= lsetData.sourcesBefore) {
 				var oldAbilities = tools.mod('gen'+lsetData.sourcesBefore).getTemplate(set.species).abilities;
-				if (ability.name !== oldAbilities['0'] && ability.name !== oldAbilities['1'] && ability.name !== oldAbilities['H']) {
+				if (ability.name !== oldAbilities['0'] && ability.name !== oldAbilities['1'] && !oldAbilities['H']) {
 					problems.push(name+" has moves incompatible with its ability.");
 				}
 			}
@@ -333,22 +511,16 @@ var Validator = (function() {
 			}
 		}
 		for (var i=0; i<format.setBanTable.length; i++) {
-			var bannedCombo = '';
+			var bannedCombo = true;
 			for (var j=0; j<format.setBanTable[i].length; j++) {
 				if (!setHas[format.setBanTable[i][j]]) {
 					bannedCombo = false;
 					break;
 				}
-
-				if (j == 0) {
-					bannedCombo += format.setBanTable[i][j];
-				} else {
-					bannedCombo += ' and '+format.setBanTable[i][j];
-				}
 			}
 			if (bannedCombo) {
 				clause = format.name ? " by "+format.name : '';
-				problems.push(name+" has the combination of "+bannedCombo+", which is banned"+clause+".");
+				problems.push(name+" has the combination of "+format.setBanTable[i].join('+')+", which is banned"+clause+".");
 			}
 		}
 
@@ -548,10 +720,11 @@ var Validator = (function() {
 		if (sourcesBefore || lsetData.sourcesBefore) {
 			// having sourcesBefore is the equivalent of having everything before that gen
 			// in sources, so we fill the other array in preparation for intersection
+			var learned;
 			if (sourcesBefore && lsetData.sources) {
 				if (!sources) sources = [];
 				for (var i=0, len=lsetData.sources.length; i<len; i++) {
-					var learned = lsetData.sources[i];
+					learned = lsetData.sources[i];
 					if (parseInt(learned.substr(0,1),10) <= sourcesBefore) {
 						sources.push(learned);
 					}
@@ -561,7 +734,7 @@ var Validator = (function() {
 			if (lsetData.sourcesBefore && sources) {
 				if (!lsetData.sources) lsetData.sources = [];
 				for (var i=0, len=sources.length; i<len; i++) {
-					var learned = sources[i];
+					learned = sources[i];
 					if (parseInt(learned.substr(0,1),10) <= lsetData.sourcesBefore) {
 						lsetData.sources.push(learned);
 					}
@@ -590,9 +763,3 @@ var Validator = (function() {
 
 	return Validator;
 })();
-
-function TeamValidator(mod) {
-	return new Validator(mod);
-}
-
-module.exports = TeamValidator;

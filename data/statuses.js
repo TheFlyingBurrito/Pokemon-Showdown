@@ -156,7 +156,7 @@ exports.BattleStatuses = {
 			pokemon.tryTrap();
 		},
 		onStart: function(target) {
-			this.add('-activate', target, 'trapped')
+			this.add('-activate', target, 'trapped');
 		}
 	},
 	partiallytrapped: {
@@ -298,22 +298,18 @@ exports.BattleStatuses = {
 		duration: 2,
 		counterMax: 256,
 		onStart: function() {
-			this.effectData.counter = 2;
+			this.effectData.counter = 3;
 		},
 		onStallMove: function() {
 			// this.effectData.counter should never be undefined here.
 			// However, just in case, use 1 if it is undefined.
 			var counter = this.effectData.counter || 1;
-			if (counter >= 256) {
-				// 2^32 - special-cased because Battle.random(n) can't handle n > 2^16 - 1
-				return (this.random()*4294967296 < 1);
-			}
 			this.debug("Success chance: "+Math.round(100/counter)+"%");
 			return (this.random(counter) === 0);
 		},
 		onRestart: function() {
 			if (this.effectData.counter < this.effect.counterMax) {
-				this.effectData.counter *= 2;
+				this.effectData.counter *= 3;
 			}
 			this.effectData.duration = 2;
 		}
@@ -479,16 +475,16 @@ exports.BattleStatuses = {
 		// be their corresponding type in the Pokedex, so that needs to be
 		// overridden. This is mainly relevant for Hackmons and Balanced
 		// Hackmons.
-		onModifyPokemon: function(pokemon) {
-			if (pokemon.transformed) return;
+		onSwitchInPriority: 101,
+		onSwitchIn: function(pokemon) {
 			var type = 'Normal';
 			if (pokemon.ability === 'multitype') {
-				var type = this.runEvent('Plate', pokemon);
+				type = this.runEvent('Plate', pokemon);
 				if (!type || type === true) {
 					type = 'Normal';
 				}
 			}
-			pokemon.types = [type];
+			pokemon.setType(type, true);
 		}
 	}
 };
