@@ -428,7 +428,7 @@ var commands = exports.commands = {
                 }
                 if (room.id == "lobby" && !user.welcomed) {
                 user.welcomed = true;
-                  this.sendReply('|raw|<div class="broadcast-red">Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here. Religious discussions are forbidden. <u>Stupidity is a bannable offense.</u></b><br><br><b>Interested in donating to Parukia? Type /donate for more info!<br><br>Bitcoin: 15SvTTzqYat9pPyC94kLjV2kirqiAySLxL</b></div>');
+                  this.sendReply('|raw|<div class="broadcast-red">Welcome to Parukia, a Pokemon community where you can have lots of intense battles and fun conversations! Talk, battle and enjoy yourself! <b>Advertising, spamming and trolling are against the rules here. Religious discussions are forbidden. <u>Stupidity is a bannable offense.</u></b><br><br><b>Interested in donating to Parukia? Type /donate for more info!<br></b></div>');
          }
 	},
 

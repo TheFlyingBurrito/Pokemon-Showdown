@@ -1127,7 +1127,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'fragequit'){
 			matched = true;
-			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" />');
+			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" height="189" width="317" />');
 		}
 		if (target === 'fuck yeah'){
 			matched = true;
