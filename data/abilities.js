@@ -179,7 +179,7 @@ exports.BattleAbilities = {
 		},
 		id: "aromaveil",
 		name: "Aroma Veil",
-		rating: 0,
+		rating: 3,
 		num: -6,
 		gen: 6
 	},
@@ -2736,7 +2736,15 @@ exports.BattleAbilities = {
 	"symbiosis": {
 		desc: "This Pokemon immediately passes its item to an ally after their item is consumed.",
 		shortDesc: "This Pokemon passes its item to an ally after their item is consumed.",
-		//todo
+		onAllyAfterUseItem: function(item, pokemon) {
+			var sourceItem = this.effectData.target.takeItem();
+			if (!sourceItem) {
+				return;
+			}
+			if (pokemon.setItem(sourceItem)) {
+				this.add('-activate', pokemon, 'ability: Symbiosis', sourceItem, '[of] '+this.effectData.target);
+			}
+		},
 		id: "symbiosis",
 		name: "Symbiosis",
 		rating: 0,
