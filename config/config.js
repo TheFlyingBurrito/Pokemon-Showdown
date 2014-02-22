@@ -145,6 +145,7 @@ exports.customavatars = {
         'nukinggary': 'oak.gif',
         'gamebraker': 'scizortho.gif',
         'frage': 'yolo.gif',
+        'negativeking': 'nein.jpg',
         'nickoop': 'nicktho.gif',
         'raiykid': 'raiy.gif',
         'usurpedazure': 'azure.gif',
