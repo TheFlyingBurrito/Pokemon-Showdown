@@ -153,7 +153,6 @@ exports.customavatars = {
         'vileman': 'joker.gif',
         'negotiator': 'camb.gif',
         'auraburst': 'aura.png',
-        'dazel': 'dazel.gif',
         'isseihyodo': 'nojustno1.gif',
         'izaya0rihara': 'dontdropit.gif',
         'theflyingburrito': 'tacoses.gif',
