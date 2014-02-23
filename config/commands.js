@@ -1120,7 +1120,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
+			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
                 }
 		if (target === 'aliens'){
 			matched = true;
@@ -1173,6 +1173,10 @@ var commands = exports.commands = {
 		if (target === 'peachness'){
 			matched = true;
 			this.sendReplyBox('<img src="http://oi62.tinypic.com/161kpqe.jpg" />');
+		}
+		if (target === 'i dont always'){
+			matched = true;
+			this.sendReplyBox('<img src="http://i1.kym-cdn.com/photos/images/newsfeed/000/058/633/1278876708307.jpg" height="270" width="215" />');
 		}
                 if (target === ''){
 			}
