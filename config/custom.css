@@ -5,10 +5,10 @@
     background: url("http://fc06.deviantart.net/fs71/f/2014/056/c/f/palkia_flat_resized_by_ericstrd-d77zxfs.png") no-repeat scroll right top rgb(50, 55, 51);
 }
 .menugroup .button:hover
-background: #855678;
+background: #AA89A0;
 }
 .menugroup .button {
-background: #AA89A0;
+background: #855678;
 }
 .chat-log {
     font-size: 10pt;
