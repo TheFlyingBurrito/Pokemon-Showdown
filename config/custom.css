@@ -23,13 +23,13 @@ background: #5D3C54 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png
 .userlist {
 background: #928E9F;
 }
-/*
+
 .userlist li button:hover {
-background: #D6DDE5;
+background: #D6DDE5 url("http://th09.deviantart.net/fs71/PRE/i/2014/056/1/8/blur_box_by_ericstrd-d7801qy.png")
 }
 .userlist li {
 border-bottom: 1px solid #;
 height: 19px;
 font: 10pt Verdana,sans-serif;
 white-space: nowrap;
-}*/
+}
