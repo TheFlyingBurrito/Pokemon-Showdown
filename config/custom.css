@@ -12,7 +12,7 @@ background: #855678;
 }
 .chat-log {
     font-size: 10pt;
-    background: #D6DDE5 url("http://i.imm.io/1gKRQ.png") no-repeat scroll right bottom;
+    background: url("http://th09.deviantart.net/fs71/PRE/i/2014/056/1/8/blur_box_by_ericstrd-d7801qy.png") no-repeat scroll right bottom;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
@@ -25,7 +25,7 @@ background: url("http://th09.deviantart.net/fs71/PRE/i/2014/056/1/8/blur_box_by_
 }
 
 .userlist li button:hover {
-background: #D6DDE5 
+background: url("http://th09.deviantart.net/fs71/PRE/i/2014/056/1/8/blur_box_by_ericstrd-d7801qy.png")
 }
 .userlist li {
 border-bottom: 1px solid #;
