@@ -1011,7 +1011,7 @@ var commands = exports.commands = {
 	forum: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Join Parukia\'s forums and engage in more fun discussions with the community! <br />' +
-			'<a href="http://parukia.net/community/">Parukia Community forums</a>');
+			'<a href="http://parukia.net/community/">http://parukia.net/community/</a>');
 	},
 	bf: 'frontier',
 	battlefrontier: 'frontier',
