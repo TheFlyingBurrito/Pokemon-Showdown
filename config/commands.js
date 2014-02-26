@@ -1113,12 +1113,7 @@ var commands = exports.commands = {
 		}
         },	
         
-        events: function(target, room, user) {
-                if (!this.canBroadcast()) return;
-                return this.sendReplyBox('Parukia Community Events:
-                Art Contest! To sign up, please visit the Gallery forum, submit your piece to the contest thread!');
-                },
-        
+       
 	memes: 'meme',
 	meme: function(target, room, user) {
 		if (!this.canBroadcast()) return;
@@ -1199,6 +1194,11 @@ var commands = exports.commands = {
 	donate: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Donate to Parukia to help us keep our servers online as well as raise enough money to open our new forum!<br><br><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QPKGXD5TUBRVJ&lc=US&item_name=Parukia&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted">Donate!</a><br><b>NOTE: You must be logged into a Paypal account to donate. To donate money without having a bank account, credit card or debit card (basically via cash), see this page on <a href="https://www.paypal.com/webapps/mpp/greendot-moneypak">MoneyPaks</a>.</b><br><br>Bitcoin: 15SvTTzqYat9pPyC94kLjV2kirqiAySLxL');
+	},
+	
+	events: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Parukia Community Events: The Art Community is hosting a Art contest! Any form of art is accepting, any medium, etc. The theme is: Spring Battles. Design or create a work relating to the topic. Submission deadline is March 20th, 2014. Be sure to post your artwork and a short description here: <br><br><a href="https://www.parukia.net/community/forum/gallery.23/');
 	},
 	/*********************************************************
 	 * Miscellaneous commands
