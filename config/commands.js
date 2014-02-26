@@ -1113,6 +1113,12 @@ var commands = exports.commands = {
 		}
         },	
         
+        events: function(target, room, user) {
+                if (!this.canBroadcast()) return;
+                return this.sendReplyBox('Parukia Community Events:
+                Art Contest! To sign up, please visit the Gallery forum, submit your piece to the contest thread!')
+        },
+        
 	memes: 'meme',
 	meme: function(target, room, user) {
 		if (!this.canBroadcast()) return;
