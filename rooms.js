@@ -13,8 +13,6 @@ const TIMEOUT_EMPTY_DEALLOCATE = 10*60*1000;
 const TIMEOUT_INACTIVE_DEALLOCATE = 40*60*1000;
 const REPORT_USER_STATS_INTERVAL = 1000*60*10;
 
-var modlog = modlog || fs.createWriteStream('logs/modlog.txt', {flags:'a+'});
-
 var GlobalRoom = (function() {
 	function GlobalRoom(roomid) {
 		this.id = roomid;
@@ -546,6 +544,8 @@ var BattleRoom = (function() {
 		this.disconnectTickDiff = [0, 0];
 
 		this.log = [];
+
+		if (config.forcetimer) this.requestKickInactive(false);
 	}
 	BattleRoom.prototype.type = 'battle';
 
@@ -861,13 +861,16 @@ var BattleRoom = (function() {
 	};
 	BattleRoom.prototype.requestKickInactive = function(user, force) {
 		if (this.resetTimer) {
-			this.send('|inactive|The inactivity timer is already counting down.', user);
+			if (user) this.send('|inactive|The inactivity timer is already counting down.', user);
 			return false;
 		}
 		if (user) {
 			if (!force && this.battle.getSlot(user) < 0) return false;
 			this.resetUser = user.userid;
 			this.send('|inactive|Battle timer is now ON: inactive players will automatically lose when time\'s up. (requested by '+user.name+')');
+		} else if (user === false) {
+			this.resetUser = '~';
+			this.add('|inactive|Battle timer is ON: inactive players will automatically lose when time\'s up.');
 		}
 
 		// a tick is 10 seconds
@@ -1128,13 +1131,6 @@ var BattleRoom = (function() {
 			this.battle.chat(user, message);
 		}
 		this.update();
-	};
-	BattleRoom.prototype.addModCommand = function(result) {
-		this.add(result);
-		this.logModCommand(result);
-	};
-	BattleRoom.prototype.logModCommand = function(result) {
-		modlog.write('['+(new Date().toJSON())+'] ('+room.id+') '+result+'\n');
 	};
 	BattleRoom.prototype.logEntry = function() {};
 	BattleRoom.prototype.expire = function() {
@@ -1491,13 +1487,6 @@ var ChatRoom = (function() {
 			this.add('|c|'+user.getIdentity(this.id)+'|'+message, true);
 		}
 		this.update();
-	};
-	ChatRoom.prototype.addModCommand = function(result) {
-		this.add(result);
-		this.logModCommand(result);
-	};
-	ChatRoom.prototype.logModCommand = function(result) {
-		modlog.write('['+(new Date().toJSON())+'] ('+room.id+') '+result+'\n');
 	};
 	ChatRoom.prototype.logEntry = function() {};
 	ChatRoom.prototype.destroy = function() {
