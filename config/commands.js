@@ -1133,6 +1133,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" height="189" width="317" />');
 		}
+	        if (target === 'ponpon'){
+			matched = true;
+			this.sendReplyBox('<img src="http://memecrunch.com/meme/8E7W/ponponpon/image.png" height="189" width="317" />');
+	        }
 		if (target === 'fuck yeah'){
 			matched = true;
 			this.sendReplyBox('<img src="http://logout.hu/dl/upc/2011-06/139344_mem.jpg" />');
