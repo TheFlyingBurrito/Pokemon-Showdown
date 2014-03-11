@@ -1205,6 +1205,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<img src="http://distilleryimage0.s3.amazonaws.com/085ef464928711e380231275875ebd20_6.jpg" />');
 		}
+		if (target === 'shall not pass'){
+			matched = true;
+			this.sendReplyBox('<img src="http://i.imgur.com/kAT9fZt.png" />');
+		}
                 if (target === ''){
 			}
 		else if (!matched) {
