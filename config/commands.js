@@ -1123,7 +1123,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Dodge<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
+			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Mikutard<br>-Dodge<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
                 }
 		if (target === 'aliens'){
 			matched = true;
@@ -1176,6 +1176,10 @@ var commands = exports.commands = {
 		if (target === 'wtf'){
 			matched = true;
 			this.sendReplyBox('<img src="http://forums.parukia.net/images/smilies/wtfemoticon.png" />');
+		}
+		if (target === 'mikutard'){
+			matched = true;
+			this.sendReplyBox('<img src="http://mkmiku.files.wordpress.com/2011/04/mikutard-demotivational-poster-anime-figurine-collection.jpg" />');
 		}
 		if (target === 'peachness'){
 			matched = true;
