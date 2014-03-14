@@ -1123,7 +1123,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Shall not pass<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
+			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Dodge<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
                 }
 		if (target === 'aliens'){
 			matched = true;
@@ -1133,10 +1133,6 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<img src="http://i0.kym-cdn.com/photos/images/original/000/000/578/1234931504682.jpg" height="189" width="317" />');
 		}
-	        if (target === 'ponpon'){
-			matched = true;
-			this.sendReplyBox('<img src="http://memecrunch.com/meme/8E7W/ponponpon/image.png" height="189" width="317" />');
-	        }
 		if (target === 'fuck yeah'){
 			matched = true;
 			this.sendReplyBox('<img src="http://logout.hu/dl/upc/2011-06/139344_mem.jpg" />');
@@ -1201,14 +1197,11 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReplyBox('<img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/461/903/3a9.png" height="250" width="340" />');
 		}
-		if (target === 'shall not pass'){
+		if (target === 'dodge'){
 			matched = true;
-			this.sendReplyBox('<img src="http://distilleryimage0.s3.amazonaws.com/085ef464928711e380231275875ebd20_6.jpg" />');
+			this.sendReplyBox('<img src="http://weknowmemes.com/generator/uploads/generated/g1336276473177814171.jpg" height="250" width="256" />');
 		}
-		if (target === 'snozzberries'){
-			matched = true;
-			this.sendReplyBox('<img src="http://i.imgur.com/kAT9fZt.png" />');
-		}
+		
                 if (target === ''){
 			}
 		else if (!matched) {
