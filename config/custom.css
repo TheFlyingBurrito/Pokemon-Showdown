@@ -1,36 +1,21 @@
-.mainmenuwrapper {
-    color: rgb(146, 142, 159);
-    font-size: 11pt;
-    font-family: Verdana,Helvetica,Arial,sans-serif;
-    background: url("http://fc06.deviantart.net/fs71/f/2014/056/c/f/palkia_flat_resized_by_ericstrd-d77zxfs.png") no-repeat scroll right top rgb(50, 55, 51);
+body {
+        background-image: url("http://m.iclarified.com/images/news/31430/128167/128167.png") !important;
 }
-.menugroup .button:hover {
-background: #AA89A0;
+.backdrop {
+	background-image: url("http://tbt.xiaotai.org/battle-bg.png") !important;
+}
+.ps-room {
+	background-color: rgba(242, 247, 250, 0.5) !important;
+}
+.menugroup {
+	color: #000;
+	text-shadow: 1px 1px 0 #fff;
 }
 .menugroup .button {
-background: #855678;
+	background: #a9e7ff;
+	color: #06f;
+	text-shadow: 1px 1px 0 #fff;
 }
-.chat-log {
-    font-size: 10pt;
-    background: url("http://i.imgur.com/2am9kJC.png") no-repeat scroll right bottom;
-    color: rgb(0, 0, 0);
-    overflow: auto;
+.menugroup .button:hover {
+	background: #caf5fc;
 }
-#header {
-color: rbg(133, 86, 120);
-background: #5D3C54 url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png");
-}
-.userlist {
-background: url("http://i.imgur.com/2am9kJC.png")
-}
-
-.userlist li button:hover {
-background: url("http://th09.deviantart.net/fs71/PRE/i/2014/056/1/8/blur_box_by_ericstrd-d7801qy.png")
-}
- /*
-.userlist li {
-border-bottom: 1px solid #A8A4B5;
-height: 19px;
-font: 10pt Verdana,sans-serif;
-white-space: nowrap;
-} */
