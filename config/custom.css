@@ -1,5 +1,5 @@
 body {
-        background-image: url("http://miriadna.com/desctopwalls/images/max/Light-blue-space.jpg") !important;
+        background-image: url("http://autoimagesize.com/wp-content/uploads/2014/03/mega-charizard-x-pokemon-wallpaper-anime-images-charizard-wallpaper.jpg") !important;
 }
 .backdrop {
 	background-image: url("http://i.imgur.com/CZI3nGZ.png") !important;
@@ -12,10 +12,12 @@ body {
 	text-shadow: 1px 1px 0 #fff;
 }
 .menugroup .button {
+	background-image: url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") !important;
 	background: #89B6B3;
 	color: #FFFFFF;
 	text-shadow: 1px 1px 0 #fff;
 }
 .menugroup .button:hover {
+	background-image: url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") !important;
 	background: #1A5B83;
 }
