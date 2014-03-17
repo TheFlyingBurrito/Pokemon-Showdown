@@ -2,7 +2,7 @@ body {
         background-image: url("http://m.iclarified.com/images/news/31430/128167/128167.png") !important;
 }
 .backdrop {
-	background-image: url("http://tbt.xiaotai.org/battle-bg.png") !important;
+	background-image: url("http://i43.tinypic.com/2woauc6.png") !important;
 }
 .ps-room {
 	background-color: rgba(242, 247, 250, 0.5) !important;
@@ -12,10 +12,10 @@ body {
 	text-shadow: 1px 1px 0 #fff;
 }
 .menugroup .button {
-	background: #a9e7ff;
-	color: #06f;
+	background: #89B6B3;
+	color: #FFFFFF;
 	text-shadow: 1px 1px 0 #fff;
 }
 .menugroup .button:hover {
-	background: #caf5fc;
+	background: #1A5B83;
 }
