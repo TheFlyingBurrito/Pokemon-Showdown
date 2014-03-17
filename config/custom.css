@@ -13,7 +13,6 @@ body {
 }
 .menugroup .button {
 	background-image: url("http://play.pokemonshowdown.com/fx/client-topbar-bg.png") !important;
-	background: #89B6B3;
 	color: #FFFFFF;
 	text-shadow: 1px 1px 0 #fff;
 }
