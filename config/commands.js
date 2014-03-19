@@ -1186,7 +1186,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'i dont always'){
 			matched = true;
-			this.sendReplyBox('<img src="http://i1.kym-cdn.com/photos/images/newsfeed/000/058/633/1278876708307.jpg" height="270" width="215" />');
+			this.sendReplyBox('<img src="http://cdn.memegenerator.net/instances/16724457.jpg" height="270" width="215" />');
 		}
 		if (target === 'all of the homo'){
 			matched = true;
