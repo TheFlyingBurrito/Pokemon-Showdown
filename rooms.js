@@ -475,7 +475,7 @@ var GlobalRoom = (function() {
 		this.cancelSearch(p2, true);
 		if (config.reportbattles && rooms.lobby) {
 			rooms.lobby.add('|b|'+newRoom.id+'|'+p1.getIdentity()+'|'+p2.getIdentity());
-		}		
+		}
 	};
 	GlobalRoom.prototype.addRoom = function(room, format, p1, p2, parent, rated) {
 		room = newRoom(room, format, p1, p2, parent, rated);
