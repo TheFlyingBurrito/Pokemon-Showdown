@@ -140,6 +140,7 @@ exports.herokuhack = false;
 exports.customavatars = {
 	//'userid': 'customavatar.png'
 	'chinlar': 'crawdaunt.gif',
+	'fokkusu': 'fokku.gif',
         'windexdrinker': 'ti.gif',
         'elitefouroak': 'oak.gif',
         'nukinggary': 'oak.gif',
