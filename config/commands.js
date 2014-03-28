@@ -1215,7 +1215,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'cockblocked'){
 			matched = true;
-			this.sendReplyBox('<img src="http://www.quickmeme.com/img/27/27cf7456b43b14cc55bc557d678445f0048beca248d48779c902fbc1715d2753.jpg" />');
+			this.sendReplyBox('<img src="http://www.quickmeme.com/img/27/27cf7456b43b14cc55bc557d678445f0048beca248d48779c902fbc1715d2753.jpg" height="200" width="200" />');
 		}
 		
                 if (target === ''){
