@@ -945,7 +945,7 @@ exports.BattleScripts = {
 				case 'seismictoss': case 'nightshade': case 'superfang':
 					if (setupType) rejected = true;
 					break;
-				case 'knockoff': case 'perishsong': case 'magiccoat': case 'spikes':
+				case 'perishsong': case 'magiccoat': case 'spikes':
 					if (setupType) rejected = true;
 					break;
 				case 'uturn': case 'voltswitch':
@@ -1068,7 +1068,7 @@ exports.BattleScripts = {
 				case 'rest':
 					if (hasMove['painsplit'] || hasMove['wish'] || hasMove['recover'] || hasMove['moonlight'] || hasMove['synthesis']) rejected = true;
 					break;
-				case 'softboiled': case 'roost':
+				case 'softboiled': case 'roost': case 'moonlight': case 'synthesis':
 					if (hasMove['wish'] || hasMove['recover']) rejected = true;
 					break;
 				case 'perishsong':
