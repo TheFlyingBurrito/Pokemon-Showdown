@@ -1123,7 +1123,7 @@ var commands = exports.commands = {
 		var matched = false;
 		if (target === ''){
 			matched = true;
-			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Professor Oak<br>-Dodge<br>-You dont say<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
+			this.sendReplyBox('<b><font color="purple">List of memes:<br><br>-Aliens<br>-Fragequit<br>-Fuck yeah<br>-Umad<br>-Burnheal<br>-OU Train<br>-Gary Train<br>-If you know what I mean<br>-Doge<br>-Troll<br>-Fail<br>-Wtf<br>-Peachness<br>-I dont always<br>-So hard<br>-ALL OF THE HOMO<br>-Cool story bro<br>-Udense<br>-Professor Oak<br>-Dodge<br>-You dont say<br>-Dictionary<br><br>Is there a meme missing that you want added? Message a & or ~ and we will consider adding it!</font></b>');
                 }
 		if (target === 'aliens'){
 			matched = true;
@@ -1208,6 +1208,10 @@ var commands = exports.commands = {
 		if (target === 'you dont say'){
 			matched = true;
 			this.sendReplyBox('<img src="http://www.wired.com/images_blogs/gamelife/2014/01/youdontsay.jpg" height="209" width="250" />');
+		}
+		if (target === 'dictionary'){
+			matched = true;
+			this.sendReplyBox('<img src="https://scontent-b.xx.fbcdn.net/hphotos-prn2/v/t34.0-12/10151953_437071259771871_932228212_n.jpg?oh=9bef506707e87130dd27f8a3732d794d&oe=533691F9" />');
 		}
 		
                 if (target === ''){
