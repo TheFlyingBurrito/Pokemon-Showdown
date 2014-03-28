@@ -107,7 +107,7 @@ exports.Formats = [
 		},
 		maxForcedLevel: 50,
 		requirePentagon: true,
-		ruleset: ['Pokemon', 'Species Clause', 'Item Clause', 'Team Preview GBU'],
+		ruleset: ['Pokemon', 'Species Clause', 'Item Clause', 'Team Preview GBU', 'Kalos Pokedex'],
 		banlist: ['Unreleased', 'Illegal'],
 		validateTeam: function(team, format) {
 			if (team.length < 3) return ['You must bring at least 3 Pokemon.'];
@@ -122,8 +122,7 @@ exports.Formats = [
 					this.useMove('earthquake', target);
 				};
 			} else if (move.id === 'secretpower') {
-				delete move.secondaries;
-				move.secondaries.push({
+				move.secondaries.splice(0, 1, {
 					chance: 30,
 					boosts: {
 						accuracy: -1
