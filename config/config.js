@@ -163,7 +163,7 @@ exports.customavatars = {
         'ericsayshi': 'phoenix.jpg',
         'kamuijunktsu': 'izaoi.gif',
         'rayqauza': 'rayq.gif',
-        'blaze.jpg': 'blazethesamurai',
+        'blazethesamurai': 'blaze.jpg',
 };
 
 // appealurl - specify a URL containing information on how users can appeal
