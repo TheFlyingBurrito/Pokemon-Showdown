@@ -1175,7 +1175,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'wtf'){
 			matched = true;
-			this.sendReplyBox('<img src="http://forums.parukia.net/images/smilies/wtfemoticon.png" />');
+			this.sendReplyBox('<img src="http://i.imgur.com/rcwmZSE.png" />');
 		}
 		if (target === 'professor oak'){
 			matched = true;
