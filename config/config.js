@@ -162,7 +162,7 @@ exports.customavatars = {
         'cupcake4pikagirl3': 'sky.jpg',
         'ericsayshi': 'phoenix.jpg',
         'kamuijunktsu': 'izaoi.gif',
-        'rayqauza': 'rayq.gif',
+        'mrhulk': 'hulksmash.gif',
         'blazethesamurai': 'blaze.jpg',
         'natsumikiyozawa': 'niku.png',
         'mrhulk': 'hulkslam.gif',
