@@ -771,7 +771,6 @@ var User = (function () {
 				authenticated = true;
 
                                 if (Users.useravatars[userid]) avatar = Users.useravatars[userid];
-
 				}
 
 				if (usergroups[userid]) {
