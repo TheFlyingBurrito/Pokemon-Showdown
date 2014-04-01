@@ -770,8 +770,8 @@ var User = (function () {
 			if (body !== '1') {
 				authenticated = true;
 
-				if (config.customavatars && config.customavatars[userid]) {
-					avatar = config.customavatars[userid];
+                                if (Users.useravatars[userid]) avatar = Users.useravatars[userid];
+
 				}
 
 				if (usergroups[userid]) {
