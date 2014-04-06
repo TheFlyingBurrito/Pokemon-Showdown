@@ -627,7 +627,7 @@ var commands = {
 	}
 };
 
-CommandParser.commands.tour = 'tournament';
+CommandParser.commands.pstour = 'tournament';
 CommandParser.commands.tours = 'tournament';
 CommandParser.commands.tournaments = 'tournament';
 CommandParser.commands.tournament = function (paramString, room, user) {
