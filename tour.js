@@ -1422,6 +1422,9 @@ Rooms.global.startBattle = function (p1, p2, format, rated, p1team, p2team) {
 	newRoom.joinBattle(p2, p2team);
 	this.cancelSearch(p1, true);
 	this.cancelSearch(p2, true);
+	if (config.reportbattles) {
+      Rooms.rooms.lobby.add('|b|' + newRoom.id + '|' + p1.getIdentity() + '|' + p2.getIdentity());
+    }
 
 	if (!rated) {
 		var name1 = p1.name;
@@ -1442,7 +1445,6 @@ Rooms.global.startBattle = function (p1, p2, format, rated, p1team, p2team) {
 			}
 		}
 	}
-	return newRoom;
 };
 
 Rooms.BattleRoom.prototype.joinBattle = function (user, team) {
